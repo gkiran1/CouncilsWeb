@@ -11,13 +11,14 @@ import { RegisterPageComponent } from './register.component';
 import { RouterModule, Routes } from '@angular/router';
 import { signupComponent } from './signup.component';
 import { routing } from './app.routing';
+import { Test } from './directive';
 const appRoutes: Routes = [
 {path: '', component: RegisterPageComponent},
 { path: 'signup', component: signupComponent },
 ];
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpModule,  RouterModule.forRoot(appRoutes) ,AngularFireModule.initializeApp(firebaseConfig)],
-  declarations: [AppComponent, AboutusComponent,LoginComponent, RegisterPageComponent,signupComponent],
+  declarations: [AppComponent, AboutusComponent,LoginComponent, RegisterPageComponent,signupComponent,Test],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

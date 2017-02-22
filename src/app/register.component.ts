@@ -32,6 +32,12 @@ export class RegisterPageComponent {
     this.userProfile = firebase.database().ref('users');
   }
 
+
+   handleUserUpdated(user){
+    this.adminUser.unitnumber = user;
+    console.log(user);
+  }
+
   // create() {
   //   // this.nav.push(DisplayPage, this.registerCredentials);
   // }
@@ -55,7 +61,7 @@ export class RegisterPageComponent {
     });
     console.log(registerCredentials);
   }
-  
+
    public registerAdmin() {
 
     this.adminUser.firstname = 'First Name';
@@ -96,7 +102,7 @@ export class RegisterPageComponent {
     })
 
   }
-  
+
   public register1() {
 
     this.signUpUser(this.registerCredentials);
