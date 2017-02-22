@@ -7,17 +7,18 @@
     src: url("../assets/fonts/Bernina.ttf");
 }
 .container {
-    margin-top: 100px;
+    width:28%;
+
 }
 .row {
     margin-top: 20px;
     margin-bottom: 20px;
 }
 .title {
-    margin-left: 15px;
     font-family: Gotham;
-    font-size: 24pt;
+    font-size: 16pt;
     color: #35373a;
+    text-align: center;
 }
 .clr {
     -webkit-text-fill-color: green;
@@ -42,9 +43,12 @@ input[type=password] {
 input[type=email],
 input[type=password] {
     width: 100%;
+    margin-top: 10px;
 }
-#ldsorgusername {
+
+input#ldsusername  {
     width: 100%;
+    margin-top: 10px;
 }
 *:focus {
     outline: none;

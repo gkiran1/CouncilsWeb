@@ -18,7 +18,7 @@
         <div class="row">
             <label for="ldsusername">LDS.org username</label>
             <div>
-                <input [(ngModel)]="adminUser.ldsusername" name="ldsusername" id="ldsusername" placeholder="LDS.org username" type="text" required="required">
+                <input id="ldsorgusername" [(ngModel)]="adminUser.ldsusername" name="ldsusername" id="ldsusername" placeholder="LDS.org username" type="text" required="required">
             </div>
         </div>
         <div class="row">
@@ -60,7 +60,7 @@
                   {{unit}}
                   <input class="row" type="text" [(ngModel)]="registerCredentials.unit" ng-disabled="all" name="unit" id="unit">
                 </div>                   -->
-        <div class="login">
+        <div>
             <!--<a (click)="register()" class="row btn btn-default" type="submit" name="action" [routerLink]="['./signup']">Create Account</a>-->
             <input type="submit" name="action" (click)="registerAdmin()" class="row btn btn-default" value="Create Account" [routerLink]="['./signup']">
         </div>
