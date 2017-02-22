@@ -6,7 +6,8 @@ export class User {
     ldsusername: string;
     unittype: string;
     unitnumber: number;
-    councilid: string;
+    councils: string[];
+    calling: string;
     avatar: string;
     isadmin: boolean;
     createdby: string;

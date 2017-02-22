@@ -4,15 +4,20 @@ import { Headers, Http, Response } from '@angular/http';
 import * as firebase from 'firebase';
 import { AngularFireModule } from 'angularfire2/';
 import { firebaseConfig } from '../environments/firebase';
+import { FirebaseService } from '../../src/firebase/firebase-service';
+import { User } from '../user/user';
 // import {validate,Validator,Contains, IsInt, Length, IsEmail, IsFQDN, IsDate, Min, Max} from "class-validator";
 
 @Component({
   selector: 'app-root',
   templateUrl: 'register.html',
-  styleUrls: ['./register.css']
+  styleUrls: ['./register.css'],
+  providers: [FirebaseService]
 })
 
 export class RegisterPageComponent {
+  adminUser: User = new User();
+
   public fireAuth: any;
   public userProfile: any;
     units = [
@@ -22,7 +27,7 @@ export class RegisterPageComponent {
 
   registerCredentials = { email: '', password: '', ldsorgusername: '', platform: '', stakeunit: '',wardunit:'',areaunit:'',branchunit:''};
 
-  constructor(private http: Http, private af: AngularFire) {
+  constructor(private http: Http, private af: AngularFire,private firebaseService: FirebaseService) {
     this.fireAuth = firebase.auth();
     this.userProfile = firebase.database().ref('users');
   }
@@ -50,7 +55,49 @@ export class RegisterPageComponent {
     });
     console.log(registerCredentials);
   }
-  public register() {
+  
+   public registerAdmin() {
+
+    this.adminUser.firstname = 'First Name';
+    this.adminUser.lastname = 'Last Name';
+    this.adminUser.councils = ['', ''];
+    this.adminUser.calling = 'Calling';
+    this.adminUser.avatar = 'Avatar';
+    this.adminUser.isadmin = true;
+    this.adminUser.createdby = '1212';
+    this.adminUser.createddate = new Date().toDateString();
+    this.adminUser.lastupdateddate = new Date().toDateString();
+    this.adminUser.isactive = true;
+
+    this.firebaseService.validateAdminSignup(this.adminUser).then(res => {
+      if (res == 0) {
+
+      }
+      else if (res == 1) {
+
+      }
+      else if (res == 2) {
+
+      }
+      else if (res == 3) {
+
+      }
+      else if (res == 4) {
+
+      }
+      else if (res == 5) {
+        // this.firebaseService.signupNewUser(this.adminUser).then(res => {
+        //   alert("User is created...");
+        // }).catch(err => {
+        //   alert(err);
+        // })
+      }
+
+    })
+
+  }
+  
+  public register1() {
 
     this.signUpUser(this.registerCredentials);
 
