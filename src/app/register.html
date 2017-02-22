@@ -60,7 +60,7 @@
                   {{unit}}
                   <input class="row" type="text" [(ngModel)]="registerCredentials.unit" ng-disabled="all" name="unit" id="unit">
                 </div>                   -->
-        <div>
+        <div class="login">
             <!--<a (click)="register()" class="row btn btn-default" type="submit" name="action" [routerLink]="['./signup']">Create Account</a>-->
             <input type="submit" name="action" (click)="registerAdmin()" class="row btn btn-default" value="Create Account" [routerLink]="['./signup']">
         </div>
