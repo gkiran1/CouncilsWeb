@@ -1,0 +1,71 @@
+@font-face {
+    font-family: "Gotham";
+    src: url("../assets/fonts/Gotham.ttf");
+}
+@font-face {
+    font-family: "Bernina";
+    src: url("../assets/fonts/Bernina.ttf");
+}
+.container {
+    margin-top: 100px;
+}
+.row {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.title {
+    margin-left: 15px;
+    font-family: Gotham;
+    font-size: 24pt;
+    color: #35373a;
+}
+.clr {
+    -webkit-text-fill-color: green;
+}
+label,
+button {
+    color: #3CB18A;
+    font-family: Bernina;
+    font-size: 10pt;
+}
+.radio label,
+.header {
+    color: #35373A;
+}
+input[type=text],
+input[type=email],
+input[type=password] {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+}
+input[type=email],
+input[type=password] {
+    width: 100%;
+}
+#ldsorgusername {
+    width: 100%;
+}
+*:focus {
+    outline: none;
+}
+input[type=radio] {
+    vertical-align: middle;
+    border: 0px;
+    width: 8.5%;
+    height: 1.5em;
+    margin-top: -1px;
+}
+.login {
+    text-align: center;
+    font-size: 17pt;
+    font-family: Bernina;
+    color: #3CB18A;
+    cursor: pointer;
+}
+/*.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948;
+}
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442;
+}*/

@@ -1,0 +1,35 @@
+@font-face {
+    font-family: "Gotham";
+    src: url("../assets/fonts/Gotham.ttf");
+}
+@font-face {
+    font-family: "Bernina";
+    src: url("../assets/fonts/Bernina.ttf");
+}
+.container {
+	width:100%;
+	float:left;
+}
+.container .grid{
+	width:50%;
+	margin:0 auto;
+	text-align:center;
+	    margin-bottom: 10px;
+}
+.section {
+	border:1px solid #ccc;
+	border-radius:4px;
+}
+
+.image-cont{
+    line-height: 36px;
+    float: left;
+    border-right: 1px solid #ccc;
+    padding: 0 10px
+}
+
+@media screen and (min-width: 960px) {
+	.container .grid{
+		width:30%;
+	}
+}

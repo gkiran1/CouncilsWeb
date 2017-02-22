@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="main">
+        <form class="form" (ngSubmit)="Login(userCred$)">
+            <h2> Login Form</h2>
+            <label>Email :</label>
+            <input type="text" [(ngModel)]="userCred$.email" name="email" id="email" placeholder="Email">
+            <label>Password :</label>
+            <input [(ngModel)]="userCred$.password" type="password" name="password" id="password" placeholder="Password">
+            <input type="submit" name="login" id="login" value="Login">
+        </form>
+    </div>
+</div>
