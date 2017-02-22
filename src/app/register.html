@@ -30,28 +30,28 @@
             <div class="radio form-group">
                 <label for="areaunit">
                     <input type="radio" [(ngModel)]="adminUser.unittype" name="unittype" id="areaunit" value="areaunit" > Area Unit #
-                    <input type="text" [(ngModel)]="adminUser.unitnumber" name="unitnumber" id="areaunit">
+                    <input type="text" [ngModelOptions]="{standalone: true}"  [disabled]=" adminUser.unittype != 'areaunit'" [(ngModel)]="adminUser.unitnumber" name="unitnumber" id="areaunit" >
                 </label>
             </div>
             <br/>
              <div class="radio form-group">
                 <label for="stakeunit">
                     <input type="radio" [(ngModel)]="adminUser.unittype" name="unittype" id="stakeunit" value="stakeunit" > Stake Unit #
-                    <input type="text" [(ngModel)]="adminUser.unitnumber" name="unitnumber" id="stakeunit">
+                    <input type="text" [ngModelOptions]="{standalone: true}"  [disabled]=" adminUser.unittype != 'stakeunit'" [(ngModel)]="adminUser.unitnumber" name="unitnumber" id="stakeunit" >
                 </label>
             </div>
              <br/>
            <div class="radio form-group">
                 <label for="wardunit">
                     <input type="radio" [(ngModel)]="adminUser.unittype" name="unittype" id="wardunit" value="wardunit" >Ward Unit #
-                    <input type="text" [(ngModel)]="adminUser.unitnumber" name="unitnumber" id="wardunit">
+                    <input type="text" [ngModelOptions]="{standalone: true}"  [disabled]=" adminUser.unittype != 'wardunit'" [(ngModel)]="adminUser.unitnumber" name="unitnumber" id="wardunit" >
                 </label>
             </div>
             <br/>
             <div class="radio form-group">
-                <label for="stakeunit">
+                <label for="branchunit">
                     <input type="radio" [(ngModel)]="adminUser.unittype" name="unittype" id="branchunit" value="branchunit" > Branch #
-                    <input type="text" [(ngModel)]="adminUser.unitnumber" name="unitnumber" id="branchunit">
+                    <input type="text" [ngModelOptions]="{standalone: true}"  [disabled]=" adminUser.unittype != 'branchunit'" [(ngModel)]="adminUser.unitnumber" name="unitnumber" id="branchunit" >
                 </label>
             </div>
         </div>

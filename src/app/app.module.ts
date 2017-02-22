@@ -14,7 +14,7 @@ import { routing } from './app.routing';
 const appRoutes: Routes = [
 {path: '', component: RegisterPageComponent},
 { path: 'signup', component: signupComponent },
-]; 
+];
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpModule,  RouterModule.forRoot(appRoutes) ,AngularFireModule.initializeApp(firebaseConfig)],
   declarations: [AppComponent, AboutusComponent,LoginComponent, RegisterPageComponent,signupComponent],
