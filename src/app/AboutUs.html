@@ -1,0 +1,47 @@
+<table>
+    <form (ngSubmit)="Save(about)">
+    <div class="title">
+         <h3>About</h3>
+    </div>
+    <div class="panel-body">
+             <div class="row">                  
+                     <div class="input-field col s12">                       
+                       <label>Software Version:</label>&nbsp;&nbsp;&nbsp;<input [(ngModel)]="about.softwareversion" type="text" id="txtSoftwareversion" name="softwareversion" required>                    
+                    </div>
+                </div>
+                <div class="row">
+                 <h3>Terms of Use</h3>
+                    <div class="input-field col s12">                      
+                      <textarea  [(ngModel)]="about.termsofuse" id="txttermsofuse" name="termsofuse" rows="10" cols="30" required></textarea>                     
+                    </div>
+                </div>
+                <div class="row">
+                   <h3>Privacy Policy</h3>
+                    <div class="input-field col s12">                       
+                        <textarea [(ngModel)]="about.privacypolicy" id="txtprivacypolicy" name="privacypolicy" rows="10" cols="30" required></textarea>                         
+                    </div>
+                </div>
+                <div class="row">
+                    <h3>Contact</h3>            
+                    <div class="input-field col s12">                       
+                       <label>Email:</label>  <input [(ngModel)]="about.email" type="email" id="txtemail" name="email" required>                      
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">                       
+                       <label>Web:</label>&nbsp;&nbsp;&nbsp;<input [(ngModel)]="about.web" type="text" id="txtweb" name="web" required>                    
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">                       
+                       <label>Phone:</label><input type="text" [(ngModel)]="about.phone" id="txtphone" name="phone" required>                       
+                    </div>
+                </div>  
+                <div class="row">
+               <div class="input-field col s12">    
+               <input type="submit" id="btnsubmit" value="Save">
+               </div>
+            </div>   
+    </div>
+ </form>   
+</table>

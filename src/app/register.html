@@ -1,0 +1,68 @@
+<table class="container" align="center">
+    <div class="title">
+        <h3>Admin Sign Up</h3>
+    </div>
+    <form>
+        <div class="row">
+            <label for="email">Email</label>
+            <div>
+                <input [(ngModel)]="registerCredentials.email" class="form-control" name="email" id="email" placeholder="Email" type="email" required="required">
+            </div>
+        </div>
+        <div class="row">
+            <label for="password">Password</label>
+            <div>
+                <input [(ngModel)]="registerCredentials.password" class="form-control" name="password" id="password" placeholder="Password" type="password" required="required">
+            </div>
+        </div>
+        <div class="row">
+            <label for="ldsusername">LDS.org username</label>
+            <div>
+                <input [(ngModel)]="registerCredentials.ldsorgusername" name="ldsorgusername" id="ldsorgusername" placeholder="LDS.org username" type="text" required="required">
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <label class="header">Where will you be using the platform?</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="radio form-group">
+                <label for="areaunit">
+                    <input type="radio" [(ngModel)]="registerCredentials.platform" name="platform" id="areaunit" value="areaunit" > Area Unit #
+                    <input type="text" [(ngModel)]="registerCredentials.areaunit" name="areaunit" id="areaunit">
+                </label>
+            </div>
+            <br/>
+             <div class="radio form-group">
+                <label for="stakeunit">
+                    <input type="radio" [(ngModel)]="registerCredentials.platform" name="platform" id="stakeunit" value="stakeunit" > Stake Unit #
+                    <input type="text" [(ngModel)]="registerCredentials.stakeunit" name="stakeunit" id="stakeunit">
+                </label>
+            </div>
+             <br/>
+           <div class="radio form-group">
+                <label for="wardunit">
+                    <input type="radio" [(ngModel)]="registerCredentials.platform" name="platform" id="wardunit" value="wardunit" >Ward Unit #
+                    <input type="text" [(ngModel)]="registerCredentials.wardunit" name="wardunit" id="wardunit">
+                </label>
+            </div>
+            <br/>
+            <div class="radio form-group">
+                <label for="stakeunit">
+                    <input type="radio" [(ngModel)]="registerCredentials.platform" name="platform" id="branchunit" value="branchunit" > Branch #
+                    <input type="text" [(ngModel)]="registerCredentials.branchunit" name="branchunit" id="branchunit">
+                </label>
+            </div>
+        </div>
+        <!--<div *ngFor="let unit of units">
+                  <input type="radio" [(ngModel)]="registerCredentials.platform" ng-model="all" name="platform" class="platform" id="platform" [value]="unit" required="required">
+                  {{unit}}
+                  <input class="row" type="text" [(ngModel)]="registerCredentials.unit" ng-disabled="all" name="unit" id="unit">
+                </div>                   -->
+        <div class="login">
+            <!--<a (click)="register()" class="row btn btn-default" type="submit" name="action" [routerLink]="['./signup']">Create Account</a>-->
+            <input type="submit" name="action" (click)="register()" class="row btn btn-default" value="Create Account" [routerLink]="['./signup']">
+        </div>
+    </form>
+</table>

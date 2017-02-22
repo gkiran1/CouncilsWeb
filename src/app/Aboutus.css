@@ -1,0 +1,35 @@
+@font-face {
+    font-family: "Gotham";
+    src: url("../assets/fonts/Gotham.ttf");
+}
+@font-face {
+    font-family: "Bernina";
+    src: url("../assets/fonts/Bernina.ttf");
+}
+
+.container{
+    margin-top: 100px;
+}
+.row{
+    margin-top: 20px;
+}
+.title{
+    margin-left: 15px;
+    border:2px;
+    font-family: Gotham;
+    font-size: 24pt;
+    color: #35373a;
+}
+.clr{
+    -webkit-text-fill-color: green;
+}
+label {
+    color: #3CB18A;
+    font-family: Bernina;
+    font-size: 10pt;
+}
+h3 {
+    color: #3CB18A;
+    font-family: Bernina;
+    font-size: 10pt;
+}
