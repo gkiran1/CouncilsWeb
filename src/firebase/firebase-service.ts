@@ -105,7 +105,7 @@ export class FirebaseService {
     }
 
     verifyEmailExists(email: string) {
-        var unitNumber: string;
+        var unitNumber: number;
         var orgUserRef = this.rootRef.child('orgusers').orderByChild('email').equalTo(email).limitToFirst(1);
         return orgUserRef.once('value').then(function (snapshot) {
             if (snapshot.val()) {
@@ -121,10 +121,22 @@ export class FirebaseService {
         }).catch(err => { throw err });
     }
 
+    // verifyUnitNumberExists(unitnumber: number) {
+    //     var orgUserRef = this.rootRef.child('orgusers').orderByChild('unitnumber').equalTo(unitnumber).limitToFirst(1);
+    //     return orgUserRef.once("value").then((res) => {
+    //         if (res.val()) {
+    //             return true;
+    //         }
+    //         else {
+    //             return false;
+    //         }
+    //     }).catch(err => { throw err });
+    // } 
+
     verifyUnitNumberExists(unitnumber: number) {
-        var orgUserRef = this.rootRef.child('orgusers').orderByChild('unitnumber').equalTo(unitnumber);
-        return orgUserRef.once("value").then((res) => {
-            if (res.val()) {
+        var orgUserRef = this.rootRef.child('orgusers').orderByChild('unitnumber').equalTo(Number(unitnumber)).limitToFirst(1);
+        return orgUserRef.once("value").then(function (snapshot) {
+            if (snapshot.val()) {
                 return true;
             }
             else {
@@ -173,6 +185,20 @@ export class FirebaseService {
         }).catch(err => { throw err });
     }
 
+    getAdminDataFromOrgUsers(email: string) {
+        var unitNumber: string;
+        var orgUserRef = this.rootRef.child('orgusers').orderByChild('email').equalTo(email).limitToFirst(1);
+        return orgUserRef.once('value').then(function (snapshot) {
+            if (snapshot.val()) {
+                return snapshot;
+            }
+            else {
+                // email does not exist in org users.
+                return false
+            }
+        }).catch(err => { throw err });
+    }
+
 
     signupNewUser(user) {
         return this.fireAuth.createUserWithEmailAndPassword(user.email, user.password)
@@ -202,15 +228,20 @@ export class FirebaseService {
                 unittype: user.unittype,
                 unitnumber: user.unitnumber,
                 councils: user.councils,
+                calling: user.calling,
                 avatar: user.avatar,
                 isadmin: user.isadmin,
                 createdby: user.createdby,
                 createddate: user.createddate,
                 lastupdateddate: user.lastupdateddate,
                 isactive: user.isactive
-            }).then(() => user.councils.forEach(counc => {
-                this.createUserCouncils(uid, counc);
-            }));
+            }).then(() => {
+                if (user.councils != null) {
+                    user.councils.forEach(counc => {
+                        this.createUserCouncils(uid, counc);
+                    })
+                }
+            });
     }
 
     createUserCouncils(userUid: string, council: string) {
