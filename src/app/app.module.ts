@@ -13,19 +13,47 @@ import { signupComponent } from './signup.component';
 import { emailComponent } from './Email.component';
 import { unitmissingComponent } from './Unitmissing.component';
 import { unitadministratorComponent } from './Unitadministrator.component';
-import { routing } from './app.routing';
+//import { routing } from './app.routing';
 import { Test } from './directive';
+
 const appRoutes: Routes = [
-  { path: '', component: RegisterPageComponent },
+  { path: '', component: RegisterPageComponent }, 
   { path: 'signup', component: signupComponent },
-  { path: 'Login', component: LoginComponent },
-  { path: 'Email', component: emailComponent },
+  { path: 'Login', component: LoginComponent }, 
   { path: 'Unitmissing', component: unitmissingComponent },
-  { path: 'Unitadministrator', component: unitadministratorComponent }
+  { path: 'Unitadministrator', component: unitadministratorComponent },
+  {
+  path:'Unitmissing',
+  children:[
+    {path : '' , component:RegisterPageComponent},
+    {path : 'Email' , component:emailComponent}    
+  ]
+},
+{
+  path:'Unitmissing/Email',
+  children:[
+    // {path : '' , component:RegisterPageComponent},
+    {path : 'register' , component:RegisterPageComponent}    
+  ]
+},
+ {
+  path:'Unitadministrator',
+  children:[
+    {path : '' , component:RegisterPageComponent},
+    {path : 'Email' , component:emailComponent}    
+  ]
+},
+{
+  path:'Unitadministrator/Email',
+  children:[
+    // {path : '' , component:RegisterPageComponent},
+    {path : 'register' , component:RegisterPageComponent}    
+  ]
+}
 ];
 @NgModule({
-  imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes), AngularFireModule.initializeApp(firebaseConfig)],
-  declarations: [AppComponent, AboutusComponent, LoginComponent, RegisterPageComponent, signupComponent, emailComponent, unitmissingComponent, unitadministratorComponent,Test],
+  imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes), RouterModule.forChild(appRoutes), AngularFireModule.initializeApp(firebaseConfig)],
+  declarations: [AppComponent, AboutusComponent, LoginComponent, RegisterPageComponent, signupComponent, emailComponent, unitmissingComponent, unitadministratorComponent, Test],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
