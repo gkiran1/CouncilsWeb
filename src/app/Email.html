@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<!--<link rel="stylesheet" href="Email.css" />-->
+	<!--<link rel="stylesheet" href="Unitadministrator.css" />-->
 </head>
+
 <body>
-<div class="container">
-<div class="grid">
-<div class="title">
-    Email Sent
-</div>
-<p>
-Thanks for contacting us,we'll respond within 1 hour.
-</p>
-</div>
-</div>
+	<div class="container">
+		<div class="grid">
+			<div class="column title">
+				<h3>Email Sent
+					</h3>
+			</div>
+		</div>
+		<div class="grid">
+			<div class="column" id="Email">
+				Thanks for contacting us,we'll respond within 1 hour.
+			</div>
+		</div>
+		<div class="grid">
+			<div class="column" id="Send">
+				<div href="Home" [routerLink]="['./register']" routerLinkActive="active">Home</div>
+			</div>
+		</div>
+	</div>
+
 </body>
-<footer>
-<a href="Home" [routerLink]="['./register']" routerLinkActive="active">Home</a>
-</footer>
+
 </html>
+
+
+
+
+
