@@ -81,6 +81,7 @@ export class RegisterPageComponent {
     // this.adminUser.isactive = true;
 
     this.firebaseService.validateAdminSignup(this.adminUser).then(res => {
+      alert("my result........." + res);
       if (res == 0) {
         alert('Email does not Exist');
       }
@@ -125,7 +126,7 @@ export class RegisterPageComponent {
             // sign up user logic goes here...
 
             this.firebaseService.signupNewUser(this.adminUser).then(res => {
-             // alert("User is created...");
+              // alert("User is created...");
               this.router.navigate(['./signup']);
             }).catch(err => {
               alert(err);
@@ -133,9 +134,9 @@ export class RegisterPageComponent {
 
 
 
-        }).catch(err => {
-          alert(err);
-        })
+          }).catch(err => {
+            alert(err);
+          })
 
         });
       }
