@@ -1,11 +1,3 @@
-@font-face {
-    font-family: "Gotham";
-    src: url("../assets/fonts/Gotham.ttf");
-}
-@font-face {
-    font-family: "Bernina";
-    src: url("../assets/fonts/Bernina.ttf");
-}
 .Email {
     width: 27%;
     height: 100%;

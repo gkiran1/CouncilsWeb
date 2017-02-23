@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { LoginComponent } from './Login.component'
 import { emailComponent } from './Email.component';
 import { signupComponent } from './signup.component';
-import { unitmissingComponent } from './Unitmissing.component';
+import { UnitmissingComponent } from './Unitmissing.component';
 import { unitadministratorComponent } from './Unitadministrator.component';
 
 // import {validate,Validator,Contains, IsInt, Length, IsEmail, IsFQDN, IsDate, Min, Max} from "class-validator";
