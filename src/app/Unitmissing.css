@@ -6,40 +6,24 @@
     font-family: "Bernina";
     src: url("../assets/fonts/Bernina.ttf");
 }
-.container {
+.Unitmissing {
     width: 27%;
     height: 100%;
     margin: 0 auto;
     margin-top: 14%;
     background-repeat: no-repeat;
 }
-.container .grid{
-	margin:0 auto;
+.Unitmissing .grid {
+    margin: 0 auto;
 }
-.title {
+.Unitmissing .title {
     font-size: 19pt;
     color: #35373a;
     text-align: -webkit-center;
     margin: 0 auto;
     width: 75%;
 }
-a:link {
-    text-decoration: none;
-}
-footer{
-	width:100%;
-	float:left;
-	margin-top:5%;
-	text-align:center;
-	margin-bottom: 10px;
-}
-
-img{
-	max-width:100%;
-	max-height:100%;
-}
-
-div#Email {
+.grid .column1 {
     margin-top: 6%;
     font-size: 12pt;
     text-align: center;
@@ -48,19 +32,17 @@ div#Email {
     width: 74%;
     margin: 0 auto;
 }
-
-div#Send {
+.grid .column2 {
     margin-top: 20%;
-	color: #3CB18A;
+    color: #3CB18A;
 }
-div#Try {
+.grid .column3 {
     margin-top: 35%;
-	color: #3CB18A;
-	cursor:pointer;
+    color: #3CB18A;
+    cursor: pointer;
 }
-
-.column {
-	text-align: center;
-	font-family: "Bernina";
-	cursor:pointer
+.grid .column {
+    text-align: center;
+    font-family: "Bernina";
+    cursor: pointer;
 }

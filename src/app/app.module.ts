@@ -17,37 +17,37 @@ import { unitadministratorComponent } from './Unitadministrator.component';
 import { Test } from './directive';
 
 const appRoutes: Routes = [
-  { path: '', component: RegisterPageComponent }, 
+  { path: '', component: RegisterPageComponent },
   { path: 'signup', component: signupComponent },
-  { path: 'Login', component: LoginComponent }, 
+  { path: 'Login', component: LoginComponent },
   { path: 'Unitmissing', component: unitmissingComponent },
   { path: 'Unitadministrator', component: unitadministratorComponent },
   {
   path:'Unitmissing',
   children:[
     {path : '' , component:RegisterPageComponent},
-    {path : 'Email' , component:emailComponent}    
+    {path : 'Email' , component:emailComponent}
   ]
 },
 {
   path:'Unitmissing/Email',
   children:[
     // {path : '' , component:RegisterPageComponent},
-    {path : 'register' , component:RegisterPageComponent}    
+    {path : 'register' , component:RegisterPageComponent}
   ]
 },
  {
   path:'Unitadministrator',
   children:[
     {path : '' , component:RegisterPageComponent},
-    {path : 'Email' , component:emailComponent}    
+    {path : 'Email' , component:emailComponent}
   ]
 },
 {
   path:'Unitadministrator/Email',
   children:[
     // {path : '' , component:RegisterPageComponent},
-    {path : 'register' , component:RegisterPageComponent}    
+    {path : 'register' , component:RegisterPageComponent}
   ]
 }
 ];
