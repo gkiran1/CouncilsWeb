@@ -14,7 +14,7 @@ import { emailComponent } from './Email.component';
 import { unitmissingComponent } from './Unitmissing.component';
 import { unitadministratorComponent } from './Unitadministrator.component';
 import { routing } from './app.routing';
-
+import { Test } from './directive';
 const appRoutes: Routes = [
   { path: '', component: RegisterPageComponent },
   { path: 'signup', component: signupComponent },
@@ -25,7 +25,7 @@ const appRoutes: Routes = [
 ];
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes), AngularFireModule.initializeApp(firebaseConfig)],
-  declarations: [AppComponent, AboutusComponent, LoginComponent, RegisterPageComponent, signupComponent, emailComponent, unitmissingComponent, unitadministratorComponent],
+  declarations: [AppComponent, AboutusComponent, LoginComponent, RegisterPageComponent, signupComponent, emailComponent, unitmissingComponent, unitadministratorComponent,Test],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
