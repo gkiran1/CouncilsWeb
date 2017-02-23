@@ -51,12 +51,16 @@ div#Email {
 
 div#Send {
     margin-top: 20%;
+	color: #3CB18A;
 }
 div#Try {
     margin-top: 35%;
+	color: #3CB18A;
+	cursor:pointer;
 }
 
 .column {
 	text-align: center;
 	font-family: "Bernina";
+	cursor:pointer
 }
