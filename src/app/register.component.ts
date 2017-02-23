@@ -1,11 +1,18 @@
 import { Component } from '@angular/core';
-import { AngularFire,  FirebaseApp } from 'angularfire2';
+import { AngularFire, FirebaseApp } from 'angularfire2';
 import { Headers, Http, Response } from '@angular/http';
 import * as firebase from 'firebase';
 import { AngularFireModule } from 'angularfire2/';
 import { firebaseConfig } from '../environments/firebase';
 import { FirebaseService } from '../../src/firebase/firebase-service';
 import { User } from '../user/user';
+import { Router } from '@angular/router';
+import { LoginComponent } from './Login.component'
+import { emailComponent } from './Email.component';
+import { signupComponent } from './signup.component';
+import { unitmissingComponent } from './Unitmissing.component';
+import { unitadministratorComponent } from './Unitadministrator.component';
+
 // import {validate,Validator,Contains, IsInt, Length, IsEmail, IsFQDN, IsDate, Min, Max} from "class-validator";
 
 @Component({
@@ -20,14 +27,14 @@ export class RegisterPageComponent {
 
   public fireAuth: any;
   public userProfile: any;
-    units = [
+  units = [
     'Stake Unit #',
     'Ward Unit #'
   ]
 
-  registerCredentials = { email: '', password: '', ldsorgusername: '', platform: '', stakeunit: '',wardunit:'',areaunit:'',branchunit:''};
+  registerCredentials = { email: '', password: '', ldsorgusername: '', platform: '', stakeunit: '', wardunit: '', areaunit: '', branchunit: '' };
 
-  constructor(private http: Http, private af: AngularFire,private firebaseService: FirebaseService) {
+  constructor(private http: Http, private af: AngularFire, private firebaseService: FirebaseService, public router: Router) {
     this.fireAuth = firebase.auth();
     this.userProfile = firebase.database().ref('users');
   }
@@ -55,12 +62,10 @@ export class RegisterPageComponent {
     });
     console.log(registerCredentials);
   }
-  
-   public registerAdmin() {
 
+  public registerAdmin() {
     this.adminUser.firstname = 'First Name';
     this.adminUser.lastname = 'Last Name';
-    this.adminUser.councils = ['', ''];
     this.adminUser.calling = 'Calling';
     this.adminUser.avatar = 'Avatar';
     this.adminUser.isadmin = true;
@@ -71,32 +76,49 @@ export class RegisterPageComponent {
 
     this.firebaseService.validateAdminSignup(this.adminUser).then(res => {
       if (res == 0) {
-
+        alert('Email is not present in orgusers');
       }
       else if (res == 1) {
-
+        this.router.navigate(['./Unitmissing']);
       }
       else if (res == 2) {
-
+        alert('Email and Unitnumber are not associated');
       }
       else if (res == 3) {
-
+        this.router.navigate(['./Unitadministrator']);
       }
       else if (res == 4) {
-
+        alert('Duplicate ldsusername');
       }
       else if (res == 5) {
-        // this.firebaseService.signupNewUser(this.adminUser).then(res => {
-        //   alert("User is created...");
-        // }).catch(err => {
-        //   alert(err);
-        // })
+
+        this.firebaseService.getAdminCouncilsByUnitType(this.adminUser.unittype).then(res => {
+          if (res != null) {
+            this.adminUser.councils = res;
+          }
+          else {
+            this.adminUser.councils = null;
+          }
+
+          // sign up user logic goes here...
+
+          this.firebaseService.signupNewUser(this.adminUser).then(res => {
+            alert("User is created...");
+            this.router.navigate(['./signup']);
+          }).catch(err => {
+            alert(err);
+          })
+
+        }).catch(err => {
+          alert(err);
+        })
+        
       }
 
     })
 
   }
-  
+
   public register1() {
 
     this.signUpUser(this.registerCredentials);

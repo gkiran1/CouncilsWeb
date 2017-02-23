@@ -42,8 +42,8 @@ export class FirebaseService {
     findUserByKey(userUid: string): Observable<User> {
         return this.af.database.object('users/' + userUid).map(result => result);
     }
-    
-     ///////////// Admin Signup validation against master data that is orgusers. ///////////////////////////
+
+    ///////////// Admin Signup validation against master data that is orgusers. ///////////////////////////
 
     validateAdminSignup(user: User) {
         return this.verifyEmailExists(user.email).then(res => {
@@ -174,45 +174,66 @@ export class FirebaseService {
     }
 
 
-    // signupNewUser(user) {
-    //     return this.fireAuth.createUserWithEmailAndPassword(user.email, user.password)
-    //         .then((newUser) => {
-    //             // Sign in the user.
-    //             return this.fireAuth.signInWithEmailAndPassword(user.email, user.password)
-    //                 .then((authenticatedUser) => {
-    //                     // Successful login, create user profile.
-    //                     return this.createAuthUser(user, authenticatedUser.uid);
-    //                 }).catch(function (error) {
-    //                     throw error;
-    //                     //alert(error.message);
-    //                 });
-    //         }).catch(function (error) {
-    //             throw error;
-    //             //alert(error.message);
-    //         });
-    // }
-    // createAuthUser(user: User, uid: any) {
-    //     return this.rootRef.child('users').child(uid).set(
-    //         {
-    //             firstname: user.firstname,
-    //             lastname: user.lastname,
-    //             email: user.email,
-    //             password: user.password,
-    //             ldsusername: user.ldsusername,
-    //             unittype: user.unittype,
-    //             unitnumber: user.unitnumber,
-    //             councils: user.councils,
-    //             avatar: user.avatar,
-    //             isadmin: user.isadmin,
-    //             createdby: user.createdby,
-    //             createddate: user.createddate,
-    //             lastupdateddate: user.lastupdateddate,
-    //             isactive: user.isactive
-    //         }).then(() => user.councils.forEach(counc => {
-    //             this.createUserCouncils(uid, counc);
-    //         }));
-    // }
+    signupNewUser(user) {
+        return this.fireAuth.createUserWithEmailAndPassword(user.email, user.password)
+            .then((newUser) => {
+                // Sign in the user.
+                return this.fireAuth.signInWithEmailAndPassword(user.email, user.password)
+                    .then((authenticatedUser) => {
+                        // Successful login, create user profile.
+                        return this.createAuthUser(user, authenticatedUser.uid);
+                    }).catch(function (error) {
+                        throw error;
+                        //alert(error.message);
+                    });
+            }).catch(function (error) {
+                throw error;
+                //alert(error.message);
+            });
+    }
+    createAuthUser(user: User, uid: any) {
+        return this.rootRef.child('users').child(uid).set(
+            {
+                firstname: user.firstname,
+                lastname: user.lastname,
+                email: user.email,
+                password: user.password,
+                ldsusername: user.ldsusername,
+                unittype: user.unittype,
+                unitnumber: user.unitnumber,
+                councils: user.councils,
+                avatar: user.avatar,
+                isadmin: user.isadmin,
+                createdby: user.createdby,
+                createddate: user.createddate,
+                lastupdateddate: user.lastupdateddate,
+                isactive: user.isactive
+            }).then(() => user.councils.forEach(counc => {
+                this.createUserCouncils(uid, counc);
+            }));
+    }
+    
+    createUserCouncils(userUid: string, council: string) {
+        this.rootRef.child('usercouncils').push({
+            userid: userUid,
+            councilid: council
+        })
+    }
 
-
+    getAdminCouncilsByUnitType(unittype: string) {
+        var adminCouncils: string[] = [];
+        var councilsRef = this.rootRef.child('councils').orderByChild('counciltype').equalTo(unittype);
+        return councilsRef.once('value').then(function (snapshot) {
+            if (snapshot.val()) {
+                snapshot.forEach(council => {
+                    adminCouncils.push(council.key);
+                });
+                return adminCouncils;
+            }
+            else {
+                return null;
+            }
+        }).catch(err => { throw err; });
+    }
 
 }
