@@ -72,7 +72,7 @@ export class FirebaseService {
                 else {
                     // No need to verify email, since firebase will throw error, if we are creating duplicate user.
 
-                    // Need to verify in users 
+                    // Need to verify in users
                     return this.verifyUserByUnitNumber(user.unitnumber).then(res => {
                         if (res == true) {
                             // Administrator for the unit number provided already exists.
@@ -212,7 +212,7 @@ export class FirebaseService {
                 this.createUserCouncils(uid, counc);
             }));
     }
-    
+
     createUserCouncils(userUid: string, council: string) {
         this.rootRef.child('usercouncils').push({
             userid: userUid,

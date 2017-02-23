@@ -1,11 +1,11 @@
-import { Component }        from '@angular/core';
+import { Component } from '@angular/core';
 import { Router,RouterModule } from '@angular/router';
 
 @Component({
-    // selector: 'login-form',
+    selector: 'missing-form',
     templateUrl: './Unitmissing.html',
-    styleUrls: ['./Unitmissing.css'],    
+    styleUrls: ['./Unitmissing.css']
 })
-export class unitmissingComponent {
+export class UnitmissingComponent {
 
 }

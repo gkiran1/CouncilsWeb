@@ -11,7 +11,7 @@ import { RegisterPageComponent } from './register.component';
 import { RouterModule, Routes } from '@angular/router';
 import { signupComponent } from './signup.component';
 import { emailComponent } from './Email.component';
-import { unitmissingComponent } from './Unitmissing.component';
+import { UnitmissingComponent } from './Unitmissing.component';
 import { unitadministratorComponent } from './Unitadministrator.component';
 //import { routing } from './app.routing';
 import { Test } from './directive';
@@ -20,7 +20,7 @@ const appRoutes: Routes = [
   { path: '', component: RegisterPageComponent },
   { path: 'signup', component: signupComponent },
   { path: 'Login', component: LoginComponent },
-  { path: 'Unitmissing', component: unitmissingComponent },
+  { path: 'Unitmissing', component: UnitmissingComponent },
   { path: 'Unitadministrator', component: unitadministratorComponent },
   {
   path:'Unitmissing',
@@ -53,7 +53,7 @@ const appRoutes: Routes = [
 ];
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes), RouterModule.forChild(appRoutes), AngularFireModule.initializeApp(firebaseConfig)],
-  declarations: [AppComponent, AboutusComponent, LoginComponent, RegisterPageComponent, signupComponent, emailComponent, unitmissingComponent, unitadministratorComponent, Test],
+  declarations: [AppComponent, AboutusComponent, LoginComponent, RegisterPageComponent, signupComponent, emailComponent, UnitmissingComponent, unitadministratorComponent, Test],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -119,7 +119,7 @@ export class RegisterPageComponent {
         }).catch(err => {
           alert(err);
         })
-        
+
       }
 
     })
