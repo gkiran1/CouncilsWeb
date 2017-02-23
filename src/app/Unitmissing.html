@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<!--<link rel="stylesheet" href="Unitmissing.css" />-->
+	<!--<link rel="stylesheet" href="Unitadministrator.css" />-->
 </head>
+
 <body>
-<div class="container">
-<div class="grid">
-<div class="title">
-    Unit Missing
-</div>
-<p>
-Email us and we will add your unit #4065 to our database.
-</p>
-<a href="Send Email" [routerLink]="['./Email']" routerLinkActive="active">Send Email</a>
-</div>
-</div>
+	<div class="container">
+		<div class="grid">
+			<div class="column title">
+				<h3>Unit Missing
+					</h3>
+			</div>
+		</div>
+		<div class="grid">
+			<div class="column" id="Email">
+				Email us and we will add your unit #4065 to our database.
+			</div>
+		</div>
+		<div class="grid">
+			<div class="column" id="Send">
+				<div href="Send Email" [routerLink]="['./Email']" routerLinkActive="active">Send Email</div>
+			</div>
+		</div>
+		<div class="grid">
+			<div class="column" id="Try">
+				<div href="Try Again">Try Again</div>
+			</div>
+		</div>
+	</div>
+
 </body>
-<footer>
-<a href="Try Again">Try Again</a>
-</footer>
+
 </html>
