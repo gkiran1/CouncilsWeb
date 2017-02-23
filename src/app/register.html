@@ -55,14 +55,10 @@
                 </label>
             </div>
         </div>
-        <!--<div *ngFor="let unit of units">
-                  <input type="radio" [(ngModel)]="registerCredentials.platform" ng-model="all" name="platform" class="platform" id="platform" [value]="unit" required="required">
-                  {{unit}}
-                  <input class="row" type="text" [(ngModel)]="registerCredentials.unit" ng-disabled="all" name="unit" id="unit">
-                </div>                   -->
-        <div class="login">
+      <div class="login row">
             <!--<a (click)="register()" class="row btn btn-default" type="submit" name="action" [routerLink]="['./signup']">Create Account</a>-->
-            <input type="submit" name="action" (click)="registerAdmin()" class="btn btn-default" value="Create Account">
+            <div  (click)="registerAdmin()">Create Account</div>
         </div>
+
     </form>
 </table>
