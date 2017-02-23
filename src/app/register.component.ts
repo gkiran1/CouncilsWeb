@@ -39,8 +39,7 @@ export class RegisterPageComponent {
     this.userProfile = firebase.database().ref('users');
   }
 
-
-   handleUserUpdated(user){
+  handleUserUpdated(user) {
     this.adminUser.unitnumber = user;
     console.log(user);
   }
@@ -71,19 +70,19 @@ export class RegisterPageComponent {
 
 
   public registerAdmin() {
-    this.adminUser.firstname = 'First Name';
-    this.adminUser.lastname = 'Last Name';
-    this.adminUser.calling = 'Calling';
-    this.adminUser.avatar = 'Avatar';
-    this.adminUser.isadmin = true;
-    this.adminUser.createdby = '1212';
-    this.adminUser.createddate = new Date().toDateString();
-    this.adminUser.lastupdateddate = new Date().toDateString();
-    this.adminUser.isactive = true;
+    // this.adminUser.firstname = 'First Name';
+    // this.adminUser.lastname = 'Last Name';
+    // this.adminUser.calling = 'Calling';
+    // this.adminUser.avatar = 'Avatar';
+    // this.adminUser.isadmin = true;  // Never change this...because this is Admin Sign Up.....
+    // this.adminUser.createdby = '1212';
+    // this.adminUser.createddate = new Date().toDateString();
+    // this.adminUser.lastupdateddate = new Date().toDateString();
+    // this.adminUser.isactive = true;
 
     this.firebaseService.validateAdminSignup(this.adminUser).then(res => {
       if (res == 0) {
-        alert('Email is not present in orgusers');
+        alert('Email does not Exist');
       }
       else if (res == 1) {
         this.router.navigate(['./Unitmissing']);
@@ -99,31 +98,45 @@ export class RegisterPageComponent {
       }
       else if (res == 5) {
 
-        this.firebaseService.getAdminCouncilsByUnitType(this.adminUser.unittype).then(res => {
-          if (res != null) {
-            this.adminUser.councils = res;
-          }
-          else {
-            this.adminUser.councils = null;
-          }
+        // Need to get other data like firstname, lastname and all from orgusers... 
 
-          // sign up user logic goes here...
+        this.firebaseService.getAdminDataFromOrgUsers(this.adminUser.email).then(res => {
 
-          this.firebaseService.signupNewUser(this.adminUser).then(res => {
-            alert("User is created...");
-            this.router.navigate(['./signup']);
+          res.forEach(user => {
+            this.adminUser.firstname = user.val().firstname;
+            this.adminUser.lastname = user.val().lastname;
+            this.adminUser.calling = user.val().calling;
+            this.adminUser.avatar = user.val().avatar;
+            this.adminUser.isadmin = true;  // Never change this...because this is Admin Sign Up.....
+            this.adminUser.createdby = user.val().createdby
+            this.adminUser.createddate = new Date().toDateString();
+            this.adminUser.lastupdateddate = new Date().toDateString();
+            this.adminUser.isactive = true;
+          });
+
+          this.firebaseService.getAdminCouncilsByUnitType(this.adminUser.unittype).then(res => {
+            if (res != null) {
+              this.adminUser.councils = res;
+            }
+            else {
+              this.adminUser.councils = null;
+            }
+
+            // sign up user logic goes here...
+
+            this.firebaseService.signupNewUser(this.adminUser).then(res => {
+              alert("User is created...");
+              this.router.navigate(['./signup']);
+            }).catch(err => {
+              alert(err);
+            });
+
           }).catch(err => {
             alert(err);
           })
-
-        }).catch(err => {
-          alert(err);
-        })
-        
+        });
       }
-
     })
-
   }
 
   public register1() {
