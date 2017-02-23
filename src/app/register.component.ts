@@ -125,7 +125,7 @@ export class RegisterPageComponent {
             // sign up user logic goes here...
 
             this.firebaseService.signupNewUser(this.adminUser).then(res => {
-              alert("User is created...");
+             // alert("User is created...");
               this.router.navigate(['./signup']);
             }).catch(err => {
               alert(err);
