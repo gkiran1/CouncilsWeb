@@ -81,7 +81,7 @@ export class RegisterPageComponent {
     // this.adminUser.isactive = true;
 
     this.firebaseService.validateAdminSignup(this.adminUser).then(res => {
-      alert("my result........." + res);
+      // alert("my result........." + res);
       if (res == 0) {
         alert('Email does not Exist');
       }
