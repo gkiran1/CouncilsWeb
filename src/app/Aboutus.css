@@ -55,3 +55,8 @@ input[type=password] {
     cursor: pointer;
     margin-top: 26px;
 }
+input#btnsubmit {
+    -webkit-appearance: none;
+    color: #3CB18A;
+}
+
