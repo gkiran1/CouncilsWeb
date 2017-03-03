@@ -8,7 +8,9 @@
 }
 
 .container{
-    margin-top: 100px;
+    width: 19%;
+    height: 100%;
+    margin: 0 auto;
 }
 .row{
     margin-top: 20px;
@@ -32,4 +34,24 @@ h3 {
     color: #3CB18A;
     font-family: Bernina;
     font-size: 10pt;
+}
+input[type=text],
+input[type=email],
+input[type=password] {
+    background: transparent;
+    border-right: transparent;
+    border-left: transparent;
+    border-top: transparent;
+}
+
+*:focus {
+    outline: none;
+}
+.login {
+    text-align: center;
+    font-size: 17pt;
+    font-family: Bernina;
+    color: #3CB18A;
+    cursor: pointer;
+    margin-top: 26px;
 }
