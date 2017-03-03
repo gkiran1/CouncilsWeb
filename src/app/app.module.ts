@@ -20,36 +20,37 @@ const appRoutes: Routes = [
   { path: '', component: RegisterPageComponent },
   { path: 'signup', component: signupComponent },
   { path: 'Login', component: LoginComponent },
+  { path: 'AboutUs', component: AboutusComponent },
   { path: 'Unitmissing', component: UnitmissingComponent },
   { path: 'Unitadministrator', component: unitadministratorComponent },
   {
-  path:'Unitmissing',
-  children:[
-    {path : '' , component:RegisterPageComponent},
-    {path : 'Email' , component:emailComponent}
-  ]
-},
-{
-  path:'Unitmissing/Email',
-  children:[
-    // {path : '' , component:RegisterPageComponent},
-    {path : 'register' , component:RegisterPageComponent}
-  ]
-},
- {
-  path:'Unitadministrator',
-  children:[
-    {path : '' , component:RegisterPageComponent},
-    {path : 'Email' , component:emailComponent}
-  ]
-},
-{
-  path:'Unitadministrator/Email',
-  children:[
-    // {path : '' , component:RegisterPageComponent},
-    {path : 'register' , component:RegisterPageComponent}
-  ]
-}
+    path: 'Unitmissing',
+    children: [
+      { path: '', component: RegisterPageComponent },
+      { path: 'Email', component: emailComponent }
+    ]
+  },
+  {
+    path: 'Unitmissing/Email',
+    children: [
+      // {path : '' , component:RegisterPageComponent},
+      { path: 'register', component: RegisterPageComponent }
+    ]
+  },
+  {
+    path: 'Unitadministrator',
+    children: [
+      { path: '', component: RegisterPageComponent },
+      { path: 'Email', component: emailComponent }
+    ]
+  },
+  {
+    path: 'Unitadministrator/Email',
+    children: [
+      // {path : '' , component:RegisterPageComponent},
+      { path: 'register', component: RegisterPageComponent }
+    ]
+  }
 ];
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes), RouterModule.forChild(appRoutes), AngularFireModule.initializeApp(firebaseConfig)],
