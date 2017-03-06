@@ -3,23 +3,20 @@
         Admin Sign Up
     </div>
     <form>
-        <div class="row">
-            <label for="email">Email</label>
-            <div>
-                <input [(ngModel)]="adminUser.email" class="form-control" name="email" id="email"  type="email" required="required">
-            </div>
+        <div layout-gt-sm="row">
+            <md-input-container class="md-block flex-gt-sm">
+            <input [(ngModel)]="adminUser.email" class="form-control" placeholder="Email" name="email" id="email"  type="email" required="required" mdInput>
+            </md-input-container>
         </div>
-        <div class="row">
-            <label for="password">Password</label>
-            <div>
-                <input [(ngModel)]="adminUser.password" class="form-control" name="password" id="password"  type="password" required="required">
-            </div>
+        <div layout-gt-sm="row">
+            <md-input-container class="md-block flex-gt-sm">
+            <input [(ngModel)]="adminUser.password" class="form-control" placeholder="Password" name="password" id="password"  type="password" required="required" mdInput>
+            </md-input-container>
         </div>
-        <div class="row">
-            <label for="ldsusername">LDS.org username</label>
-            <div>
-                <input id="ldsorgusername" [(ngModel)]="adminUser.ldsusername" name="ldsusername" id="ldsusername"  type="text" required="required">
-            </div>
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block flex-gt-sm">
+        <input id="ldsorgusername" [(ngModel)]="adminUser.ldsusername" placeholder="ldsorgusername" name="ldsusername" id="ldsusername"  type="text" required="required" mdInput>
+          </md-input-container>
         </div>
         <div class="row">
             <div>

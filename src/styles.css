@@ -53,3 +53,12 @@ src:url('./assets/fonts/GOTHMMED.eot');
     font-weight: 700;
     font-style: normal;
 }
+
+label.mat-input-placeholder.mat-empty.mat-float {
+    color: #3CB18A !important;
+    font-family: Bernina !important;
+    font-size: 10pt!important;
+}
+.mat-input-underline {
+    color: #EEEEEE;
+}
