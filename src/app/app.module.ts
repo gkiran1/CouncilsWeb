@@ -13,6 +13,7 @@ import { signupComponent } from './signup.component';
 import { emailComponent } from './Email.component';
 import { UnitmissingComponent } from './Unitmissing.component';
 import { unitadministratorComponent } from './Unitadministrator.component';
+import { MaterialModule } from '@angular/material';
 //import { routing } from './app.routing';
 import { Test } from './directive';
 
@@ -53,7 +54,7 @@ const appRoutes: Routes = [
   }
 ];
 @NgModule({
-  imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes), RouterModule.forChild(appRoutes), AngularFireModule.initializeApp(firebaseConfig)],
+  imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes), RouterModule.forChild(appRoutes), AngularFireModule.initializeApp(firebaseConfig),MaterialModule.forRoot()],
   declarations: [AppComponent, AboutusComponent, LoginComponent, RegisterPageComponent, signupComponent, emailComponent, UnitmissingComponent, unitadministratorComponent, Test],
   bootstrap: [AppComponent]
 })

@@ -8,33 +8,33 @@
 }
 
 .container{
-    width: 19%;
+       width: 24%;
     height: 100%;
     margin: 0 auto;
+    margin-top: 8%;
 }
+
 .row{
     margin-top: 20px;
+    font-family: Bernina-Regular;
+    color: #3CB18A;
 }
 .title{
     margin-left: 15px;
-    border:2px;
-    font-family: Gotham;
-    font-size: 24pt;
+    font-family: Gotham-Medium;
+    font-size: 16pt;
     color: #35373a;
+    text-align: center;
 }
 .clr{
     -webkit-text-fill-color: green;
 }
 label {
     color: #3CB18A;
-    font-family: Bernina;
+    font-family: Bernina-SemiBold;
     font-size: 10pt;
 }
-h3 {
-    color: #3CB18A;
-    font-family: Bernina;
-    font-size: 10pt;
-}
+
 input[type=text],
 input[type=email],
 input[type=password] {
@@ -50,7 +50,7 @@ input[type=password] {
 .login {
     text-align: center;
     font-size: 17pt;
-    font-family: Bernina;
+    font-family: Bernina-Regular;
     color: #3CB18A;
     cursor: pointer;
     margin-top: 26px;
@@ -58,5 +58,10 @@ input[type=password] {
 input#btnsubmit {
     -webkit-appearance: none;
     color: #3CB18A;
+}
+textarea {
+
+    width:100%;
+
 }
 
