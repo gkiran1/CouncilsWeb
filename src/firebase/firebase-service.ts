@@ -49,7 +49,7 @@ export class FirebaseService {
         return this.verifyEmailExists(user.email).then(res => {
             if (res == false) {
                 // Email is not present in orgusers.
-               // alert('0');
+                // alert('0');
                 return 0;
             }
             else {
@@ -57,7 +57,7 @@ export class FirebaseService {
                     return this.verifyUnitNumberExists(user.unitnumber).then(res => {
                         if (res == false) {
                             // Unitnumber is not present in orgusers.
-                           // alert('1');
+                            // alert('1');
                             return 1;
                         }
                         else {
@@ -76,7 +76,7 @@ export class FirebaseService {
                     return this.verifyUserByUnitNumber(user.unitnumber).then(res => {
                         if (res == true) {
                             // Administrator for the unit number provided already exists.
-                           // alert('3');
+                            // alert('3');
                             return 3;
                         }
                         else {
@@ -84,12 +84,12 @@ export class FirebaseService {
                             return this.verifyUserByLdsUserName(user.ldsusername).then(res => {
                                 if (res == true) {
                                     // duplicate ldsusername
-                                   // alert('4');
+                                    // alert('4');
                                     return 4;
                                 }
                                 else {
                                     //Finally create  admin.........
-                                  //  alert('5');
+                                    //  alert('5');
                                     return 5;
                                 }
                             })
@@ -226,7 +226,7 @@ export class FirebaseService {
                 password: user.password,
                 ldsusername: user.ldsusername,
                 unittype: user.unittype,
-                unitnumber: user.unitnumber,
+                unitnumber: Number(user.unitnumber),
                 councils: user.councils,
                 calling: user.calling,
                 avatar: user.avatar,
