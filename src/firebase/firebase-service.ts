@@ -234,7 +234,8 @@ export class FirebaseService {
                 createdby: user.createdby,
                 createddate: user.createddate,
                 lastupdateddate: user.lastupdateddate,
-                isactive: user.isactive
+                isactive: user.isactive,
+                isnotificationreq: false 
             }).then(() => {
                 if (user.councils != null) {
                     user.councils.forEach(counc => {
