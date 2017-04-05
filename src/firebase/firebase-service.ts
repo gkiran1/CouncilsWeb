@@ -27,7 +27,7 @@ export class FirebaseService {
             "email": aboutus.email,
             "web": aboutus.web,
             "phone": aboutus.phone,
-            "createddate": ((new Date()).toString()).slice(0, 16)
+            "createddate": firebase.database.ServerValue.TIMESTAMP
         });
     }
 
