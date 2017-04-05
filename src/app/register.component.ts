@@ -36,7 +36,7 @@ export class RegisterPageComponent {
 
   constructor(private http: Http, private af: AngularFire, private firebaseService: FirebaseService, public router: Router) {
     this.fireAuth = firebase.auth();
-    this.userProfile = firebase.database().ref('users');
+    this.userProfile = firebase.database().ref('users');      
   }
 
   handleUserUpdated(user) {
@@ -44,9 +44,6 @@ export class RegisterPageComponent {
     console.log(user);
   }
 
-  // create() {
-  //   // this.nav.push(DisplayPage, this.registerCredentials);
-  // }
   signUpUser(registerCredentials: any): any {
     this.fireAuth.createUserWithEmailAndPassword(registerCredentials.email, registerCredentials.password).then((newUser) => {
       // Sign in the user.
@@ -70,18 +67,7 @@ export class RegisterPageComponent {
 
 
   public registerAdmin() {
-    // this.adminUser.firstname = 'First Name';
-    // this.adminUser.lastname = 'Last Name';
-    // this.adminUser.calling = 'Calling';
-    // this.adminUser.avatar = 'Avatar';
-    // this.adminUser.isadmin = true;  // Never change this...because this is Admin Sign Up.....
-    // this.adminUser.createdby = '1212';
-    // this.adminUser.createddate = new Date().toDateString();
-    // this.adminUser.lastupdateddate = new Date().toDateString();
-    // this.adminUser.isactive = true;
-
     this.firebaseService.validateAdminSignup(this.adminUser).then(res => {
-      // alert("my result........." + res);
       if (res == 0) {
         alert('Email does not Exist');
       }
@@ -98,11 +84,8 @@ export class RegisterPageComponent {
         alert('Duplicate ldsusername');
       }
       else if (res == 5) {
-
         // Need to get other data like firstname, lastname and all from orgusers...
-
         this.firebaseService.getAdminDataFromOrgUsers(this.adminUser.email).then(res => {
-
           res.forEach(user => {
             this.adminUser.firstname = user.val().firstname;
             this.adminUser.lastname = user.val().lastname;
@@ -115,105 +98,64 @@ export class RegisterPageComponent {
             this.adminUser.isactive = true;
           });
 
-          this.firebaseService.getAdminCouncilsByUnitType(this.adminUser.unittype).then(res => {
-            if (res != null) {
-              this.adminUser.councils = res;
-            }
-            else {
-              this.adminUser.councils = null;
-            }
+          var councils = [];
+          if (this.adminUser.unittype === 'Area') {
+            councils = [
+              'Elder',
+              'President'
+            ];
+          }
+          else if (this.adminUser.unittype === 'Stake') {
+            councils = [
+              'President',
+              'High Council',
+              'Bishop',
+              'Relief Society',
+              'Young Men',
+              'Young Women',
+              'Sunday School',
+              'Primary',
+              'Missionary'
+            ];
+          }
+          else if (this.adminUser.unittype === 'Ward') {
+            councils = [
+              'Bishop',
+              'Ward Council',
+              'PEC',
+              'High Priest',
+              'Elders',
+              'Relief Society',
+              'Young Men',
+              'Young Women',
+              'Sunday School',
+              'Primary',
+              'Missionary'
+            ];
+          }
 
-            // sign up user logic goes here...
-
-            this.firebaseService.signupNewUser(this.adminUser).then(res => {
-              // alert("User is created...");
-              this.router.navigate(['./signup']);
-            }).catch(err => {
-              alert(err);
+          if (councils) {
+            var ids = [];
+            councils.forEach((council, index) => {
+              this.firebaseService.setDefaultCouncilsForAdmin(council, this.adminUser.unittype, this.adminUser.unitnumber).then(res => {
+                ids.push(res);
+                if (councils.length === index + 1) {
+                  this.adminUser.councils = ids;
+                  // sign up user logic goes here...
+                  this.firebaseService.signupNewUser(this.adminUser).then(res => {
+                    // alert("User is created...");
+                    this.router.navigate(['./signup']);
+                  }).catch(err => {
+                    alert(err);
+                  });
+                }
+              });
             });
-
-
-
-          }).catch(err => {
-            alert(err);
-          })
-
+          }
         });
       }
     })
   }
-
-  public register1() {
-
-    this.signUpUser(this.registerCredentials);
-
-    //  this.showLoading()
-    //     this.auth.register(this.registerCredentials).subscribe(allowed => {
-    //       if (allowed) {
-    //         setTimeout(() => {
-    //         this.loading.dismiss();
-    //         this.nav.setRoot(DisplayPage)
-    //         });
-    //       }
-    //     },
-    //     // error => {
-    //     //   this.showError(error);
-    //     // }
-    //     );
-  }
-  // showLoading() {
-  //   this.loading = this.loadingCtrl.create({
-  //     content: 'Please wait...'
-  //   });
-  //   this.loading.present();
-  // }
-
-  // showError(text) {
-  //   setTimeout(() => {
-  //     this.loading.dismiss();
-  //   });
-
-  //   let alert = this.alertCtrl.create({
-  //     title: 'Fail',
-  //     subTitle: text,
-  //     buttons: ['OK']
-  //   });
-  //   alert.present(prompt);
-  // }
-
-
-  //   this.auth.register(this.registerCredentials).subscribe(success => {
-  //     if (success) {
-  //       this.createSuccess = true;
-  //         this.showPopup("Success", "Account created.");
-  //     } else {
-  //       this.showPopup("Error", "Problem creating account.");
-  //     }
-  //   },
-  //   error => {
-  //     this.showPopup("Error", error);
-  //   });
-  //   this.signUpUser(this.registerCredentials);
-  // }
-
-  // showPopup(title, text) {
-  //   let alert = this.alertCtrl.create({
-  //     title: title,
-  //     subTitle: text,
-  //     buttons: [
-  //      {
-  //        text: 'OK',
-  //        handler: data => {
-  //          if (this.createSuccess) {
-  //            this.nav.popToRoot();
-  //          }
-  //        }
-  //      }
-  //    ]
-  //   });
-  //   alert.present();
-  // }
-
 
 }
 

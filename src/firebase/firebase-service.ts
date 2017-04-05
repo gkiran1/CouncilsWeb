@@ -199,7 +199,6 @@ export class FirebaseService {
         }).catch(err => { throw err });
     }
 
-
     signupNewUser(user) {
         return this.fireAuth.createUserWithEmailAndPassword(user.email, user.password)
             .then((newUser) => {
@@ -235,7 +234,7 @@ export class FirebaseService {
                 createddate: user.createddate,
                 lastupdateddate: user.lastupdateddate,
                 isactive: user.isactive,
-                isnotificationreq: false 
+                isnotificationreq: false
             }).then(() => {
                 if (user.councils != null) {
                     user.councils.forEach(counc => {
@@ -266,6 +265,38 @@ export class FirebaseService {
                 return null;
             }
         }).catch(err => { throw err; });
+    }
+
+    setDefaultCouncilsForAdmin(council: string, unitType: string, unitNumber: number) {
+        return this.rootRef.child('councils').push({
+            council: council,
+            unittype: unitType,
+            unitnumber: Number(unitNumber),
+            council_unitnumber: council + '_' + unitNumber
+        }).then((res) => {
+            return res.key;   
+        }).catch(err => { throw err });
+    }
+
+    insertOrgUser() {
+        return this.rootRef.child('orgusers').push({
+            avatar: 'avatar',
+            calling: 'calling',
+            createdby: '',
+            createddate: new Date().toISOString(),
+            email: 'dev@pk.io',
+            firstname: 'Pro',
+            isactive: true,
+            isadmin: true,
+            lastname: 'Karma',
+            lastupdateddate: new Date().toISOString(),
+            ldsusername: 'ldspro',
+            password: '',
+            unittype: 'Stake',
+            unitnumber: 2626
+        }).then((res) => {
+            return res.key;
+        }).catch(err => { throw err });
     }
 
 }
