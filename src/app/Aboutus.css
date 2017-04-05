@@ -65,3 +65,15 @@ textarea {
 
 }
 
+button {
+    border: none;
+    padding: 0;
+    background: none;
+}
+
+.submit {
+    color: #3CB18A;
+    font-family: Bernina-Regular;
+    font-size: 28px;
+}
+
