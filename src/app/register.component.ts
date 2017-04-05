@@ -3,7 +3,6 @@ import { AngularFire, FirebaseApp } from 'angularfire2';
 import { Headers, Http, Response } from '@angular/http';
 import * as firebase from 'firebase';
 import { AngularFireModule } from 'angularfire2/';
-import { firebaseConfig } from '../environments/firebase';
 import { FirebaseService } from '../../src/firebase/firebase-service';
 import { User } from '../user/user';
 import { Router } from '@angular/router';
