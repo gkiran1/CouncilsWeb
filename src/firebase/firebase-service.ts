@@ -234,7 +234,8 @@ export class FirebaseService {
                 createddate: user.createddate,
                 lastupdateddate: user.lastupdateddate,
                 isactive: user.isactive,
-                isnotificationreq: false
+                isnotificationreq: false,
+                googlecalendaradded: false
             }).then(() => {
                 if (user.councils != null) {
                     user.councils.forEach(counc => {
@@ -274,7 +275,7 @@ export class FirebaseService {
             unitnumber: Number(unitNumber),
             council_unitnumber: council + '_' + unitNumber
         }).then((res) => {
-            return res.key;   
+            return res.key;
         }).catch(err => { throw err });
     }
 
