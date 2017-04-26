@@ -1,7 +1,5 @@
-<table class="container" align="center">
-    <div class="title">
-        Admin Sign Up
-    </div>
+<div class="container" align="center">
+    <div class="title">Admin Sign Up</div>
     <form>
         <div layout-gt-sm="row">
             <md-input-container class="md-block flex-gt-sm">
@@ -26,28 +24,28 @@
         <div class="row">
             <div class="radio form-group">
                 <label for="areaunit">
-                    <input type="radio" [(ngModel)]="adminUser.unittype" name="unittype" id="areaunit" value="Area" > Area Unit #
+                    <input type="radio" [(ngModel)]="adminUser.unittype" name="unittype" id="areaunit" value="Area" ><span> Area Unit #</span>
                     <input type="text"   [hidden]=" adminUser.unittype != 'Area'"  name="unitnumber" id="areaunit" test1="" (userUpdated)="handleUserUpdated($event)">
                 </label>
             </div>
             <br/>
              <div class="radio form-group">
                 <label for="stakeunit">
-                    <input type="radio" [(ngModel)]="adminUser.unittype" name="unittype" id="stakeunit" value="Stake" > Stake Unit #
+                    <input type="radio" [(ngModel)]="adminUser.unittype" name="unittype" id="stakeunit" value="Stake" ><span> Stake Unit #</span>
                     <input type="text"   [hidden]=" adminUser.unittype != 'Stake'"  name="unitnumber" id="stakeunit" test1="" (userUpdated)="handleUserUpdated($event)">
                 </label>
             </div>
              <br/>
            <div class="radio form-group">
                 <label for="wardunit">
-                    <input type="radio" [(ngModel)]="adminUser.unittype" name="unittype" id="wardunit" value="Ward" >Ward Unit #
+                    <input type="radio" [(ngModel)]="adminUser.unittype" name="unittype" id="wardunit" value="Ward" ><span> Ward Unit #</span>
                     <input type="text"   [hidden]=" adminUser.unittype != 'Ward'"  name="unitnumber" id="wardunit" test1="" (userUpdated)="handleUserUpdated($event)">
                 </label>
             </div>
             <br/>
             <div class="radio form-group">
                 <label for="branchunit">
-                    <input type="radio" [(ngModel)]="adminUser.unittype" name="unittype" id="branchunit" value="Branch" > Branch #
+                    <input type="radio" [(ngModel)]="adminUser.unittype" name="unittype" id="branchunit" value="Branch" ><span> Branch #</span>
                     <input type="text"  [hidden]=" adminUser.unittype != 'Branch'"  name="unitnumber" id="branchunit" test1="" (userUpdated)="handleUserUpdated($event)">
                 </label>
             </div>
@@ -58,4 +56,4 @@
         </div>
 
     </form>
-</table>
+</div>

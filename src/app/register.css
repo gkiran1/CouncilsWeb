@@ -1,7 +1,8 @@
 .container {
     width: 27%;
     background-color: white;
-
+    margin: 0 auto;
+    font-family: 'Bernina';
 }
 .row {
     margin-top: 26px;
@@ -9,7 +10,7 @@
 }
 .title {
     font-family: Gotham;
-    font-size: 16pt;
+    font-size: 17pt;
     color: #35373a;
     text-align: center;
     margin-top: 24%;
@@ -34,6 +35,8 @@ input[type=password] {
     border-right: transparent;
     border-left: transparent;
     border-top: transparent;
+    font-family: Bernina;
+    font-size: 13pt;
 }
 input[type=email],
 input[type=password] {
@@ -94,3 +97,80 @@ input[type='radio']:checked:before {
 }
 
 
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+
+    .container {
+        width: 100%;
+        background-color: white;
+        margin: 0 auto;
+    }
+    .title {
+        margin-top: 0%;
+        margin-bottom: 20px;
+    }
+    form{margin-left: 0;}
+    form > div{width:100%; float: left;}
+    form > .row{margin:0 0 10px 0;}
+    form > .row > div label{margin-left: 5px;}
+    .mat-input-container{width: 100%; float: left; display: block;}
+    form > .login{margin-top: 20px;}
+
+    label.header{color: #cbd1cf;}
+    label{font-size: 13pt; width: 100%; float: left; text-align: left;}
+    .radio.form-group label{width:100%; float: left; text-align: left; margin: 10px 0;}
+    .radio.form-group label > *{float: left;}
+    .radio.form-group label span{line-height: 20px; margin-left: 5px;} 
+    .radio.form-group label input:last-child{border:none;}
+
+}/*@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px*/
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px) {
+    .container {
+        width: 100%;
+        background-color: white;
+        margin: 0 auto;
+    }
+    .title {
+        margin-top: 0%;
+        margin-bottom: 20px;
+    }
+    form{margin-left: 0;}
+    form > div{width:100%; float: left;}
+    form > .row{margin:0 0 10px 0;}
+    form > .row > div label{margin-left: 5px;}
+    .mat-input-container{width: 100%; float: left; display: block;}
+    form > .login{margin-top: 20px;
+
+    label.header{color: #cbd1cf;}
+    label{font-size: 13pt; width: 100%; float: left; text-align: left;}
+    .radio.form-group label{width:100%; float: left; text-align: left; margin: 10px 0;}
+    .radio.form-group label > *{float: left;}
+    .radio.form-group label span{line-height: 20px; margin-left: 5px;} 
+    .radio.form-group label input:last-child{border:none;}
+}/*@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)*/
+
+/* iPads (landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : landscape) {
+.container{width: 75%;}
+}
+ 
+/* iPads (portrait) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : portrait) {
+/* STYLES GO HERE */
+}
