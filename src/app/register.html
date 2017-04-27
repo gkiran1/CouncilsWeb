@@ -2,19 +2,19 @@
     <div class="title">Admin Sign Up</div>
     <form>
         <div layout-gt-sm="row">
-            <md-input-container class="md-block flex-gt-sm">
-            <input [(ngModel)]="adminUser.email" class="form-control" placeholder="Email" name="email" id="email"  type="email" required="required" mdInput>
-            </md-input-container>
+            <label for="email">Email</label>
+            <input [(ngModel)]="adminUser.email" class="form-control" name="email" id="email"  type="email" required="required">
+           
         </div>
         <div layout-gt-sm="row">
-            <md-input-container class="md-block flex-gt-sm">
-            <input [(ngModel)]="adminUser.password" class="form-control" placeholder="Password" name="password" id="password"  type="password" required="required" mdInput>
-            </md-input-container>
+            <label for="password">Password</label>
+            <input [(ngModel)]="adminUser.password" class="form-control" name="password" id="password"  type="password" required="required">
+           
         </div>
         <div layout-gt-sm="row">
-          <md-input-container class="md-block flex-gt-sm">
-        <input id="ldsorgusername" [(ngModel)]="adminUser.ldsusername" placeholder="ldsorgusername" name="ldsusername" id="ldsusername"  type="text" required="required" mdInput>
-          </md-input-container>
+          <label for="ldsusername">LDS Username</label>
+        <input id="ldsorgusername" [(ngModel)]="adminUser.ldsusername" name="ldsusername" id="ldsusername"  type="text" required="required" >
+         
         </div>
         <div class="row">
             <div>

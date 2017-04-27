@@ -12,6 +12,7 @@ import { signupComponent } from './signup.component';
 import { UnitmissingComponent } from './Unitmissing.component';
 import { unitadministratorComponent } from './Unitadministrator.component';
 
+
 // import {validate,Validator,Contains, IsInt, Length, IsEmail, IsFQDN, IsDate, Min, Max} from "class-validator";
 
 @Component({
@@ -58,6 +59,8 @@ export class RegisterPageComponent {
           wardunit: registerCredentials.wardunit
 
         });
+
+
       });
       // return newUser;
     });
@@ -143,6 +146,10 @@ export class RegisterPageComponent {
                   // sign up user logic goes here...
                   this.firebaseService.signupNewUser(this.adminUser).then(res => {
                     // alert("User is created...");
+                    
+                      this.http.post("https://councilsapi-165009.appspot.com/sendmail", { 
+                          "event":"admincreated", "email": this.adminUser.email, "firstname": this.adminUser.firstname, "lastname": this.adminUser.lastname, "unitnum": this.adminUser.unitnumber, 
+                      }).subscribe((res) => {console.log("Mail sent")});
                     this.router.navigate(['./signup']);
                   }).catch(err => {
                     alert(err);
