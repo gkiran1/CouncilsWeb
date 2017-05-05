@@ -1,34 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-	<!--<link rel="stylesheet" href="Unitadministrator.css" />-->
-</head>
-
-<body>
-	<div class="Unitmissing">
-		<div class="grid">
-			<div class="column title">
+   <section class="section-form">
 				<h3>Unit Missing</h3>
+		
+		<div class="form-wrapper">		
+		<p>Email us and we will add your unit #4065 to our database.
+			</p>
+		<div class="mt20">
+			<div  [routerLink]="['./Email']"  class="bigbtn">Send Email</div>
 			</div>
-		</div>
-		<div class="grid">
-			<div class="column1 column">
-				Email us and we will add your unit #4065 to our database.
+		<div class="mt20">
+			<div  [routerLink]="['./Register']"  class="bigbtn">Try Again</div>
 			</div>
-		</div>
-		<div class="grid">
-			<div class="column2 column" >
-				<div  [routerLink]="['./Email']" >Send Email</div>
-			</div>
-		</div>
-		<div class="grid">
-			<div class="column3 column" id="Try">
-				<div href="Try Again">Try Again</div>
-			</div>
-		</div>
+		
 	</div>
 
-</body>
-
-</html>
+</section>
