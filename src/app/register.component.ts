@@ -36,7 +36,7 @@ export class RegisterPageComponent {
 
   constructor(private http: Http, private af: AngularFire, private firebaseService: FirebaseService, public router: Router) {
     this.fireAuth = firebase.auth();
-    this.userProfile = firebase.database().ref('users');      
+    this.userProfile = firebase.database().ref('users');
   }
 
   handleUserUpdated(user) {
@@ -57,9 +57,7 @@ export class RegisterPageComponent {
           platform: registerCredentials.platform,
           stakeunit: registerCredentials.stakeunit,
           wardunit: registerCredentials.wardunit
-
         });
-
 
       });
       // return newUser;
@@ -70,31 +68,27 @@ export class RegisterPageComponent {
 
   public registerAdmin() {
     this.firebaseService.validateAdminSignup(this.adminUser).then(res => {
-      if (res == 0) {
-        alert('Email does not Exist');
-      }
-      else if (res == 1) {
-        this.router.navigate(['./Unitmissing']);
+
+      if (res == 1) {
+        this.router.navigate(['./Unitmissing', this.adminUser.unitnumber]);
       }
       else if (res == 2) {
-        alert('Email and Unitnumber are not associated');
+        localStorage.setItem('unitnum', this.adminUser.unitnumber.toString())
+        alert('UnitNumber and UnitType are not associated');
       }
       else if (res == 3) {
         this.router.navigate(['./Unitadministrator']);
       }
       else if (res == 4) {
-        alert('Duplicate ldsusername');
-      }
-      else if (res == 5) {
         // Need to get other data like firstname, lastname and all from orgusers...
-        this.firebaseService.getAdminDataFromOrgUsers(this.adminUser.email).then(res => {
+        this.firebaseService.getAdminDataFromOrgUsersByUnitNum(Number(this.adminUser.unitnumber)).then(res => {
           res.forEach(user => {
-            this.adminUser.firstname = user.val().firstname;
-            this.adminUser.lastname = user.val().lastname;
-            this.adminUser.calling = user.val().calling;
-            this.adminUser.avatar = user.val().avatar;
+            this.adminUser.firstname = user.val().UserFirstName;
+            this.adminUser.lastname = user.val().UserLastName;
+            this.adminUser.calling = ''
+            this.adminUser.avatar = '';
             this.adminUser.isadmin = true;  // Never change this...because this is Admin Sign Up.....
-            this.adminUser.createdby = user.val().createdby
+            this.adminUser.createdby = ''
             this.adminUser.createddate = new Date().toDateString();
             this.adminUser.lastupdateddate = new Date().toDateString();
             this.adminUser.isactive = true;
@@ -146,10 +140,10 @@ export class RegisterPageComponent {
                   // sign up user logic goes here...
                   this.firebaseService.signupNewUser(this.adminUser).then(res => {
                     // alert("User is created...");
-                    
-                      this.http.post("https://councilsapi-165009.appspot.com/sendmail", { 
-                          "event":"admincreated", "email": this.adminUser.email, "firstname": this.adminUser.firstname, "lastname": this.adminUser.lastname, "unitnum": this.adminUser.unitnumber, 
-                      }).subscribe((res) => {console.log("Mail sent")});
+
+                    this.http.post("https://councilsapi-165009.appspot.com/sendmail", {
+                      "event": "admincreated", "email": this.adminUser.email, "firstname": this.adminUser.firstname, "lastname": this.adminUser.lastname, "unitnum": this.adminUser.unitnumber,
+                    }).subscribe((res) => { console.log("Mail sent") });
                     this.router.navigate(['./signup']);
                   }).catch(err => {
                     alert(err);
