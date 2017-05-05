@@ -1,18 +1,25 @@
-   <section class="section-form">
-	  
-				<h3>Unit administrator already exists
-					</h3>
-			
-<div class="form-wrapper">		
-		<p>Email us and we will connect you with the administrator.
+<section class="section-form">
+
+	<h3>Unit administrator already exists
+	</h3>
+
+	<div class="form-wrapper">
+		<div class="form">
+			<p>Email us and we will connect you with the administrator.
 			</p>
+
+			<label for="email">Name</label>
+			<input [(ngModel)]="name" class="form-control" name="name" id="name" type="text" required="required">
+			<label for="password">Email</label>
+			<input [(ngModel)]="email" class="form-control" name="email" id="email" type="email" required="required">
 			<div class="mt20">
-			<div  [routerLink]="['./Email']"  class="bigbtn">Send Email</div>
+				<div (click)="sendEmail()" class="bigbtn">Send Email</div>
 			</div>
-		<div class="mt20">
-			<div  [routerLink]="['./Register']"  class="bigbtn">Try Again</div>
+			<div class="mt20">
+				<div [routerLink]="['./Register']" class="bigbtn">Try Again</div>
 			</div>
-		
+
+		</div>
 	</div>
 
 </section>

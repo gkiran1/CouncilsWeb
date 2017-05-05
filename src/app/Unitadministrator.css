@@ -229,11 +229,16 @@ section {
     background-color: #FFF;
     color: #3CB18A;
     font-weight: 400;
-    font-size: 24px;
+    font-size: 17px;
     cursor: pointer;
     width: 100%;
     float: left;
     text-align: center;
+}
+
+p {
+    text-align: center;
+    font-size: 17px !important;
 }
 
 

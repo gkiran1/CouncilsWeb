@@ -17,4 +17,8 @@ export class UnitmissingComponent {
                 this.unitNum = +params['id'];
             });
     }
+
+    sendEmail() {
+        
+    }
 }
