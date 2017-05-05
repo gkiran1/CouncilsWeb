@@ -21,17 +21,17 @@ const appRoutes: Routes = [
   { path: 'signup', component: signupComponent },
   { path: 'Login', component: LoginComponent },
   { path: 'AboutUs', component: AboutusComponent },
-  { path: 'Unitmissing', component: UnitmissingComponent },
+  { path: 'Unitmissing/:id', component: UnitmissingComponent },
   { path: 'Unitadministrator', component: unitadministratorComponent },
   {
-    path: 'Unitmissing',
+    path: 'Unitmissing/:id',
     children: [
-      { path: '', component: RegisterPageComponent },
+      { path: 'register', component: RegisterPageComponent },
       { path: 'Email', component: emailComponent }
     ]
   },
   {
-    path: 'Unitmissing/Email',
+    path: 'Unitmissing/:id/Email',
     children: [
       // {path : '' , component:RegisterPageComponent},
       { path: 'register', component: RegisterPageComponent }

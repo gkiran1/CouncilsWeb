@@ -2,32 +2,32 @@
 <html lang="en">
 
 <head>
-	<!--<link rel="stylesheet" href="Unitadministrator.css" />-->
+  <!--<link rel="stylesheet" href="Unitadministrator.css" />-->
 </head>
 
 <body>
-	<div class="Unitmissing">
-		<div class="grid">
-			<div class="column title">
-				<h3>Unit Missing</h3>
-			</div>
-		</div>
-		<div class="grid">
-			<div class="column1 column">
-				Email us and we will add your unit #4065 to our database.
-			</div>
-		</div>
-		<div class="grid">
-			<div class="column2 column" >
-				<div  [routerLink]="['./Email']" >Send Email</div>
-			</div>
-		</div>
-		<div class="grid">
-			<div class="column3 column" id="Try">
-				<div href="Try Again">Try Again</div>
-			</div>
-		</div>
-	</div>
+  <div class="Unitmissing">
+    <div class="grid">
+      <div class="column title">
+        <h3>Unit Missing</h3>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="column1 column">
+        Email us and we will add your unit #{{unitNum}} to our database.
+      </div>
+    </div>
+    <div class="grid">
+      <div class="column2 column">
+        <div [routerLink]="['./Email']">Send Email</div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="column3 column" id="Try">
+        <div [routerLink]="['./register']">Try Again</div>
+      </div>
+    </div>
+  </div>
 
 </body>
 
