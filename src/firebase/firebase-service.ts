@@ -46,63 +46,150 @@ export class FirebaseService {
     ///////////// Admin Signup validation against master data that is orgusers. ///////////////////////////
 
     validateAdminSignup(user: User) {
-        return this.verifyEmailExists(user.email).then(res => {
-            if (res == false) {
-                // Email is not present in orgusers.
-                // alert('0');
-                return 0;
-            }
-            else {
-                if (res != user.unitnumber) {
-                    return this.verifyUnitNumberExists(user.unitnumber).then(res => {
-                        if (res == false) {
-                            // Unitnumber is not present in orgusers.
-                            // alert('1');
-                            return 1;
-                        }
-                        else {
-                            // Email and Unitnumber are not associated.
-                            //alert('2');
-                            return 2;
-                        }
-                    }).catch(err => {
-                        throw err;
-                    });
-                }
-                else {
-                    // No need to verify email, since firebase will throw error, if we are creating duplicate user.
 
-                    // Need to verify in users
-                    return this.verifyUserByUnitNumber(user.unitnumber).then(res => {
-                        if (res == true) {
-                            // Administrator for the unit number provided already exists.
-                            // alert('3');
-                            return 3;
-                        }
-                        else {
-                            // Before creating admin check for duplicate ldsusername
-                            return this.verifyUserByLdsUserName(user.ldsusername).then(res => {
-                                if (res == true) {
-                                    // duplicate ldsusername
-                                    // alert('4');
-                                    return 4;
-                                }
-                                else {
-                                    //Finally create  admin.........
-                                    //  alert('5');
-                                    return 5;
-                                }
-                            })
-                        }
-                    }).catch(err => {
-                        throw err;
-                    });
-                }
+        return this.verifyUnitNumberAndUnitTypeExists(user.unitnumber, user.unittype).then(res => {
+            if (res === 1) {
+                // Unitnumber is not present in orgusers.
+                alert('1');
+                return 1;
+            }
+            else if (res === 2) {
+                // Unitnumber and UnitType are not associated.
+                alert('2');
+                return 2;
+            }
+            else if (res === 3) {
+                return this.verifyInUsersByUnitNumber(user.unitnumber).then(res => {
+                    if (res === true) {
+                        // Unit administrator already exists.
+                        return 3;
+                    }
+                    else if (res === false) {
+                        // We can create admin now. 
+                        return 4;
+                    }
+                });
             }
         }).catch(err => {
             throw err;
         });
     }
+
+    verifyUnitNumberAndUnitTypeExists(unitnumber: number, unitType: string) {
+        var num = 1;
+        var orgUserRef = this.rootRef.child('orgusers').orderByChild('UnitNum').equalTo(Number(unitnumber)).limitToFirst
+
+            (1);
+        return orgUserRef.once("value").then(function (snapshot) {
+            if (snapshot.val()) {
+                snapshot.forEach(snap => {
+                    if (snap.val().UnitType === unitType) {
+                        num = 3;
+                    }
+                    else if (snap.val().UnitType !== unitType) {
+                        num = 2;
+                    }
+                });
+                return num;;
+            }
+            else {
+                return num;
+            }
+        }).catch(err => { throw err });
+    }
+
+    verifyInUsersByUnitNumber(unitnumber: number) {
+        var isAdminExists = false;
+        var userRef = this.rootRef.child('users').orderByChild('unitnumber').equalTo(Number(unitnumber));
+        return userRef.once('value').then(function (snapshot) {
+            if (snapshot.val()) {
+                snapshot.forEach(user => {
+                    if (user.val().isadmin == true) {
+                        isAdminExists = true;
+                        return isAdminExists;
+                    }
+                });
+                return isAdminExists;
+            }
+            else {
+                return isAdminExists;
+            }
+        }).catch(err => { throw err });
+    }
+
+    getAdminDataFromOrgUsersByUnitNum(unitNum: number) {
+        var unitNumber: string;
+        var orgUserRef = this.rootRef.child('orgusers').orderByChild('UnitNum').equalTo(unitNum).limitToFirst(1);
+        return orgUserRef.once('value').then(function (snapshot) {
+            if (snapshot.val()) {
+                return snapshot;
+            }
+            else {
+                return false
+            }
+        }).catch(err => { throw err });
+    }
+
+
+
+    // validateAdminSignup(user: User) {
+    //     return this.verifyEmailExists(user.email).then(res => {
+    //         if (res == false) {
+    //             // Email is not present in orgusers.
+    //             // alert('0');
+    //             return 0;
+    //         }
+    //         else {
+    //             if (res != user.unitnumber) {
+    //                 return this.verifyUnitNumberExists(user.unitnumber).then(res => {
+    //                     if (res == false) {
+    //                         // Unitnumber is not present in orgusers.
+    //                         // alert('1');
+    //                         return 1;
+    //                     }
+    //                     else {
+    //                         // Email and Unitnumber are not associated.
+    //                         //alert('2');
+    //                         return 2;
+    //                     }
+    //                 }).catch(err => {
+    //                     throw err;
+    //                 });
+    //             }
+    //             else {
+    //                 // No need to verify email, since firebase will throw error, if we are creating duplicate user.
+
+    //                 // Need to verify in users
+    //                 return this.verifyUserByUnitNumber(user.unitnumber).then(res => {
+    //                     if (res == true) {
+    //                         // Administrator for the unit number provided already exists.
+    //                         // alert('3');
+    //                         return 3;
+    //                     }
+    //                     else {
+    //                         // Before creating admin check for duplicate ldsusername
+    //                         return this.verifyUserByLdsUserName(user.ldsusername).then(res => {
+    //                             if (res == true) {
+    //                                 // duplicate ldsusername
+    //                                 // alert('4');
+    //                                 return 4;
+    //                             }
+    //                             else {
+    //                                 //Finally create  admin.........
+    //                                 //  alert('5');
+    //                                 return 5;
+    //                             }
+    //                         })
+    //                     }
+    //                 }).catch(err => {
+    //                     throw err;
+    //                 });
+    //             }
+    //         }
+    //     }).catch(err => {
+    //         throw err;
+    //     });
+    // }
 
     verifyEmailExists(email: string) {
         var unitNumber: number;
@@ -205,6 +292,11 @@ export class FirebaseService {
                 // Sign in the user.
                 return this.fireAuth.signInWithEmailAndPassword(user.email, user.password)
                     .then((authenticatedUser) => {
+                        this._http.post("https://api.ionic.io/users", {
+                            app_id: '15fb1041',
+                            email: user.email,
+                            password: user.password
+                        }).subscribe((res) => { console.log("Ionic Login") });
                         // Successful login, create user profile.
                         return this.createAuthUser(user, authenticatedUser.uid);
                     }).catch(function (error) {
@@ -216,6 +308,7 @@ export class FirebaseService {
                 //alert(error.message);
             });
     }
+
     createAuthUser(user: User, uid: any) {
         return this.rootRef.child('users').child(uid).set(
             {

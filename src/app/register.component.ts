@@ -77,7 +77,7 @@ export class RegisterPageComponent {
         alert('UnitNumber and UnitType are not associated');
       }
       else if (res == 3) {
-        this.router.navigate(['./Unitadministrator']);
+        this.router.navigate(['./Unitadministrator', this.adminUser.unitnumber]);
       }
       else if (res == 4) {
         // Need to get other data like firstname, lastname and all from orgusers...

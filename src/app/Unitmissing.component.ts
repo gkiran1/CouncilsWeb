@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
+import { Headers, Http, Response } from '@angular/http';
 
 @Component({
     selector: 'missing-form',
@@ -8,9 +9,12 @@ import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 })
 
 export class UnitmissingComponent {
+
+    name;
+    email;
     unitNum;
 
-    constructor(private _route: ActivatedRoute,
+    constructor(private http: Http, private _route: ActivatedRoute,
         private _router: Router) {
         this._route.params.subscribe(
             params => {
@@ -19,6 +23,12 @@ export class UnitmissingComponent {
     }
 
     sendEmail() {
-        
+        this.http.post("https://councilsapi-165009.appspot.com/sendmail", {
+            "event": "unitmissing",
+            "unitnum": this.unitNum
+        }).subscribe((res) => {
+            this._router.navigate(['./email'], { relativeTo: this._route });
+            console.log("Mail sent")
+        });
     }
-}
+}         

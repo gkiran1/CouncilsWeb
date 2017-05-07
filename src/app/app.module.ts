@@ -22,39 +22,39 @@ const appRoutes: Routes = [
   { path: 'Login', component: LoginComponent },
   { path: 'AboutUs', component: AboutusComponent },
   { path: 'Unitmissing/:id', component: UnitmissingComponent },
-  { path: 'Unitadministrator', component: unitadministratorComponent },
+  { path: 'Unitadministrator/:id', component: unitadministratorComponent },
   {
     path: 'Unitmissing/:id',
     children: [
       { path: 'register', component: RegisterPageComponent },
-      { path: 'Email', component: emailComponent }
+      { path: 'email', component: emailComponent }
     ]
   },
   {
-    path: 'Unitmissing/:id/Email',
+    path: 'Unitmissing/:id/email',
     children: [
-      // {path : '' , component:RegisterPageComponent},
       { path: 'register', component: RegisterPageComponent }
     ]
   },
   {
-    path: 'Unitadministrator',
+    path: 'Unitadministrator/:id',
     children: [
-      { path: '', component: RegisterPageComponent },
-      { path: 'Email', component: emailComponent }
+      { path: 'register', component: RegisterPageComponent },
+      { path: 'email', component: emailComponent }
     ]
   },
   {
-    path: 'Unitadministrator/Email',
+    path: 'Unitadministrator/:id/email',
     children: [
-      // {path : '' , component:RegisterPageComponent},
       { path: 'register', component: RegisterPageComponent }
     ]
   }
 ];
+
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes), RouterModule.forChild(appRoutes), AngularFireModule.initializeApp(firebaseConfig)],
   declarations: [AppComponent, AboutusComponent, LoginComponent, RegisterPageComponent, signupComponent, emailComponent, UnitmissingComponent, unitadministratorComponent, Test],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
