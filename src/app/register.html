@@ -28,8 +28,7 @@
             </div>
           </div>
           <div class="col-6"><span class="unithash" [hidden]="adminUser.unittype != 'Area'">#</span>
-            <input type="text" class="unitnumber" [hidden]="adminUser.unittype != 'Area'" name="unitnumber" id="areaunit" test1="" (userUpdated)="handleUserUpdated($event)"
-              required>
+            <input type="text" class="unitnumber" [hidden]="adminUser.unittype != 'Area'" name="unitnumber" id="areaunit" test1="" (userUpdated)="handleUserUpdated($event)">
           </div>
         </div>
 
@@ -57,7 +56,7 @@
           </div>
           <div class="col-6"><span class="unithash" [hidden]="adminUser.unittype != 'Stake'">#</span>
             <input type="text" class="unitnumber" [hidden]="adminUser.unittype != 'Stake'" name="unitnumber" id="stakeunit" test1=""
-              (userUpdated)="handleUserUpdated($event)" required>
+              (userUpdated)="handleUserUpdated($event)">
           </div>
         </div>
 
@@ -71,8 +70,7 @@
             </div>
           </div>
           <div class="col-6"><span class="unithash" [hidden]="adminUser.unittype != 'Ward'">#</span>
-            <input type="text" class="unitnumber" [hidden]="adminUser.unittype != 'Ward'" name="unitnumber" id="wardunit" test1="" (userUpdated)="handleUserUpdated($event)"
-              required>
+            <input type="text" class="unitnumber" [hidden]="adminUser.unittype != 'Ward'" name="unitnumber" id="wardunit" test1="" (userUpdated)="handleUserUpdated($event)">
           </div>
         </div>
 
@@ -86,7 +84,7 @@
           </div>
           <div class="col-6"><span class="unithash" [hidden]="adminUser.unittype != 'Branch'">#</span>
             <input type="text" class="unitnumber" [hidden]="adminUser.unittype != 'Branch'" name="unitnumber" id="branchunit" test1=""
-              (userUpdated)="handleUserUpdated($event)" required></div>
+              (userUpdated)="handleUserUpdated($event)"></div>
         </div>
 
         <!--<div class="rowmix">
@@ -104,7 +102,7 @@
         </div>-->
 
         <div class="mt20">
-          <button type="submit" [ngClass]="!registerForm.form.valid ? 'bigbtn1' : 'bigbtn'" [disabled]="!registerForm.form.valid">Create Account</button>
+          <button type="submit" (click)="registerAdmin()" [ngClass]="!registerForm.form.valid ? 'bigbtn1' : 'bigbtn'" [disabled]="!registerForm.form.valid">Create Account</button>
         </div>
 
       </form>
