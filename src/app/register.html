@@ -3,13 +3,12 @@
 
   <div class="form-wrapper">
 
-
     <div class="form">
 
       <form #registerForm="ngForm">
 
         <label for="email">Email</label>
-        <input [(ngModel)]="adminUser.email" class="form-control" name="email" id="email" type="email" required>
+        <input [(ngModel)]="adminUser.email" class="form-control" name="email" id="email" type="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
         <label for="password">Password</label>
         <input [(ngModel)]="adminUser.password" class="form-control" name="password" id="password" type="password" required>
         <label for="ldsusername">LDS Username</label>
@@ -29,7 +28,8 @@
             </div>
           </div>
           <div class="col-6"><span class="unithash" [hidden]="adminUser.unittype != 'Area'">#</span>
-            <input type="text" class="unitnumber" [hidden]="adminUser.unittype != 'Area'" name="unitnumber" id="areaunit" test1="" (userUpdated)="handleUserUpdated($event)" required>
+            <input type="text" class="unitnumber" [hidden]="adminUser.unittype != 'Area'" name="unitnumber" id="areaunit" test1="" (userUpdated)="handleUserUpdated($event)"
+              required>
           </div>
         </div>
 
@@ -71,7 +71,8 @@
             </div>
           </div>
           <div class="col-6"><span class="unithash" [hidden]="adminUser.unittype != 'Ward'">#</span>
-            <input type="text" class="unitnumber" [hidden]="adminUser.unittype != 'Ward'" name="unitnumber" id="wardunit" test1="" (userUpdated)="handleUserUpdated($event)" required>
+            <input type="text" class="unitnumber" [hidden]="adminUser.unittype != 'Ward'" name="unitnumber" id="wardunit" test1="" (userUpdated)="handleUserUpdated($event)"
+              required>
           </div>
         </div>
 
@@ -80,8 +81,7 @@
             <div class="radio form-group radio-spacer">
               <label class="radio-label" for="branchunit">
                     <input type="radio" [(ngModel)]="adminUser.unittype" name="unittype" id="branchunit" value="Branch" required><span> Branch Unit</span>
-                    
-                </label>
+                                    </label>
             </div>
           </div>
           <div class="col-6"><span class="unithash" [hidden]="adminUser.unittype != 'Branch'">#</span>
