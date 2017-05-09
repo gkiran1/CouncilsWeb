@@ -225,7 +225,8 @@ section.reverse {
 
 .form input[type="text"],
 .form input[type="password"],
-.form input[type="email"] {
+.form input[type="email"],
+.form input[type="number"] {
   margin: 0 auto;
   padding: 0 0 10px 0 !important;
   border: none;
@@ -241,6 +242,21 @@ section.reverse {
   float: left;
   padding-left: 25px !important;
   line-height: 30px;
+}
+
+.form input[type="number"].unitnumber {
+  width: 90%;
+  float: left;
+  padding-left: 25px !important;
+  line-height: 30px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0;
+  /* <-- Apparently some margin are still there even though it's hidden */
 }
 
 .clr {

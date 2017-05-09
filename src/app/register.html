@@ -28,7 +28,7 @@
 						</div>
 					</div>
 					<div class="col-6"><span class="unithash" [hidden]="adminUser.unittype != 'Area'">#</span>
-						<input type="text" class="unitnumber" [(ngModel)]="adminUser.unitnumber" [hidden]="adminUser.unittype != 'Area'" name="unitnumber"
+						<input type="number" class="unitnumber" [(ngModel)]="adminUser.unitnumber" [hidden]="adminUser.unittype != 'Area'" name="unitnumber"
 							id="areaunit" test1="" (userUpdated)="handleUserUpdated($event)" required>
 					</div>
 				</div>
@@ -56,7 +56,7 @@
 						</div>
 					</div>
 					<div class="col-6"><span class="unithash" [hidden]="adminUser.unittype != 'Stake'">#</span>
-						<input type="text" class="unitnumber" [hidden]="adminUser.unittype != 'Stake'" name="unitnumber" id="stakeunit" test1=""
+						<input type="number" class="unitnumber" [hidden]="adminUser.unittype != 'Stake'" name="unitnumber" id="stakeunit" test1=""
 							[(ngModel)]="adminUser.unitnumber" (userUpdated)="handleUserUpdated($event)" required>
 					</div>
 				</div>
@@ -71,7 +71,7 @@
 						</div>
 					</div>
 					<div class="col-6"><span class="unithash" [hidden]="adminUser.unittype != 'Ward'">#</span>
-						<input type="text" class="unitnumber" [hidden]="adminUser.unittype != 'Ward'" name="unitnumber" id="wardunit" test1="" [(ngModel)]="adminUser.unitnumber"
+						<input type="number" class="unitnumber" [hidden]="adminUser.unittype != 'Ward'" name="unitnumber" id="wardunit" test1="" [(ngModel)]="adminUser.unitnumber"
 							(userUpdated)="handleUserUpdated($event)" required>
 					</div>
 				</div>
@@ -85,7 +85,7 @@
 						</div>
 					</div>
 					<div class="col-6"><span class="unithash" [hidden]="adminUser.unittype != 'Branch'">#</span>
-						<input type="text" class="unitnumber" [hidden]="adminUser.unittype != 'Branch'" name="unitnumber" id="branchunit" test1=""
+						<input type="number" class="unitnumber" [hidden]="adminUser.unittype != 'Branch'" name="unitnumber" id="branchunit" test1=""
 							[(ngModel)]="adminUser.unitnumber" (userUpdated)="handleUserUpdated($event)" required></div>
 				</div>
 
@@ -110,10 +110,6 @@
 			</form>
 
 		</div>
-
-
-
-
 
 	</div>
 </section>
