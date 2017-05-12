@@ -292,11 +292,6 @@ export class FirebaseService {
                 // Sign in the user.
                 return this.fireAuth.signInWithEmailAndPassword(user.email, user.password)
                     .then((authenticatedUser) => {
-                        this._http.post("https://api.ionic.io/users", {
-                            app_id: '15fb1041',
-                            email: user.email,
-                            password: user.password
-                        }).subscribe((res) => { console.log("Ionic Login") });
                         // Successful login, create user profile.
                         return this.createAuthUser(user, authenticatedUser.uid);
                     }).catch(function (error) {
