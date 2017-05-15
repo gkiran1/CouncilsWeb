@@ -323,7 +323,8 @@ export class FirebaseService {
                 lastupdateddate: user.lastupdateddate,
                 isactive: user.isactive,
                 isnotificationreq: false,
-                googlecalendaradded: false
+                googlecalendaradded: false,
+                pushtoken: ''
             }).then(() => {
                 if (user.councils != null) {
                     user.councils.forEach(counc => {
