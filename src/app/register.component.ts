@@ -81,7 +81,7 @@ export class RegisterPageComponent {
       }
       else if (res == 4) {
         // Need to get other data like firstname, lastname and all from orgusers...
-        this.firebaseService.getAdminDataFromOrgUsersByUnitNum(Number(this.adminUser.unitnumber)).then(res => {
+        this.firebaseService.getAdminDataFromOrgUsersByEmail(this.adminUser.email).then(res => {
           res.forEach(user => {
             this.adminUser.firstname = user.val().UserFirstName;
             this.adminUser.lastname = user.val().UserLastName;
