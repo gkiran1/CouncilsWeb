@@ -130,6 +130,17 @@ export class FirebaseService {
         }).catch(err => { throw err });
     }
 
+    getAdminDataFromOrgUsersByEmail(email: string) {       
+        var orgUserRef = this.rootRef.child('orgusers').orderByChild('UserEmail').equalTo(email).limitToFirst(1);
+        return orgUserRef.once('value').then(function (snapshot) {
+            if (snapshot.val()) {
+                return snapshot;
+            }
+            else {
+                return false
+            }
+        }).catch(err => { throw err });
+    }
 
 
     // validateAdminSignup(user: User) {
