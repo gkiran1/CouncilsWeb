@@ -11,6 +11,7 @@ import { emailComponent } from './Email.component';
 import { signupComponent } from './signup.component';
 import { UnitmissingComponent } from './Unitmissing.component';
 import { unitadministratorComponent } from './Unitadministrator.component';
+import * as jazzicon from 'jazzicon';
 
 
 // import {validate,Validator,Contains, IsInt, Length, IsEmail, IsFQDN, IsDate, Min, Max} from "class-validator";
@@ -24,7 +25,7 @@ import { unitadministratorComponent } from './Unitadministrator.component';
 
 export class RegisterPageComponent {
   adminUser: User = new User();
-
+  userid : string;
   public fireAuth: any;
   public userProfile: any;
   units = [
@@ -37,6 +38,7 @@ export class RegisterPageComponent {
   constructor(private http: Http, private af: AngularFire, private firebaseService: FirebaseService, public router: Router) {
     this.fireAuth = firebase.auth();
     this.userProfile = firebase.database().ref('users');
+    //this.generateIdenticon("fBCNn1bJIGfInLcSvtUdeqhufk83");
   }
 
   handleUserUpdated(user) {
@@ -48,7 +50,7 @@ export class RegisterPageComponent {
     this.fireAuth.createUserWithEmailAndPassword(registerCredentials.email, registerCredentials.password).then((newUser) => {
       // Sign in the user.
       this.fireAuth.signInWithEmailAndPassword(registerCredentials.email, registerCredentials.password).then((authenticatedUser) => {
-
+        this.userid = authenticatedUser.uid;
         // Successful login, create user profile.
         this.userProfile.child(authenticatedUser.uid).set({
           email: registerCredentials.email,
@@ -137,10 +139,11 @@ export class RegisterPageComponent {
                 ids.push(res);
                 if (councils.length === index + 1) {
                   this.adminUser.councils = ids;
+                  var userAvatar = this.generateIdenticon();
                   // sign up user logic goes here...
-                  this.firebaseService.signupNewUser(this.adminUser).then(res => {
+                  this.firebaseService.signupNewUser(this.adminUser, userAvatar).then(res => {
                     // alert("User is created...");
-
+                      
                     this.http.post("https://councilsapi-165009.appspot.com/sendmail", {
                       "event": "admincreated", "email": this.adminUser.email, "firstname": this.adminUser.firstname, "lastname": this.adminUser.lastname, "unitnum": this.adminUser.unitnumber,
                     }).subscribe((res) => { console.log("Mail sent") });
@@ -156,6 +159,26 @@ export class RegisterPageComponent {
       }
     })
   }
+
+  generateIdenticon() {
+    var el = jazzicon(100, Math.round(Math.random() * 10000000000))
+    var svg = el.querySelector('svg');
+   
+         var s = new XMLSerializer().serializeToString(el.querySelector('svg'));
+         var canvas = document.createElement('canvas');
+         var context = canvas.getContext('2d');
+         var img = new Image();
+         
+         var base64 = window.btoa(s);
+         img.src = 'data:image/svg+xml,'+base64;
+         context.drawImage(img, 0, 0);
+         return base64;
+         //this.firebaseService.saveIdenticon(uid, base64 );
+                    
+          
+  }
+
+   
 
 }
 

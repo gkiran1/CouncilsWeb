@@ -15,6 +15,8 @@ export class FirebaseService {
 
     rootRef = firebase.database().ref();
 
+    
+
     constructor(private _http: Http, private af: AngularFire) {
 
     }
@@ -297,14 +299,16 @@ export class FirebaseService {
         }).catch(err => { throw err });
     }
 
-    signupNewUser(user) {
+    signupNewUser(user, userAvatar) {
         return this.fireAuth.createUserWithEmailAndPassword(user.email, user.password)
             .then((newUser) => {
                 // Sign in the user.
                 return this.fireAuth.signInWithEmailAndPassword(user.email, user.password)
                     .then((authenticatedUser) => {
                         // Successful login, create user profile.
-                        return this.createAuthUser(user, authenticatedUser.uid);
+                        return this.createAuthUser(user, authenticatedUser.uid).then(res => {
+                            this.saveIdenticon(authenticatedUser.uid, userAvatar);
+                        });
                     }).catch(function (error) {
                         throw error;
                         //alert(error.message);
@@ -327,7 +331,7 @@ export class FirebaseService {
                 unitnumber: Number(user.unitnumber),
                 councils: user.councils,
                 calling: user.calling,
-                avatar: user.avatar,
+                avatar: '',
                 isadmin: user.isadmin,
                 createdby: user.createdby,
                 createddate: user.createddate,
@@ -343,6 +347,26 @@ export class FirebaseService {
                     })
                 }
             });
+    }
+
+    saveIdenticon(uid: string, img: string) {
+        let avatarRef = firebase.storage().ref('/users/avatar/');
+        
+            avatarRef.child(uid)
+                .putString(img, 'base64', {contentType: 'image/svg+xml'})
+                .then((savedPicture) => {
+                    this.rootRef.child('users').child(uid).update({ 
+                            avatar: savedPicture.downloadURL
+                    }).then(done => {
+                        console.log('Avatar saved');
+                    }).catch(err =>{
+                        console.log('Avatar failed to save.', err);
+                    });
+               
+        }).catch(err => {
+            console.log('Error storing image', err);
+        });
+       
     }
 
     createUserCouncils(userUid: string, council: string) {
