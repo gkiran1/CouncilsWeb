@@ -76,7 +76,8 @@ export class RegisterPageComponent {
       }
       else if (res == 2) {
         localStorage.setItem('unitnum', this.adminUser.unitnumber.toString())
-        alert('UnitNumber and UnitType are not associated');
+        //alert('UnitNumber and UnitType are not associated');
+        this.router.navigate(['./UnitNoAndTypeNotAsso']);
       }
       else if (res == 3) {
         this.router.navigate(['./Unitadministrator', this.adminUser.unitnumber]);
