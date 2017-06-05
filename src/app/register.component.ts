@@ -44,11 +44,11 @@ export class RegisterPageComponent {
     }
 
     hasFocus(label) {
-        document.getElementById(label).setAttribute("class","input-has-focus")
+        document.getElementById(label).setAttribute("class", "input-has-focus")
     }
 
-    lostFocus(t,e) {
-        0===(<HTMLInputElement>document.getElementById(e)).value.length&&document.getElementById(t).removeAttribute("class")
+    lostFocus(t, e) {
+        0 === (<HTMLInputElement>document.getElementById(e)).value.length && document.getElementById(t).removeAttribute("class")
     }
 
     handleUserUpdated(user) {
@@ -152,6 +152,7 @@ export class RegisterPageComponent {
                                 if (councils.length === index + 1) {
                                     this.adminUser.councils = ids;
                                     var userAvatar = this.generateIdenticon();
+
                                     // sign up user logic goes here...
                                     this.firebaseService.signupNewUser(this.adminUser, userAvatar).then(res => {
                                         // alert("User is created...");
@@ -160,7 +161,7 @@ export class RegisterPageComponent {
                                             "event": "admincreated", "email": this.adminUser.email, "firstname": this.adminUser.firstname, "lastname": this.adminUser.lastname, "unitnum": this.adminUser.unitnumber,
                                         }).subscribe((res) => { console.log("Mail sent") });
                                         this.showLoading = false;
-                                        this.router.navigate(['./signup']);
+                                        // this.router.navigate(['./signup']);
                                     }).catch(err => {
                                         alert(err);
                                     });
