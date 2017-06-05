@@ -1,0 +1,90 @@
+h3 {
+  font-weight: 500;
+  color: #35373A;
+}
+
+section {
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  min-height: 800px;
+  width: 100%;
+}
+
+.section-form {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding-top: 60px;
+  padding-right: 15px;
+  padding-left: 15px;
+  text-align: center;
+}
+
+.section-form {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding-top: 60px;
+  padding-right: 15px;
+  padding-left: 15px;
+  text-align: center;
+}
+
+.section-form h3 {
+  display: inline-block;
+  margin-bottom: 20px;
+  font-size: 36px;
+  font-family: Gotham, sans-serif;
+}
+
+.form-wrapper {
+  margin: 0 auto;
+  padding: 20px 0;
+  width: 476px;
+  text-align: left;
+}
+
+.bigbtn {
+  margin-top: 35px;
+  padding: 20px 0;
+  border: none;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  background-color: #FFF;
+  color: #3CB18A;
+  font-weight: 400;
+  font-size: 24px;
+  cursor: pointer;
+  width: 100%;
+  float: left;
+  text-align: center;
+}
+
+.mt20 {
+  margin-top: 20px;
+  color: #A9AAAC;
+}
+
+/*-----------media-----*/
+
+@media only screen and (max-width:320px) {
+   .section-form h3 {
+    font-size: 32px;
+  }
+}
+
+@media only screen and (max-width:480px) {
+  #form button {
+    font-size: 24px;
+  } 
+}
+
+@media only screen and (max-width:640px) {
+  .form-wrapper {
+    max-width: 476px;
+    width: 100%;
+  }
+}

@@ -51,13 +51,11 @@ export class FirebaseService {
 
         return this.verifyUnitNumberAndUnitTypeExists(user.unitnumber, user.unittype).then(res => {
             if (res === 1) {
-                // Unitnumber is not present in orgusers.
-                alert('1');
+                // Unitnumber is not present in orgusers.                
                 return 1;
             }
             else if (res === 2) {
-                // Unitnumber and UnitType are not associated.
-                alert('2');
+                // Unitnumber and UnitType are not associated.                
                 return 2;
             }
             else if (res === 3) {

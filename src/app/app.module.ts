@@ -13,6 +13,7 @@ import { signupComponent } from './signup.component';
 import { emailComponent } from './Email.component';
 import { UnitmissingComponent } from './Unitmissing.component';
 import { unitadministratorComponent } from './Unitadministrator.component';
+import { unitnoandtypenotassocComponent } from './UnitNoAndTypeNotAsso.component';
 //import { routing } from './app.routing';
 import { Test } from './directive';
 
@@ -23,6 +24,7 @@ const appRoutes: Routes = [
   { path: 'AboutUs', component: AboutusComponent },
   { path: 'Unitmissing/:id', component: UnitmissingComponent },
   { path: 'Unitadministrator/:id', component: unitadministratorComponent },
+  { path: 'UnitNoAndTypeNotAsso', component: unitnoandtypenotassocComponent },
   {
     path: 'Unitmissing/:id',
     children: [
@@ -48,12 +50,18 @@ const appRoutes: Routes = [
     children: [
       { path: 'register', component: RegisterPageComponent }
     ]
-  }
+  },
+  {
+    path: 'UnitNoAndTypeNotAsso',
+    children: [
+      { path: 'register', component: RegisterPageComponent }
+    ]
+  },
 ];
 
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes), RouterModule.forChild(appRoutes), AngularFireModule.initializeApp(firebaseConfig)],
-  declarations: [AppComponent, AboutusComponent, LoginComponent, RegisterPageComponent, signupComponent, emailComponent, UnitmissingComponent, unitadministratorComponent, Test],
+  declarations: [AppComponent, AboutusComponent, LoginComponent, RegisterPageComponent, signupComponent, emailComponent, UnitmissingComponent, unitadministratorComponent, Test, unitnoandtypenotassocComponent],
   bootstrap: [AppComponent]
 })
 
