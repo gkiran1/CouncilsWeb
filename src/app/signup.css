@@ -107,6 +107,25 @@ section {
     width: 100%;
 }
 
+.grid {
+    margin-top: 20px;
+}
+
+.store-badge {
+    margin: auto;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    padding: 10px;
+    width: 45%;
+    border: 1px solid #35373a;
+    border-radius: 10px;
+}
+
+.store-icon {
+    margin-right: 10px;
+}
+
     section.reverse {
         display: flex;
         -webkit-box-direction: normal;
@@ -351,6 +370,10 @@ input[type='radio'] {
     }
 
    .section-form h3{font-size:32px;}
+
+   .store-badge {
+       width: 70%;
+   }
 }
 
 
@@ -368,6 +391,10 @@ input[type='radio'] {
     ::-webkit-input-placeholder {
         font-size: 16px;
     }
+
+    .store-badge {
+       width: 70%;
+   }
 }
 
 :-moz-placeholder {
