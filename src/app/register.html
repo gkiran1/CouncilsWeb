@@ -1,60 +1,64 @@
 <section class="section-form">
-	<h3>Admin Sign Up</h3>
+  <h3>Admin Sign Up</h3>
 
-	<div class="form-wrapper">
+  <div class="form-wrapper">
 
-		<div class="form">
+    <div class="form">
 
-			<form #registerForm="ngForm">
-				<div>
-				<label for="email" floating id='emaillabel'>Email</label>
-				<input [(ngModel)]="adminUser.email" id='email' (blur)="lostFocus('emaillabel','email')"  (focus)="hasFocus('emaillabel')" class="form-control" name="email"  type="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-				<!--<p class="error-container"><label class="error-msg" ng-if="!adminUser.email.valid">Should be in format username@domain.com</label></p>-->
-				</div>
-				<div>
-				<label for="password"  floating id='pwdlabel'>Password</label>
-				<input [(ngModel)]="adminUser.password" class="form-control" (blur)="lostFocus('pwdlabel','password')"  (focus)="hasFocus('pwdlabel')" name="password" id="password" type="password" required>
-				</div>
-				<div>
-				<label for="ldsusername" floating id='ldslabel'>LDS Username</label>
-				<input id="ldsorgusername" [(ngModel)]="adminUser.ldsusername" class="form-control" (blur)="lostFocus('ldslabel','ldsusername')"  (focus)="hasFocus('ldslabel')" name="ldsusername" id="ldsusername" type="text"
-					required>
-				</div>
-				<div class="mt20">
-					<p>Where will you be using the platform?</p>
-				</div>
+      <form #registerForm="ngForm">
+        <div>
+          <label for="email" floating id='emaillabel'>Email</label>
+          <input [(ngModel)]="adminUser.email" id='email' (blur)="lostFocus('emaillabel','email')" (focus)="hasFocus('emaillabel')"
+            class="form-control" name="email" type="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+          <!--<p class="error-container"><label class="error-msg" ng-if="!adminUser.email.valid">Should be in format username@domain.com</label></p>-->
+        </div>
+        <div>
+          <label for="password" floating id='pwdlabel'>Password</label>
+          <input [(ngModel)]="adminUser.password" class="form-control" (blur)="lostFocus('pwdlabel','password')" (focus)="hasFocus('pwdlabel')"
+            name="password" id="password" type="password" required>
+        </div>
+        <div>
+          <label for="ldsusername" floating id='ldslabel'>LDS Username</label>
+          <input id="ldsorgusername" [(ngModel)]="adminUser.ldsusername" class="form-control" (blur)="lostFocus('ldslabel','ldsusername')"
+            (focus)="hasFocus('ldslabel')" name="ldsusername" id="ldsusername" type="text" required>
+        </div>
+        <div class="mt20">
+          <p>Where will you be using the platform?</p>
+        </div>
 
-				<div class="rowmix">
-					<div class="col-6">
-						<table>
-							<tr>
-								<td>
-									<div class="radio form-group radio-spacer">
-						
-							<label class="radio-label" for="areaunit">
+        <div class="rowmix">
+          <div class="col-6">
+            <table>
+              <tr>
+                <td>
+                  <div class="radio form-group radio-spacer">
+
+                    <label class="radio-label" for="areaunit">
                     <input type="radio" (click)="adminUser.unitnumber=''" [(ngModel)]="adminUser.unittype" name="unittype" id="areaunit" value="Area" required><span> Area Unit</span>                   
                 </label>
-						
-									</div>
-								</td>
-								<td>
-					
-							
-						<span class="unithash"  [hidden]="adminUser.unittype != 'Area'">#</span>
-						
-						</td>
-						<td>
-							
-						<input type="number" class="unitnumber" [(ngModel)]="adminUser.unitnumber" [hidden]="adminUser.unittype != 'Area'" name="unitnumber"
-							id="areaunit" test1="" (userUpdated)="handleUserUpdated($event)" required>
-							</td></tr></table>
-						</div>
-					
-					<!--<div class="col-6">
-					</div>-->
-				</div>
 
-				<!--<div class="rowmix">
+                  </div>
+                </td>
+                <td>
+
+
+                  <span class="unithash" [hidden]="adminUser.unittype != 'Area'">#</span>
+
+                </td>
+                <td>
+
+                  <input type="number" class="unitnumber" [(ngModel)]="adminUser.unitnumber" [hidden]="adminUser.unittype != 'Area'" name="unitnumber"
+                    id="areaunit" test1="" (userUpdated)="handleUserUpdated($event)" required>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <!--<div class="col-6">
+					</div>-->
+        </div>
+
+        <!--<div class="rowmix">
           <div class="col-6">
             <div class="radio form-group radio-spacer">
               <label class="radio-label" for="districtunit">
@@ -68,79 +72,87 @@
               (userUpdated)="handleUserUpdated($event)"></div>
         </div>-->
 
-				<div class="rowmix">
-					<div class="col-6">
-	<table>
-							<tr>
-								<td>
-						<div class="radio form-group radio-spacer">
-							<label class="radio-label" for="stakeunit">
+        <div class="rowmix">
+          <div class="col-6">
+            <table>
+              <tr>
+                <td>
+                  <div class="radio form-group radio-spacer">
+                    <label class="radio-label" for="stakeunit">
                     <input type="radio" (click)="adminUser.unitnumber=''" [(ngModel)]="adminUser.unittype" name="unittype" id="stakeunit" value="Stake" required><span> Stake Unit</span>                    
                 </label>
-								
-						</div>
-								</td>
-								<td>
-					
-						<span class="unithash" [hidden]="adminUser.unittype != 'Stake'">#</span>
-								</td><td>
-						<input type="number" class="unitnumber" [hidden]="adminUser.unittype != 'Stake'" name="unitnumber" id="stakeunit" test1=""
-							[(ngModel)]="adminUser.unitnumber" (userUpdated)="handleUserUpdated($event)" required>
-							</td></tr></table>
-						</div>
-					
-				<!--	<div class="col-6"><span class="unithash" [hidden]="adminUser.unittype != 'Stake'">#</span>
+
+                  </div>
+                </td>
+                <td>
+
+                  <span class="unithash" [hidden]="adminUser.unittype != 'Stake'">#</span>
+                </td>
+                <td>
+                  <input type="number" class="unitnumber" [hidden]="adminUser.unittype != 'Stake'" name="unitnumber" id="stakeunit" test1=""
+                    [(ngModel)]="adminUser.unitnumber" (userUpdated)="handleUserUpdated($event)" required>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <!--	<div class="col-6"><span class="unithash" [hidden]="adminUser.unittype != 'Stake'">#</span>
 						
 					</div>-->
-				</div>
+        </div>
 
-				<div class="rowmix">
-					<div class="col-6">
-						<table>
-							<tr>
-								<td>
-						<div class="radio form-group radio-spacer">
-							<label class="radio-label" for="wardunit">
+        <div class="rowmix">
+          <div class="col-6">
+            <table>
+              <tr>
+                <td>
+                  <div class="radio form-group radio-spacer">
+                    <label class="radio-label" for="wardunit">
                     <input type="radio" (click)="adminUser.unitnumber=''" [(ngModel)]="adminUser.unittype" name="unittype" id="wardunit" value="Ward" required><span> Ward Unit</span>
                     
                 </label>
-						</div>
-								</td>
-								<td>
-					
-						<span class="unithash" [hidden]="adminUser.unittype != 'Ward'">#</span></td>
-						<td>
-						<input type="number" class="unitnumber" [hidden]="adminUser.unittype != 'Ward'" name="unitnumber" id="wardunit" test1="" [(ngModel)]="adminUser.unitnumber"
-							(userUpdated)="handleUserUpdated($event)" required>
-						</td></tr></table>
-					</div>
-					<!--<div class="col-6">
+                  </div>
+                </td>
+                <td>
+
+                  <span class="unithash" [hidden]="adminUser.unittype != 'Ward'">#</span></td>
+                <td>
+                  <input type="number" class="unitnumber" [hidden]="adminUser.unittype != 'Ward'" name="unitnumber" id="wardunit" test1=""
+                    [(ngModel)]="adminUser.unitnumber" (userUpdated)="handleUserUpdated($event)" required>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <!--<div class="col-6">
 						
 					</div>-->
-				</div>
+        </div>
 
-				<div class="rowmix">
-					<div class="col-6">
-							<table>
-							<tr>
-								<td>
-						<div class="radio form-group radio-spacer">
-							<label class="radio-label" for="branchunit">
+        <div class="rowmix">
+          <div class="col-6">
+            <table>
+              <tr>
+                <td>
+                  <div class="radio form-group radio-spacer">
+                    <label class="radio-label" for="branchunit">
                     <input type="radio" (click)="adminUser.unitnumber=''" [(ngModel)]="adminUser.unittype" name="unittype" id="branchunit" value="Branch" required><span> Branch Unit</span>
                                     </label>
-						</div>
-								</td>
-								<td>
-						
-						<span class="unithash" [hidden]="adminUser.unittype != 'Branch'">#</span></td><td>
-						<input type="number" class="unitnumber" [hidden]="adminUser.unittype != 'Branch'" name="unitnumber" id="branchunit" test1=""
-							[(ngModel)]="adminUser.unitnumber" (userUpdated)="handleUserUpdated($event)" required>
-						</td></tr></table>
-					</div>
-					<!--<div class="col-6"></div>-->
-				</div>
+                  </div>
+                </td>
+                <td>
 
-				<!--<div class="rowmix">
+                  <span class="unithash" [hidden]="adminUser.unittype != 'Branch'">#</span></td>
+                <td>
+                  <input type="number" class="unitnumber" [hidden]="adminUser.unittype != 'Branch'" name="unitnumber" id="branchunit" test1=""
+                    [(ngModel)]="adminUser.unitnumber" (userUpdated)="handleUserUpdated($event)" required>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <!--<div class="col-6"></div>-->
+        </div>
+
+        <!--<div class="rowmix">
           <div class="col-6">
             <div class="radio form-group radio-spacer">
               <label class="radio-label" for="missionunit">
@@ -154,15 +166,19 @@
               (userUpdated)="handleUserUpdated($event)"></div>
         </div>-->
 
-				<div class="mt20">
-					<div class="btn-container">
-					<a  (click)="registerAdmin()" [ngClass]="!registerForm.form.valid ? 'button-invalid' : 'button'" >Create Account</a>
-					</div>
-				</div>
+        <div class="mt20">
+          <div class="btn-container">
+            <a (click)="registerAdmin()" [ngClass]="!registerForm.form.valid ? 'button-invalid' : 'button'">Create Account</a>
+          </div>
+        </div>
 
-			</form>
+        <div class="concil-loader" *ngIf=showLoading>
+          <img src="/assets/icons/loader.gif" class="concil-loader-gif">
+        </div>
 
-		</div>
+      </form>
 
-	</div>
+    </div>
+
+  </div>
 </section>
