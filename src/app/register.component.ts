@@ -43,6 +43,14 @@ export class RegisterPageComponent {
         //this.generateIdenticon("fBCNn1bJIGfInLcSvtUdeqhufk83");
     }
 
+    hasFocus(label) {
+        document.getElementById(label).setAttribute("class","input-has-focus")
+    }
+
+    lostFocus(t,e) {
+        0===(<HTMLInputElement>document.getElementById(e)).value.length&&document.getElementById(t).removeAttribute("class")
+    }
+
     handleUserUpdated(user) {
         this.adminUser.unitnumber = user;
         console.log(user);
