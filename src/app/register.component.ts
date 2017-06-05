@@ -161,7 +161,7 @@ export class RegisterPageComponent {
                                             "event": "admincreated", "email": this.adminUser.email, "firstname": this.adminUser.firstname, "lastname": this.adminUser.lastname, "unitnum": this.adminUser.unitnumber,
                                         }).subscribe((res) => { console.log("Mail sent") });
                                         this.showLoading = false;
-                                        // this.router.navigate(['./signup']);
+                                        this.router.navigate(['./signup']);
                                     }).catch(err => {
                                         alert(err);
                                     });
