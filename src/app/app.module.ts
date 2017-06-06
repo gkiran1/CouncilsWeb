@@ -14,6 +14,7 @@ import { emailComponent } from './Email.component';
 import { UnitmissingComponent } from './Unitmissing.component';
 import { unitadministratorComponent } from './Unitadministrator.component';
 import { unitnoandtypenotassocComponent } from './UnitNoAndTypeNotAsso.component';
+import { ValidateOnBlurDirective } from '../directives/validate-onblur';
 //import { routing } from './app.routing';
 import { Test } from './directive';
 
@@ -61,7 +62,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes), RouterModule.forChild(appRoutes), AngularFireModule.initializeApp(firebaseConfig)],
-  declarations: [AppComponent, AboutusComponent, LoginComponent, RegisterPageComponent, signupComponent, emailComponent, UnitmissingComponent, unitadministratorComponent, Test, unitnoandtypenotassocComponent],
+  declarations: [AppComponent, AboutusComponent, LoginComponent, RegisterPageComponent, ValidateOnBlurDirective, signupComponent, emailComponent, UnitmissingComponent, unitadministratorComponent, Test, unitnoandtypenotassocComponent],
   bootstrap: [AppComponent]
 })
 
