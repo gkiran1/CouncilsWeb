@@ -168,7 +168,9 @@
 
         <div class="mt20">
           <div class="btn-container">
-            <a (click)="registerAdmin()" [ngClass]="!registerForm.form.valid ? 'button-invalid' : 'button'">Create Account</a>
+            
+              <a  [class.disabled]="!registerForm.form.valid ? true : null" [ngClass]="!registerForm.form.valid ? 'button-invalid' : 'button'">Create Account</a>
+            
           </div>
         </div>
 

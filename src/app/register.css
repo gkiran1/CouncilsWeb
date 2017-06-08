@@ -642,11 +642,11 @@ table>tbody>tr>td:nth-child(2) {
 }
 
 a.button {
-  font-family: 'Bernina', sans-serif;
+  font-family: 'Bernina-SemiBold', sans-serif;
   display: inline-block;
   margin-top: 35px;
   padding: 15px;
-  width: 70%;
+  width: 320px;
   text-align: center;
   height: 64px;
   border: 2px solid #3CB18A;
@@ -655,15 +655,16 @@ a.button {
   background-color: #3CB18A;
   color: #fff;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 18px;
+  cursor: pointer;
 }
 
 a.button-invalid {
-  font-family: 'Bernina', sans-serif;
+  font-family: 'Bernina-SemiBold', sans-serif;
   display: inline-block;
   margin-top: 35px;
   padding: 15px;
-  width: 70%;
+  width: 320px;
   text-align: center;
   height: 64px;
   border: 2px solid #3CB18A;
@@ -673,7 +674,12 @@ a.button-invalid {
   background-color: #3CB18A;
   color: #fff;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 18px;
+  cursor: none;
+}
+
+a.disabled {
+  pointer-events: none;
 }
 
 .error-msg {
