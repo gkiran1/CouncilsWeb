@@ -44,11 +44,19 @@ export class RegisterPageComponent {
     }
 
     hasFocus(label) {
-        document.getElementById(label).setAttribute("class", "input-has-focus")
+        document.getElementById(label).setAttribute("class", "input-has-focus");
+        document.getElementById(label).style.color = "#3cb18a";
     }
 
     lostFocus(t, e) {
-        0 === (<HTMLInputElement>document.getElementById(e)).value.length && document.getElementById(t).removeAttribute("class")
+        if(0 === (<HTMLInputElement>document.getElementById(e)).value.length)
+        { 
+            document.getElementById(t).removeAttribute("class");
+            document.getElementById(t).style.color = "#a9aaac";
+        }
+        else {
+            this.hasFocus(t) 
+        }
     }
 
     handleUserUpdated(user) {
