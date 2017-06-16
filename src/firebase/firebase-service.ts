@@ -77,7 +77,7 @@ export class FirebaseService {
 
     verifyUnitNumberAndUnitTypeExists(unitnumber: number, unitType: string) {
         var num = 1;
-        var orgUserRef = this.rootRef.child('orgusers').orderByChild('UnitNum').equalTo(Number(unitnumber)).limitToFirst
+        var orgUserRef = this.rootRef.child('ldsunits').orderByChild('UnitNum').equalTo(Number(unitnumber)).limitToFirst
 
             (1);
         return orgUserRef.once("value").then(function (snapshot) {
