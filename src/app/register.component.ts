@@ -49,13 +49,12 @@ export class RegisterPageComponent {
     }
 
     lostFocus(t, e) {
-        if(0 === (<HTMLInputElement>document.getElementById(e)).value.length)
-        { 
+        if (0 === (<HTMLInputElement>document.getElementById(e)).value.length) {
             document.getElementById(t).removeAttribute("class");
             document.getElementById(t).style.color = "#a9aaac";
         }
         else {
-            this.hasFocus(t) 
+            this.hasFocus(t)
         }
     }
 
@@ -125,7 +124,7 @@ export class RegisterPageComponent {
                     }
                     else if (this.adminUser.unittype === 'Stake') {
                         councils = [
-                            'President',
+                            'Presidency',
                             'High Council',
                             'Bishop',
                             'Relief Society',
@@ -138,10 +137,10 @@ export class RegisterPageComponent {
                     }
                     else if (this.adminUser.unittype === 'Ward') {
                         councils = [
-                            'Bishop',
+                            'Bishopric',
                             'Ward Council',
                             'PEC',
-                            'High Priest',
+                            'High Priests',
                             'Elders',
                             'Relief Society',
                             'Young Men',
