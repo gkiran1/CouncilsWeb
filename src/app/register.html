@@ -8,19 +8,21 @@
       <form #registerForm="ngForm">
         <div class="text-input">
           <label for="email" floating id='emaillabel'>Email</label>
-          <input [(ngModel)]="adminUser.email" id='email' (blur)="lostFocus('emaillabel','email')" (focus)="hasFocus('emaillabel')"
+          <input [(ngModel)]="adminUser.email" id='email' (blur)="lostFocus('emaillabel','email')" (focus)="hasFocus('emaillabel','email')"
             class="form-control" name="email" type="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-          <!--<p class="error-container"><label class="error-msg" ng-if="!adminUser.email.valid">Should be in format username@domain.com</label></p>-->
+          <p *ngIf="!emailValid" class="error-container"><label *ngIf="!emailValid" class="error-msg">Email is invalid</label></p>
         </div>
         <div class="text-input">
           <label for="password" floating id='pwdlabel'>Password</label>
-          <input [(ngModel)]="adminUser.password" class="form-control" (blur)="lostFocus('pwdlabel','password')" (focus)="hasFocus('pwdlabel')"
+          <input [(ngModel)]="adminUser.password" class="form-control" (blur)="lostFocus('pwdlabel','password')" (focus)="hasFocus('pwdlabel','password')"
             name="password" id="password" type="password" required>
+          <p *ngIf="!passwordValid" class="error-container"><label *ngIf="!passwordValid" class="error-msg">Password is invalid</label></p>
         </div>
         <div class="text-input">
           <label for="ldsusername" floating id='ldslabel'>LDS Username</label>
           <input id="ldsorgusername" [(ngModel)]="adminUser.ldsusername" class="form-control" (blur)="lostFocus('ldslabel','ldsusername')"
-            (focus)="hasFocus('ldslabel')" name="ldsusername" id="ldsusername" type="text" required>
+            (focus)="hasFocus('ldslabel','ldsusername')" name="ldsusername" id="ldsusername" type="text" required>
+             <p *ngIf="!userNameValid" class="error-container"><label *ngIf="!userNameValid" class="error-msg">LDS Username is required</label></p>
         </div>
         <div class="mt20">
           <p>Where will you be using the platform?</p>
@@ -168,9 +170,10 @@
 
         <div class="mt20">
           <div class="btn-container">
-            
-              <a  [class.disabled]="!registerForm.form.valid ? true : null" [ngClass]="!registerForm.form.valid ? 'button-invalid' : 'button'" (click)="registerAdmin()">Create Account</a>
-            
+
+            <a [class.disabled]="!registerForm.form.valid ? true : null" [ngClass]="!registerForm.form.valid ? 'button-invalid' : 'button'"
+              (click)="registerAdmin()">Create Account</a>
+
           </div>
         </div>
 

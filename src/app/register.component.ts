@@ -28,6 +28,10 @@ export class RegisterPageComponent {
     userid: string;
     public fireAuth: any;
     public userProfile: any;
+    emailValid = true;
+    passwordValid = true;
+    userNameValid = true;
+
     units = [
         'Stake Unit #',
         'Ward Unit #'
@@ -43,18 +47,53 @@ export class RegisterPageComponent {
         //this.generateIdenticon("fBCNn1bJIGfInLcSvtUdeqhufk83");
     }
 
-    hasFocus(label) {
+    hasFocus(label, txtBox) {
         document.getElementById(label).setAttribute("class", "input-has-focus");
         document.getElementById(label).style.color = "#3cb18a";
+        document.getElementById(txtBox).style.borderBottomColor = "#e8e9eb";
+
+        if (label === 'emaillabel') {
+            this.emailValid = true;
+        }
+        else if (label === 'pwdlabel') {
+            this.passwordValid = true;
+        }
+        else if (label === 'ldslabel') {
+            this.userNameValid = true;
+        }
+
     }
 
     lostFocus(t, e) {
-        if (0 === (<HTMLInputElement>document.getElementById(e)).value.length) {
-            document.getElementById(t).removeAttribute("class");
-            document.getElementById(t).style.color = "#a9aaac";
+
+        if (t === 'emaillabel') {
+            if ((new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(this.adminUser.email) === false)) {
+                this.emailValid = false;
+            }
+            this.setStyles(t, e, this.emailValid);
+        }
+        else if (t === 'pwdlabel') {
+            if ((new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/).test(this.adminUser.password) === false)) {
+                this.passwordValid = false;
+            }
+            this.setStyles(t, e, this.passwordValid);
+        }
+        else if (t === 'ldslabel') {
+            if (0 === (<HTMLInputElement>document.getElementById(e)).value.length) {
+                this.userNameValid = false;
+            }
+            this.setStyles(t, e, this.userNameValid);
+        }
+
+    }
+
+    setStyles(t, e, isValid) {
+        if (isValid) {
+            this.hasFocus(t, e);
         }
         else {
-            this.hasFocus(t)
+            document.getElementById(t).setAttribute("class", "input-has-error");
+            document.getElementById(e).style.borderBottomColor = "#F13822";
         }
     }
 
@@ -116,6 +155,7 @@ export class RegisterPageComponent {
                     });
 
                     var councils = [];
+
                     if (this.adminUser.unittype === 'Area') {
                         councils = [
                             'Elder',
@@ -136,6 +176,21 @@ export class RegisterPageComponent {
                         ];
                     }
                     else if (this.adminUser.unittype === 'Ward') {
+                        councils = [
+                            'Bishopric',
+                            'Ward Council',
+                            'PEC',
+                            'High Priests',
+                            'Elders',
+                            'Relief Society',
+                            'Young Men',
+                            'Young Women',
+                            'Sunday School',
+                            'Primary',
+                            'Missionary'
+                        ];
+                    }
+                    else if (this.adminUser.unittype === 'Branch') {
                         councils = [
                             'Bishopric',
                             'Ward Council',
@@ -182,7 +237,7 @@ export class RegisterPageComponent {
     }
 
     generateIdenticon() {
-        var el = jazzicon(100, Math.round(Math.random() * 10000000000))
+        var el = jazzicon(100, Math.round(Math.random() * 10000000000))      
         var svg = el.querySelector('svg');
 
         var s = new XMLSerializer().serializeToString(el.querySelector('svg'));
