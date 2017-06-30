@@ -19,4 +19,11 @@ export const firebaseConfig = {
     projectId: "councilsdb",
     storageBucket: "councilsdb.appspot.com",
     messagingSenderId: "92555477583"
+
+    // apiKey: "AIzaSyBMZ0AOaVkjU41DLCGiY-loMzmAWQO24kI",
+    // authDomain: "councils-donate-page.firebaseapp.com",
+    // databaseURL: "https://councils-donate-page.firebaseio.com",
+    // projectId: "councils-donate-page",
+    // storageBucket: "councils-donate-page.appspot.com",
+    // messagingSenderId: "259729083061"
 }

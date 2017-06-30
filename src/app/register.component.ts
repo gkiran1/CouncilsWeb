@@ -73,7 +73,7 @@ export class RegisterPageComponent {
             this.setStyles(t, e, this.emailValid);
         }
         else if (t === 'pwdlabel') {
-            if ((new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/).test(this.adminUser.password) === false)) {
+            if ((<HTMLInputElement>document.getElementById(e)).value.length < 6) {
                 this.passwordValid = false;
             }
             this.setStyles(t, e, this.passwordValid);
@@ -190,43 +190,69 @@ export class RegisterPageComponent {
                             'Missionary'
                         ];
                     }
-                    else if (this.adminUser.unittype === 'Branch') {
-                        councils = [
-                            'Bishopric',
-                            'Ward Council',
-                            'PEC',
-                            'High Priests',
-                            'Elders',
-                            'Relief Society',
-                            'Young Men',
-                            'Young Women',
-                            'Sunday School',
-                            'Primary',
-                            'Missionary'
-                        ];
-                    }
 
                     if (councils) {
                         var ids = [];
+                        var councilKey;
+
                         councils.forEach((council, index) => {
                             this.firebaseService.setDefaultCouncilsForAdmin(council, this.adminUser.unittype, this.adminUser.unitnumber).then(res => {
+
+                                if (this.adminUser.unittype === 'Area' && council === 'President') {
+                                    councilKey = res;
+                                }
+                                else if (this.adminUser.unittype === 'Stake' && council === 'Bishop') {
+                                    councilKey = res;
+                                }
+
                                 ids.push(res);
+
                                 if (councils.length === index + 1) {
-                                    this.adminUser.councils = ids;
-                                    var userAvatar = this.generateIdenticon();
-
-                                    // sign up user logic goes here...
-                                    this.firebaseService.signupNewUser(this.adminUser, userAvatar).then(res => {
-                                        // alert("User is created...");
-
-                                        this.http.post("https://councilsapi-165009.appspot.com/sendmail", {
-                                            "event": "admincreated", "email": this.adminUser.email, "firstname": this.adminUser.firstname, "lastname": this.adminUser.lastname, "unitnum": this.adminUser.unitnumber,
-                                        }).subscribe((res) => { console.log("Mail sent") });
-                                        this.showLoading = false;
-                                        this.router.navigate(['./signup']);
-                                    }).catch(err => {
-                                        alert(err);
-                                    });
+                                    // This is for Stake admin sign up, and need to get data from Area admin and set it in Stake admin before creating Stake admin
+                                    if (this.adminUser.unittype === 'Stake') {
+                                        this.firebaseService.getAdminData(this.adminUser.unitnumber).then((res) => {
+                                            res.forEach(ldsUnit => {
+                                                var parentNum = ldsUnit.val().ParentNum;
+                                                this.firebaseService.getUserByUnitNum(parentNum).then((res) => {
+                                                    res.forEach(usr => {
+                                                        if (usr.val().isadmin === true) {
+                                                            this.firebaseService.getCouncilByUnitNum(parentNum, 'President_').then((res) => {
+                                                                res.forEach(cncl => {
+                                                                    ids.push(cncl.key);
+                                                                });
+                                                                this.signupAdmin(councilKey, ids);
+                                                            });
+                                                            return;
+                                                        }
+                                                    });
+                                                });
+                                            });
+                                        });
+                                    }
+                                    // This is for Ward admin sign up, and need to get data from Stake admin and set it in Ward admin before creating Ward admin
+                                    else if (this.adminUser.unittype === 'Ward') {
+                                        this.firebaseService.getAdminData(this.adminUser.unitnumber).then((res) => {
+                                            res.forEach(ldsUnit => {
+                                                var parentNum = ldsUnit.val().ParentNum;
+                                                this.firebaseService.getUserByUnitNum(parentNum).then((res) => {
+                                                    res.forEach(usr => {
+                                                        if (usr.val().isadmin === true) {
+                                                            this.firebaseService.getCouncilByUnitNum(parentNum, 'Bishop_').then((res) => {
+                                                                res.forEach(cncl => {
+                                                                    ids.push(cncl.key);
+                                                                });
+                                                                this.signupAdmin(councilKey, ids);
+                                                            });
+                                                            return;
+                                                        }
+                                                    });
+                                                });
+                                            });
+                                        });
+                                    }
+                                    else {
+                                        this.signupAdmin(councilKey, ids);
+                                    }
                                 }
                             });
                         });
@@ -236,8 +262,33 @@ export class RegisterPageComponent {
         })
     }
 
+    signupAdmin(councilKey, ids) {
+        this.adminUser.councils = ids;
+        var userAvatar = this.generateIdenticon();
+
+        // sign up user logic goes here...
+        this.firebaseService.signupNewUser(this.adminUser, userAvatar).then(res => {
+            // alert("User is created...");
+
+            this.http.post("https://councilsapi-165009.appspot.com/sendmail", {
+                "event": "admincreated", "email": this.adminUser.email, "firstname": this.adminUser.firstname, "lastname": this.adminUser.lastname, "unitnum": this.adminUser.unitnumber,
+            }).subscribe((res) => { console.log("Mail sent") });
+            this.showLoading = false;
+            this.router.navigate(['./signup']);
+
+            if (this.adminUser.unittype === 'Area') {
+                this.firebaseService.setAreaAdminDataInStakeAdmins(this.adminUser.unitnumber, councilKey);
+            }
+            else if (this.adminUser.unittype === 'Stake') {
+                this.firebaseService.setStakeAdminDataInWardAdmins(this.adminUser.unitnumber, councilKey);
+            }
+        }).catch(err => {
+            alert(err);
+        });
+    }
+
     generateIdenticon() {
-        var el = jazzicon(100, Math.round(Math.random() * 10000000000))      
+        var el = jazzicon(100, Math.round(Math.random() * 10000000000));
         var svg = el.querySelector('svg');
 
         var s = new XMLSerializer().serializeToString(el.querySelector('svg'));

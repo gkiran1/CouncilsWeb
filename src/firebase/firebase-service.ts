@@ -15,7 +15,7 @@ export class FirebaseService {
 
     rootRef = firebase.database().ref();
 
-    
+
 
     constructor(private _http: Http, private af: AngularFire) {
 
@@ -130,7 +130,7 @@ export class FirebaseService {
         }).catch(err => { throw err });
     }
 
-    getAdminDataFromOrgUsersByEmail(email: string) {       
+    getAdminDataFromOrgUsersByEmail(email: string) {
         var orgUserRef = this.rootRef.child('orgusers').orderByChild('UserEmail').equalTo(email).limitToFirst(1);
         return orgUserRef.once('value').then(function (snapshot) {
             if (snapshot.val()) {
@@ -349,22 +349,22 @@ export class FirebaseService {
 
     saveIdenticon(uid: string, img: string) {
         let avatarRef = firebase.storage().ref('/users/avatar/');
-        
-            avatarRef.child(uid)
-                .putString(img, 'base64', {contentType: 'image/svg+xml'})
-                .then((savedPicture) => {
-                    this.rootRef.child('users').child(uid).update({ 
-                            avatar: savedPicture.downloadURL
-                    }).then(done => {
-                        console.log('Avatar saved');
-                    }).catch(err =>{
-                        console.log('Avatar failed to save.', err);
-                    });
-               
-        }).catch(err => {
-            console.log('Error storing image', err);
-        });
-       
+
+        avatarRef.child(uid)
+            .putString(img, 'base64', { contentType: 'image/svg+xml' })
+            .then((savedPicture) => {
+                this.rootRef.child('users').child(uid).update({
+                    avatar: savedPicture.downloadURL
+                }).then(done => {
+                    console.log('Avatar saved');
+                }).catch(err => {
+                    console.log('Avatar failed to save.', err);
+                });
+
+            }).catch(err => {
+                console.log('Error storing image', err);
+            });
+
     }
 
     createUserCouncils(userUid: string, council: string) {
@@ -421,5 +421,159 @@ export class FirebaseService {
             return res.key;
         }).catch(err => { throw err });
     }
+
+    // This is for Area admin sign up, need to add councils data ['President' council] in Stake admin also after creating Area admin
+    setAreaAdminDataInStakeAdmins(unitNum, councilId) {
+        var dis = this;
+        var rootRef = this.rootRef;
+        var usrCouncils = [];
+
+        // Area unit number will become parent number for no of Stakes
+        var ldsUnitRef = rootRef.child('ldsunits').orderByChild('ParentNum').equalTo(Number(unitNum));
+        ldsUnitRef.once('value').then(function (snapshot) {
+            if (snapshot.val()) {
+                snapshot.forEach(ldsUnit => {
+                    var unitNum = ldsUnit.val().UnitNum;
+                    var unitType = ldsUnit.val().UnitType;
+                    if (unitType === 'Stake') {
+                        // Need to check in 'users' node by 'unitnumber'
+                        // If exists then need to insert 'President' record in Councils and User Councils for Stake Admins
+                        var userRef = rootRef.child('users').orderByChild('unitnumber').equalTo(Number(unitNum));
+                        userRef.once('value').then(function (snapshot) {
+                            snapshot.forEach(usr => {
+                                if (usr) {
+                                    if (usr.val().isadmin === true) {
+                                        var userId = usr.key;
+
+                                        usrCouncils = usr.val().councils;
+                                        usrCouncils.push(councilId);
+
+                                        // Need to insert in usercouncils and also in councils of user node.
+                                        dis.createUserCouncils(userId, councilId);
+                                        dis.updateCouncilsInUser(userId, usrCouncils);
+
+                                        return;
+                                    }
+                                }
+                            });
+                        });
+                    }
+                });
+            }
+            else {
+
+            }
+        }).catch(err => { throw err });
+    }
+
+    // This is for Stake admin sign up, need to add councils data ['Bishop' council] in Ward admin also after creating Stake admin
+    setStakeAdminDataInWardAdmins(unitNum, councilId) {
+        var dis = this;
+        var rootRef = this.rootRef;
+        var usrCouncils = [];
+
+        // Stake unit number will become parent number for no of Wards
+        var ldsUnitRef = rootRef.child('ldsunits').orderByChild('ParentNum').equalTo(Number(unitNum));
+        ldsUnitRef.once('value').then(function (snapshot) {
+            if (snapshot.val()) {
+                snapshot.forEach(ldsUnit => {
+                    var unitNum = ldsUnit.val().UnitNum;
+                    var unitType = ldsUnit.val().UnitType;
+                    if (unitType === 'Ward') {
+                        // Need to check in 'users' node by 'unitnumber'
+                        // If exists then need to insert 'Bishop' record in Councils and User Councils for Ward Admins
+                        var userRef = rootRef.child('users').orderByChild('unitnumber').equalTo(Number(unitNum));
+                        userRef.once('value').then(function (snapshot) {
+                            snapshot.forEach(usr => {
+                                if (usr.val().isadmin === true) {
+                                    var userId = usr.key;
+                                    usrCouncils = usr.val().councils;
+
+                                    // Need to insert in usercouncils and also in councils of user node.
+                                    dis.createUserCouncils(userId, councilId);
+                                    usrCouncils.push(councilId);
+                                    dis.updateCouncilsInUser(userId, usrCouncils);
+                                    return;
+                                }
+                            });
+                        });
+                    }
+                });
+            }
+            else {
+
+            }
+        }).catch(err => { throw err });
+    }
+   
+    getAdminData(unitNum) {
+        var ldsUnitRef = this.rootRef.child('ldsunits').orderByChild('UnitNum').equalTo(Number(unitNum)).limitToFirst(1);
+        return ldsUnitRef.once('value').then(function (snapshot) {
+            if (snapshot.val()) {
+                return snapshot;
+            }
+        }).catch(err => { throw err });
+    }
+
+    getUserByUnitNum(parentNum) {
+        var userRef = this.rootRef.child('users').orderByChild('unitnumber').equalTo(parentNum);
+        return userRef.once('value').then(function (snapshot) {
+            if (snapshot.val()) {
+                return snapshot;
+            }
+        });
+    }
+
+    getCouncilByUnitNum(parentNum, councilName) {
+        var councilRef = this.rootRef.child('councils').orderByChild('council_unitnumber').equalTo(councilName + parentNum).limitToFirst(1);
+        return councilRef.once('value').then(function (snapshot) {
+            if (snapshot.val()) {
+                return snapshot;
+            }
+        });
+    }
+
+    // This is for Ward admin sign up, and need to get data from Stake admin and set it in Ward admin before creating Ward admin
+    getStakeAdminDataByWardAdmin(unitNum) {
+        var rootRef = this.rootRef;
+        var usrCouncils = [];
+        var ldsUnitRef = rootRef.child('ldsunits').orderByChild('UnitNum').equalTo(Number(unitNum)).limitToFirst(1);
+        return ldsUnitRef.once('value').then(function (snapshot) {
+            if (snapshot.val()) {
+                snapshot.forEach(ldsUnit => {
+                    var parentNum = ldsUnit.val().ParentNum;
+                    var unitType = ldsUnit.val().UnitType;
+                    if (unitType === 'Ward') {
+                        // Need to check in 'users' node by 'unitnumber' whether Stake admin exists or not.
+                        // If exists then need to get that 'Bishop' record from Councils/UserCouncils
+                        var userRef = rootRef.child('users').orderByChild('unitnumber').equalTo(parentNum);
+                        return userRef.once('value').then(function (snapshot) {
+                            snapshot.forEach(usr => {
+                                if (usr) {
+                                    if (usr.val().isadmin === true) {
+                                        var councilRef = rootRef.child('councils').orderByChild('council_unitnumber').equalTo('Bishop_' + parentNum).limitToFirst(1);
+                                        return councilRef.once('value').then(function (snapshot) {
+                                            if (snapshot.val()) {
+                                                return snapshot;
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        });
+                    }
+                });
+            }
+        }).catch(err => { throw err });
+    }
+
+    updateCouncilsInUser(userUid: string, newCouncils: string[]) {
+        return this.rootRef.child('users/' + userUid).update({ councils: newCouncils }).then(() => {
+            return "councils in user updated successfully..."
+        }).catch(err => {
+            throw err;
+        });
+    }
+
 
 }
