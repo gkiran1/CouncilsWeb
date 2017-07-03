@@ -158,13 +158,13 @@ export class RegisterPageComponent {
 
                     if (this.adminUser.unittype === 'Area') {
                         councils = [
-                            'Elder',
+                            'Area Presidency',
                             'President'
                         ];
                     }
                     else if (this.adminUser.unittype === 'Stake') {
                         councils = [
-                            'Presidency',
+                            'Stake Presidency',
                             'High Council',
                             'Bishop',
                             'Relief Society',
