@@ -214,17 +214,22 @@ export class RegisterPageComponent {
                                             res.forEach(ldsUnit => {
                                                 var parentNum = ldsUnit.val().ParentNum;
                                                 this.firebaseService.getUserByUnitNum(parentNum).then((res) => {
-                                                    res.forEach(usr => {
-                                                        if (usr.val().isadmin === true) {
-                                                            this.firebaseService.getCouncilByUnitNum(parentNum, 'President_').then((res) => {
-                                                                res.forEach(cncl => {
-                                                                    ids.push(cncl.key);
+                                                    if (res) {
+                                                        res.forEach(usr => {
+                                                            if (usr.val().isadmin === true) {
+                                                                this.firebaseService.getCouncilByUnitNum(parentNum, 'President_').then((res) => {
+                                                                    res.forEach(cncl => {
+                                                                        ids.push(cncl.key);
+                                                                    });
+                                                                    this.signupAdmin(councilKey, ids);
                                                                 });
-                                                                this.signupAdmin(councilKey, ids);
-                                                            });
-                                                            return;
-                                                        }
-                                                    });
+                                                                return;
+                                                            }
+                                                        });
+                                                    }
+                                                    else {
+                                                        this.signupAdmin(councilKey, ids);
+                                                    }
                                                 });
                                             });
                                         });
@@ -235,17 +240,22 @@ export class RegisterPageComponent {
                                             res.forEach(ldsUnit => {
                                                 var parentNum = ldsUnit.val().ParentNum;
                                                 this.firebaseService.getUserByUnitNum(parentNum).then((res) => {
-                                                    res.forEach(usr => {
-                                                        if (usr.val().isadmin === true) {
-                                                            this.firebaseService.getCouncilByUnitNum(parentNum, 'Bishop_').then((res) => {
-                                                                res.forEach(cncl => {
-                                                                    ids.push(cncl.key);
+                                                    if (res) {
+                                                        res.forEach(usr => {
+                                                            if (usr.val().isadmin === true) {
+                                                                this.firebaseService.getCouncilByUnitNum(parentNum, 'Bishop_').then((res) => {
+                                                                    res.forEach(cncl => {
+                                                                        ids.push(cncl.key);
+                                                                    });
+                                                                    this.signupAdmin(councilKey, ids);
                                                                 });
-                                                                this.signupAdmin(councilKey, ids);
-                                                            });
-                                                            return;
-                                                        }
-                                                    });
+                                                                return;
+                                                            }
+                                                        });
+                                                    }
+                                                    else {
+                                                        this.signupAdmin(councilKey, ids);
+                                                    }
                                                 });
                                             });
                                         });
@@ -301,8 +311,6 @@ export class RegisterPageComponent {
         context.drawImage(img, 0, 0);
         return base64;
         //this.firebaseService.saveIdenticon(uid, base64 );
-
-
     }
 
 
