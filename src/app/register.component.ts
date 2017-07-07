@@ -38,7 +38,7 @@ export class RegisterPageComponent {
     ]
 
     showLoading = false;
-
+    accountCreated = false;
     registerCredentials = { email: '', password: '', ldsorgusername: '', platform: '', stakeunit: '', wardunit: '', areaunit: '', branchunit: '' };
 
     constructor(private http: Http, private af: AngularFire, private firebaseService: FirebaseService, public router: Router) {
@@ -284,7 +284,8 @@ export class RegisterPageComponent {
                 "event": "admincreated", "email": this.adminUser.email, "firstname": this.adminUser.firstname, "lastname": this.adminUser.lastname, "unitnum": this.adminUser.unitnumber,
             }).subscribe((res) => { console.log("Mail sent") });
             this.showLoading = false;
-            this.router.navigate(['./signup']);
+            this.accountCreated = true;
+            //this.router.navigate(['./signup']);
 
             if (this.adminUser.unittype === 'Area') {
                 this.firebaseService.setAreaAdminDataInStakeAdmins(this.adminUser.unitnumber, councilKey);

@@ -314,6 +314,23 @@ h3 {
   color: #35373A;
 }
 
+h4 {
+  font-weight: normal;
+  color: #A9AAAC;
+}
+
+.status {
+  margin-top: 35px;
+  color: #35373A;
+  text-align: center;
+  width: 100%
+}
+
+.status h4 {
+  color: #35373A;
+}
+
+
 li,
 ul {
   margin: 0;
