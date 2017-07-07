@@ -292,24 +292,29 @@ export class RegisterPageComponent {
         this.adminUser.councils = ids;
         var userAvatar = this.generateIdenticon();
 
+        var untType = this.adminUser.unittype;
+        var untNum = this.adminUser.unitnumber;
+
         // sign up user logic goes here...
         this.firebaseService.signupNewUser(this.adminUser, userAvatar).then(res => {
             // alert("User is created...");
 
             this.http.post("https://councilsapi-165009.appspot.com/sendmail", {
-                "event": "admincreated", "email": this.adminUser.email, "firstname": this.adminUser.firstname, "lastname": this.adminUser.lastname, "unitnum": this.adminUser.unitnumber,
+                "event": "admincreated", "email": this.adminUser.email, "firstname": this.adminUser.firstname, "lastname": this.adminUser.lastname, "unitnum": untNum,
             }).subscribe((res) => { console.log("Mail sent") });
             this.showLoading = false;
             this.accountCreated = true;
             //this.router.navigate(['./signup']);
+
             form.resetForm();
 
-            if (this.adminUser.unittype === 'Area') {
-                this.firebaseService.setAreaAdminDataInStakeAdmins(this.adminUser.unitnumber, councilKey);
+            if (untType === 'Area') {
+                this.firebaseService.setAreaAdminDataInStakeAdmins(untNum, councilKey);
             }
-            else if (this.adminUser.unittype === 'Stake') {
-                this.firebaseService.setStakeAdminDataInWardAdmins(this.adminUser.unitnumber, councilKey);
+            else if (untType === 'Stake') {
+                this.firebaseService.setStakeAdminDataInWardAdmins(untNum, councilKey);
             }
+
         }).catch(err => {
             alert(err);
         });
