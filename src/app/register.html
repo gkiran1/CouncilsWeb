@@ -172,7 +172,7 @@
 					<div class="btn-container">
 
 						<a [class.disabled]="!registerForm.form.valid ? true : null" [ngClass]="!registerForm.form.valid ? 'button-invalid' : 'button'"
-							(click)="registerAdmin()">Create Account</a>
+							(click)="registerAdmin(registerForm)">Create Account</a>
 
 					</div>
 					<div class="status" *ngIf=accountCreated>

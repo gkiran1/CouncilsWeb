@@ -12,6 +12,7 @@ import { signupComponent } from './signup.component';
 import { UnitmissingComponent } from './Unitmissing.component';
 import { unitadministratorComponent } from './Unitadministrator.component';
 import * as jazzicon from 'jazzicon';
+import { NgForm } from '@angular/forms';
 
 
 // import {validate,Validator,Contains, IsInt, Length, IsEmail, IsFQDN, IsDate, Min, Max} from "class-validator";
@@ -124,7 +125,7 @@ export class RegisterPageComponent {
     }
 
 
-    public registerAdmin() {
+    public registerAdmin(form: NgForm) {
         this.showLoading = true;
         var under;
 
@@ -203,10 +204,10 @@ export class RegisterPageComponent {
                         councils.forEach((council, index) => {
                             this.firebaseService.setDefaultCouncilsForAdmin(council, this.adminUser.unittype, this.adminUser.unitnumber, under).then(res => {
 
-                                if (this.adminUser.unittype === 'Area' && council === 'President') {
+                                if (this.adminUser.unittype === 'Area' && council === 'Stake Presidents') {
                                     councilKey = res;
                                 }
-                                else if (this.adminUser.unittype === 'Stake' && council === 'Bishop') {
+                                else if (this.adminUser.unittype === 'Stake' && council === 'Bishops') {
                                     councilKey = res;
                                 }
 
@@ -223,24 +224,24 @@ export class RegisterPageComponent {
                                                         if (res) {
                                                             res.forEach(usr => {
                                                                 if (usr.val().isadmin === true) {
-                                                                    this.firebaseService.getCouncilByUnitNum(parentNum, 'President_').then((res) => {
+                                                                    this.firebaseService.getCouncilByUnitNum(parentNum, 'Stake Presidents_').then((res) => {
                                                                         res.forEach(cncl => {
                                                                             ids.push(cncl.key);
                                                                         });
-                                                                        this.signupAdmin(councilKey, ids);
+                                                                        this.signupAdmin(councilKey, ids, form);
                                                                     });
                                                                     return;
                                                                 }
                                                             });
                                                         }
                                                         else {
-                                                            this.signupAdmin(councilKey, ids);
+                                                            this.signupAdmin(councilKey, ids, form);
                                                         }
                                                     });
                                                 });
                                             }
                                             else {
-                                                this.signupAdmin(councilKey, ids);
+                                                this.signupAdmin(councilKey, ids, form);
                                             }
                                         });
                                     }
@@ -254,29 +255,29 @@ export class RegisterPageComponent {
                                                         if (res) {
                                                             res.forEach(usr => {
                                                                 if (usr.val().isadmin === true) {
-                                                                    this.firebaseService.getCouncilByUnitNum(parentNum, 'Bishop_').then((res) => {
+                                                                    this.firebaseService.getCouncilByUnitNum(parentNum, 'Bishops_').then((res) => {
                                                                         res.forEach(cncl => {
                                                                             ids.push(cncl.key);
                                                                         });
-                                                                        this.signupAdmin(councilKey, ids);
+                                                                        this.signupAdmin(councilKey, ids, form);
                                                                     });
                                                                     return;
                                                                 }
                                                             });
                                                         }
                                                         else {
-                                                            this.signupAdmin(councilKey, ids);
+                                                            this.signupAdmin(councilKey, ids, form);
                                                         }
                                                     });
                                                 });
                                             }
                                             else {
-                                                this.signupAdmin(councilKey, ids);
+                                                this.signupAdmin(councilKey, ids, form);
                                             }
                                         });
                                     }
                                     else {
-                                        this.signupAdmin(councilKey, ids);
+                                        this.signupAdmin(councilKey, ids, form);
                                     }
                                 }
                             });
@@ -287,7 +288,7 @@ export class RegisterPageComponent {
         })
     }
 
-    signupAdmin(councilKey, ids) {
+    signupAdmin(councilKey, ids, form: NgForm) {
         this.adminUser.councils = ids;
         var userAvatar = this.generateIdenticon();
 
@@ -301,6 +302,7 @@ export class RegisterPageComponent {
             this.showLoading = false;
             this.accountCreated = true;
             //this.router.navigate(['./signup']);
+            form.resetForm();
 
             if (this.adminUser.unittype === 'Area') {
                 this.firebaseService.setAreaAdminDataInStakeAdmins(this.adminUser.unitnumber, councilKey);
@@ -328,8 +330,6 @@ export class RegisterPageComponent {
         return base64;
         //this.firebaseService.saveIdenticon(uid, base64 );
     }
-
-
 
 }
 
