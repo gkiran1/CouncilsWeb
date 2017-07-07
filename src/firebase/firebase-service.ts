@@ -390,12 +390,13 @@ export class FirebaseService {
         }).catch(err => { throw err; });
     }
 
-    setDefaultCouncilsForAdmin(council: string, unitType: string, unitNumber: number) {
+    setDefaultCouncilsForAdmin(council: string, unitType: string, unitNumber: number, under) {
         return this.rootRef.child('councils').push({
             council: council,
             unittype: unitType,
             unitnumber: Number(unitNumber),
-            council_unitnumber: council + '_' + unitNumber
+            council_unitnumber: council + '_' + unitNumber,
+            under: under
         }).then((res) => {
             return res.key;
         }).catch(err => { throw err });
@@ -505,7 +506,7 @@ export class FirebaseService {
             }
         }).catch(err => { throw err });
     }
-   
+
     getAdminData(unitNum) {
         var ldsUnitRef = this.rootRef.child('ldsunits').orderByChild('UnitNum').equalTo(Number(unitNum)).limitToFirst(1);
         return ldsUnitRef.once('value').then(function (snapshot) {
