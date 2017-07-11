@@ -732,6 +732,18 @@ a.disabled {
   height: 20px !important;
 }
 
+.note-msg {
+  color: #a9aaad !important;
+  font-size: 15px !important;
+  margin: 0px !important;
+}
+
+.note-container {
+  padding: 0;
+  margin: 0;
+  height: 20px !important;
+}
+
 
 /*-----------media-----*/
 
