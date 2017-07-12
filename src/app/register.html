@@ -10,13 +10,15 @@
 					<label for="email" floating id='emaillabel'>Email</label>
 					<input [(ngModel)]="adminUser.email" id='email' (blur)="lostFocus('emaillabel','email')" (focus)="hasFocus('emaillabel','email')"
 						class="form-control" name="email" type="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-					<p *ngIf="!emailValid" class="error-container"><label *ngIf="!emailValid" class="error-msg">Email is invalid</label></p>
+					<p *ngIf="emailValid" class="note-container"><label *ngIf="emailValid" class="note-msg">Use councils invitation email</label></p>
+					<p *ngIf="!emailValid" class="error-container"><label *ngIf="!emailValid" class="error-msg">Should be in the format username@domain.com</label></p>
 				</div>
 				<div class="text-input">
 					<label for="password" floating id='pwdlabel'>Password</label>
 					<input [(ngModel)]="adminUser.password" class="form-control" (blur)="lostFocus('pwdlabel','password')" (focus)="hasFocus('pwdlabel','password')"
 						name="password" id="password" type="password" required>
-					<p *ngIf="!passwordValid" class="error-container"><label *ngIf="!passwordValid" class="error-msg">Password is invalid</label></p>
+					<p *ngIf="passwordValid" class="note-container"><label *ngIf="passwordValid" class="note-msg">Minimum 6 characters</label></p>
+					<p *ngIf="!passwordValid" class="error-container"><label *ngIf="!passwordValid" class="error-msg">Minimum 6 characters</label></p>
 				</div>
 				<div class="text-input">
 					<label for="ldsusername" floating id='ldslabel'>LDS Username</label>
@@ -176,7 +178,7 @@
 
 					</div>
 					<div class="status" *ngIf=accountCreated>
-					<h4 >Account created, please check your email</h4>
+						<h4>Account created, please check your email</h4>
 					</div>
 				</div>
 
