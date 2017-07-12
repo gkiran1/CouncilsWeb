@@ -309,7 +309,7 @@ export class FirebaseService {
                             photoURL: userAvatar.url
                         }).then(res => {
                             // Successful login in firebase, create user profile.
-                            this.createAuthUser(user, authenticatedUser.uid).then(res => {
+                            return this.createAuthUser(user, authenticatedUser.uid).then(res => {
                                 this.saveIdenticon(authenticatedUser.uid, userAvatar);
                             });
                         }).catch(function (error) {
@@ -336,13 +336,13 @@ export class FirebaseService {
                 unittype: user.unittype,
                 unitnumber: Number(user.unitnumber),
                 councils: user.councils,
-                calling: user.calling,
+                calling: '',
                 avatar: '',
-                isadmin: user.isadmin,
-                createdby: user.createdby,
-                createddate: user.createddate,
-                lastupdateddate: user.lastupdateddate,
-                isactive: user.isactive,
+                isadmin: true, // Never change this...because this is Admin Sign Up.....
+                createdby: '',
+                createddate: new Date().toDateString(),
+                lastupdateddate: new Date().toDateString(),
+                isactive: true,
                 isnotificationreq: false,
                 googlecalendaradded: false,
                 pushtoken: ''

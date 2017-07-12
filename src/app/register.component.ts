@@ -32,6 +32,10 @@ export class RegisterPageComponent {
     emailValid = true;
     passwordValid = true;
     userNameValid = true;
+    firstNameValid = true;
+    lastNameValid = true;
+    firstNameMsg;
+    lastNameMsg;
 
     units = [
         'Stake Unit #',
@@ -62,6 +66,12 @@ export class RegisterPageComponent {
         else if (label === 'ldslabel') {
             this.userNameValid = true;
         }
+        else if (label === 'ldsfn') {
+            this.firstNameValid = true;
+        }
+        else if (label === 'ldsln') {
+            this.lastNameValid = true;
+        }
 
     }
 
@@ -85,7 +95,28 @@ export class RegisterPageComponent {
             }
             this.setStyles(t, e, this.userNameValid);
         }
-
+        else if (t === 'ldsfn') {
+            if (0 === (<HTMLInputElement>document.getElementById(e)).value.length) {
+                this.firstNameValid = false;
+                this.firstNameMsg = 'First Name is required';
+            }
+            else if (!(new RegExp(/^[a-zA-Z].*/).test(this.adminUser.firstname))) {
+                this.firstNameValid = false;
+                this.firstNameMsg = 'First Name should start with alphabet';
+            }
+            this.setStyles(t, e, this.firstNameValid);
+        }
+        else if (t === 'ldsln') {
+            if (0 === (<HTMLInputElement>document.getElementById(e)).value.length) {
+                this.lastNameValid = false;
+                this.lastNameMsg = 'Last Name is required';
+            }
+            else if (!(new RegExp(/^[a-zA-Z].*/).test(this.adminUser.lastname))) {
+                this.lastNameValid = false;
+                this.lastNameMsg = 'Last Name should start with alphabet';
+            }
+            this.setStyles(t, e, this.lastNameValid);
+        }
     }
 
     setStyles(t, e, isValid) {
@@ -143,147 +174,133 @@ export class RegisterPageComponent {
                 this.router.navigate(['./Unitadministrator', this.adminUser.unitnumber]);
             }
             else if (res == 4) {
-                // Need to get other data like firstname, lastname and all from orgusers...
-                this.firebaseService.getAdminDataFromOrgUsersByEmail(this.adminUser.email).then(res => {
-                    res.forEach(user => {
-                        this.adminUser.firstname = user.val().UserFirstName;
-                        this.adminUser.lastname = user.val().UserLastName;
-                        this.adminUser.calling = ''
-                        this.adminUser.avatar = '';
-                        this.adminUser.isadmin = true;  // Never change this...because this is Admin Sign Up.....
-                        this.adminUser.createdby = ''
-                        this.adminUser.createddate = new Date().toDateString();
-                        this.adminUser.lastupdateddate = new Date().toDateString();
-                        this.adminUser.isactive = true;
-                    });
+                var councils = [];
 
-                    var councils = [];
+                if (this.adminUser.unittype === 'Area') {
+                    councils = [
+                        'Area Presidency',
+                        'Stake Presidents'
+                    ];
+                    under = 'Area';
+                }
+                else if (this.adminUser.unittype === 'Stake') {
+                    councils = [
+                        'Stake Presidency',
+                        'High Council',
+                        'Bishops',
+                        'Relief Society',
+                        'Young Men',
+                        'Young Women',
+                        'Sunday School',
+                        'Primary',
+                        'Missionary'
+                    ];
+                    under = 'Stake';
+                }
+                else if (this.adminUser.unittype === 'Ward') {
+                    councils = [
+                        'Bishopric',
+                        'Ward Council',
+                        'PEC',
+                        'High Priest',
+                        'Elders',
+                        'Relief Society',
+                        'Young Men',
+                        'Young Women',
+                        'Sunday School',
+                        'Primary',
+                        'Missionary'
+                    ];
+                    under = 'Ward';
+                }
 
-                    if (this.adminUser.unittype === 'Area') {
-                        councils = [
-                            'Area Presidency',
-                            'Stake Presidents'
-                        ];
-                        under = 'Area';
-                    }
-                    else if (this.adminUser.unittype === 'Stake') {
-                        councils = [
-                            'Stake Presidency',
-                            'High Council',
-                            'Bishops',
-                            'Relief Society',
-                            'Young Men',
-                            'Young Women',
-                            'Sunday School',
-                            'Primary',
-                            'Missionary'
-                        ];
-                        under = 'Stake';
-                    }
-                    else if (this.adminUser.unittype === 'Ward') {
-                        councils = [
-                            'Bishopric',
-                            'Ward Council',
-                            'PEC',
-                            'High Priest',
-                            'Elders',
-                            'Relief Society',
-                            'Young Men',
-                            'Young Women',
-                            'Sunday School',
-                            'Primary',
-                            'Missionary'
-                        ];
-                        under = 'Ward';
-                    }
+                if (councils) {
+                    var ids = [];
+                    var councilKey;
 
-                    if (councils) {
-                        var ids = [];
-                        var councilKey;
+                    councils.forEach((council, index) => {
+                        this.firebaseService.setDefaultCouncilsForAdmin(council, this.adminUser.unittype, this.adminUser.unitnumber, under).then(res => {
 
-                        councils.forEach((council, index) => {
-                            this.firebaseService.setDefaultCouncilsForAdmin(council, this.adminUser.unittype, this.adminUser.unitnumber, under).then(res => {
+                            if (this.adminUser.unittype === 'Area' && council === 'Stake Presidents') {
+                                councilKey = res;
+                            }
+                            else if (this.adminUser.unittype === 'Stake' && council === 'Bishops') {
+                                councilKey = res;
+                            }
 
-                                if (this.adminUser.unittype === 'Area' && council === 'Stake Presidents') {
-                                    councilKey = res;
-                                }
-                                else if (this.adminUser.unittype === 'Stake' && council === 'Bishops') {
-                                    councilKey = res;
-                                }
+                            ids.push(res);
 
-                                ids.push(res);
-
-                                if (councils.length === index + 1) {
-                                    // This is for Stake admin sign up, and need to get data from Area admin and set it in Stake admin before creating Stake admin
-                                    if (this.adminUser.unittype === 'Stake') {
-                                        this.firebaseService.getAdminData(this.adminUser.unitnumber).then((res) => {
-                                            if (res) {
-                                                res.forEach(ldsUnit => {
-                                                    var parentNum = ldsUnit.val().ParentNum;
-                                                    this.firebaseService.getUserByUnitNum(parentNum).then((res) => {
-                                                        if (res) {
-                                                            res.forEach(usr => {
-                                                                if (usr.val().isadmin === true) {
-                                                                    this.firebaseService.getCouncilByUnitNum(parentNum, 'Stake Presidents_').then((res) => {
-                                                                        res.forEach(cncl => {
-                                                                            ids.push(cncl.key);
-                                                                        });
-                                                                        this.signupAdmin(councilKey, ids, form);
+                            if (councils.length === index + 1) {
+                                // This is for Stake admin sign up, and need to get data from Area admin and set it in Stake admin before creating Stake admin
+                                if (this.adminUser.unittype === 'Stake') {
+                                    this.firebaseService.getAdminData(this.adminUser.unitnumber).then((res) => {
+                                        if (res) {
+                                            res.forEach(ldsUnit => {
+                                                var parentNum = ldsUnit.val().ParentNum;
+                                                this.firebaseService.getUserByUnitNum(parentNum).then((res) => {
+                                                    if (res) {
+                                                        res.forEach(usr => {
+                                                            if (usr.val().isadmin === true) {
+                                                                this.firebaseService.getCouncilByUnitNum(parentNum, 'Stake Presidents_').then((res) => {
+                                                                    res.forEach(cncl => {
+                                                                        ids.push(cncl.key);
                                                                     });
-                                                                    return;
-                                                                }
-                                                            });
-                                                        }
-                                                        else {
-                                                            this.signupAdmin(councilKey, ids, form);
-                                                        }
-                                                    });
+                                                                    this.signupAdmin(councilKey, ids, form);
+                                                                });
+                                                                return;
+                                                            }
+                                                        });
+                                                    }
+                                                    else {
+                                                        this.signupAdmin(councilKey, ids, form);
+                                                    }
                                                 });
-                                            }
-                                            else {
-                                                this.signupAdmin(councilKey, ids, form);
-                                            }
-                                        });
-                                    }
-                                    // This is for Ward admin sign up, and need to get data from Stake admin and set it in Ward admin before creating Ward admin
-                                    else if (this.adminUser.unittype === 'Ward') {
-                                        this.firebaseService.getAdminData(this.adminUser.unitnumber).then((res) => {
-                                            if (res) {
-                                                res.forEach(ldsUnit => {
-                                                    var parentNum = ldsUnit.val().ParentNum;
-                                                    this.firebaseService.getUserByUnitNum(parentNum).then((res) => {
-                                                        if (res) {
-                                                            res.forEach(usr => {
-                                                                if (usr.val().isadmin === true) {
-                                                                    this.firebaseService.getCouncilByUnitNum(parentNum, 'Bishops_').then((res) => {
-                                                                        res.forEach(cncl => {
-                                                                            ids.push(cncl.key);
-                                                                        });
-                                                                        this.signupAdmin(councilKey, ids, form);
-                                                                    });
-                                                                    return;
-                                                                }
-                                                            });
-                                                        }
-                                                        else {
-                                                            this.signupAdmin(councilKey, ids, form);
-                                                        }
-                                                    });
-                                                });
-                                            }
-                                            else {
-                                                this.signupAdmin(councilKey, ids, form);
-                                            }
-                                        });
-                                    }
-                                    else {
-                                        this.signupAdmin(councilKey, ids, form);
-                                    }
+                                            });
+                                        }
+                                        else {
+                                            this.signupAdmin(councilKey, ids, form);
+                                        }
+                                    });
                                 }
-                            });
+                                // This is for Ward admin sign up, and need to get data from Stake admin and set it in Ward admin before creating Ward admin
+                                else if (this.adminUser.unittype === 'Ward') {
+                                    this.firebaseService.getAdminData(this.adminUser.unitnumber).then((res) => {
+                                        if (res) {
+                                            res.forEach(ldsUnit => {
+                                                var parentNum = ldsUnit.val().ParentNum;
+                                                this.firebaseService.getUserByUnitNum(parentNum).then((res) => {
+                                                    if (res) {
+                                                        res.forEach(usr => {
+                                                            if (usr.val().isadmin === true) {
+                                                                this.firebaseService.getCouncilByUnitNum(parentNum, 'Bishops_').then((res) => {
+                                                                    res.forEach(cncl => {
+                                                                        ids.push(cncl.key);
+                                                                    });
+                                                                    this.signupAdmin(councilKey, ids, form);
+                                                                });
+                                                                return;
+                                                            }
+                                                        });
+                                                    }
+                                                    else {
+                                                        this.signupAdmin(councilKey, ids, form);
+                                                    }
+                                                });
+                                            });
+                                        }
+                                        else {
+                                            this.signupAdmin(councilKey, ids, form);
+                                        }
+                                    });
+                                }
+                                else {
+                                    this.signupAdmin(councilKey, ids, form);
+                                }
+                            }
                         });
-                    }
-                });
+                    });
+                }
+
             }
         })
     }
@@ -292,32 +309,65 @@ export class RegisterPageComponent {
         this.adminUser.councils = ids;
         var userAvatar = this.generateIdenticon();
 
-        var untType = this.adminUser.unittype;
-        var untNum = this.adminUser.unitnumber;
+        var usrData = new User();
+
+        usrData.firstname = this.adminUser.firstname;
+        usrData.lastname = this.adminUser.lastname;
+        usrData.email = this.adminUser.email;
+        usrData.password = this.adminUser.password;
+        usrData.ldsusername = this.adminUser.ldsusername;
+        usrData.unittype = this.adminUser.unittype;
+        usrData.unitnumber = this.adminUser.unitnumber;
+        usrData.councils = this.adminUser.councils;
+        usrData.calling = this.adminUser.calling;
+        usrData.avatar = this.adminUser.avatar;
+        usrData.isadmin = this.adminUser.isadmin;
+        usrData.createdby = this.adminUser.createdby;
+        usrData.createddate = this.adminUser.createddate;
+        usrData.lastupdateddate = this.adminUser.lastupdateddate;
+        usrData.isactive = this.adminUser.isactive;
 
         // sign up user logic goes here...
-        this.firebaseService.signupNewUser(this.adminUser, userAvatar).then(res => {
+        this.firebaseService.signupNewUser(usrData, userAvatar).then(res => {
             // alert("User is created...");
 
             this.http.post("https://councilsapi-165009.appspot.com/sendmail", {
-                "event": "admincreated", "email": this.adminUser.email, "firstname": this.adminUser.firstname, "lastname": this.adminUser.lastname, "unitnum": untNum,
+                "event": "admincreated", "email": usrData.email, "firstname": usrData.firstname, "lastname": usrData.lastname, "unitnum": usrData.unitnumber,
             }).subscribe((res) => { console.log("Mail sent") });
+
+        }).then((res) => {
+
+            if (usrData.unittype === 'Area') {
+                this.firebaseService.setAreaAdminDataInStakeAdmins(usrData.unitnumber, councilKey);
+            }
+            else if (usrData.unittype === 'Stake') {
+                this.firebaseService.setStakeAdminDataInWardAdmins(usrData.unitnumber, councilKey);
+            }
+
             this.showLoading = false;
             this.accountCreated = true;
             //this.router.navigate(['./signup']);
-
             form.resetForm();
 
-            if (untType === 'Area') {
-                this.firebaseService.setAreaAdminDataInStakeAdmins(untNum, councilKey);
-            }
-            else if (untType === 'Stake') {
-                this.firebaseService.setStakeAdminDataInWardAdmins(untNum, councilKey);
-            }
+            document.getElementById('ldsfn').removeAttribute("class");
+            document.getElementById('ldsfn').style.color = "#A9AAAC";
+
+            document.getElementById('ldsln').removeAttribute("class");
+            document.getElementById('ldsln').style.color = "#A9AAAC";
+
+            document.getElementById('emaillabel').removeAttribute("class");
+            document.getElementById('emaillabel').style.color = "#A9AAAC";
+
+            document.getElementById('pwdlabel').removeAttribute("class");
+            document.getElementById('pwdlabel').style.color = "#A9AAAC";
+
+            document.getElementById('ldslabel').removeAttribute("class");
+            document.getElementById('ldslabel').style.color = "#A9AAAC";
 
         }).catch(err => {
             alert(err);
         });
+
     }
 
     generateIdenticon() {

@@ -7,6 +7,18 @@
 
 			<form #registerForm="ngForm">
 				<div class="text-input">
+					<label for="ldsfirstname" floating id='ldsfn'>First Name</label>
+					<input id="ldsorgfirstname" [(ngModel)]="adminUser.firstname" class="form-control" (blur)="lostFocus('ldsfn','ldsfirstname')"
+						(focus)="hasFocus('ldsfn','ldsfirstname')" name="ldsfirstname" id="ldsfirstname" type="text" required maxlength="25">
+					<p *ngIf="!firstNameValid" class="error-container"><label *ngIf="!firstNameValid" class="error-msg">{{firstNameMsg}}</label></p>
+				</div>
+				<div class="text-input">
+					<label for="ldslastname" floating id='ldsln'>Last Name</label>
+					<input id="ldsorglastname" [(ngModel)]="adminUser.lastname" class="form-control" (blur)="lostFocus('ldsln','ldslastname')"
+						(focus)="hasFocus('ldsln','ldslastname')" name="ldslastname" id="ldslastname" type="text" required maxlength="25">
+					<p *ngIf="!lastNameValid" class="error-container"><label *ngIf="!lastNameValid" class="error-msg">{{lastNameMsg}}</label></p>
+				</div>
+				<div class="text-input">
 					<label for="email" floating id='emaillabel'>Email</label>
 					<input [(ngModel)]="adminUser.email" id='email' (blur)="lostFocus('emaillabel','email')" (focus)="hasFocus('emaillabel','email')"
 						class="form-control" name="email" type="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
