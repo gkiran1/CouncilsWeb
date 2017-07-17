@@ -22,7 +22,6 @@
 					<label for="email" floating id='emaillabel'>Email</label>
 					<input [(ngModel)]="adminUser.email" id='email' (blur)="lostFocus('emaillabel','email')" (focus)="hasFocus('emaillabel','email')"
 						class="form-control" name="email" type="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-					<p *ngIf="emailValid" class="note-container"><label *ngIf="emailValid" class="note-msg">Use councils invitation email</label></p>
 					<p *ngIf="!emailValid" class="error-container"><label *ngIf="!emailValid" class="error-msg">Should be in the format username@domain.com</label></p>
 				</div>
 				<div class="text-input">
