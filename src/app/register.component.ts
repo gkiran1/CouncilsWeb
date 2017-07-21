@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFire, FirebaseApp } from 'angularfire2';
-import { Headers, Http, Response } from '@angular/http';
+import { Headers, Http, Response, RequestOptions } from '@angular/http';
 import * as firebase from 'firebase';
 import { AngularFireModule } from 'angularfire2/';
 import { FirebaseService } from '../../src/firebase/firebase-service';
@@ -328,12 +328,17 @@ export class RegisterPageComponent {
         usrData.isactive = this.adminUser.isactive;
 
         // sign up user logic goes here...
-        this.firebaseService.signupNewUser(usrData, userAvatar).then(res => {
+        this.firebaseService.signupNewUser(usrData, userAvatar).then(fbAuthToken => {
+            console.log('fbAuthToken --- ' + fbAuthToken);
+            var uid = localStorage.getItem('createdUsrId');
             // alert("User is created...");
 
-            this.http.post("https://councilsapi-165009.appspot.com/sendmail", {
+            let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': fbAuthToken, 'x-key': uid });
+            let options = new RequestOptions({ headers: headers });
+
+            this.http.post("https://councilsapi-165009.appspot.com/v1/sendmail", {
                 "event": "admincreated", "email": usrData.email, "firstname": usrData.firstname, "lastname": usrData.lastname, "unitnum": usrData.unitnumber,
-            }).subscribe((res) => { console.log("Mail sent") });
+            }, options).subscribe((res) => { console.log("Mail sent") });
 
         }).then((res) => {
 

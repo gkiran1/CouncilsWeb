@@ -303,14 +303,18 @@ export class FirebaseService {
                 // Sign in the user.
                 return this.fireAuth.signInWithEmailAndPassword(user.email, user.password)
                     .then((authenticatedUser) => {
+                        localStorage.setItem('createdUsrId', authenticatedUser.uid);
                         var usr = firebase.auth().currentUser;
-                        usr.updateProfile({
+                        return usr.updateProfile({
                             displayName: user.firstname + ' ' + user.lastname,
                             photoURL: userAvatar.url
                         }).then(res => {
                             // Successful login in firebase, create user profile.
                             return this.createAuthUser(user, authenticatedUser.uid).then(res => {
                                 this.saveIdenticon(authenticatedUser.uid, userAvatar);
+                                return usr.getToken(true).then((idToken) => {
+                                    return idToken;
+                                });
                             });
                         }).catch(function (error) {
                             throw error;
