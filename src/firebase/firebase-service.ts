@@ -349,7 +349,8 @@ export class FirebaseService {
                 isactive: true,
                 isnotificationreq: false,
                 googlecalendaradded: false,
-                pushtoken: ''
+                pushtoken: '',
+                phone: ''
             }).then(() => {
                 if (user.councils != null) {
                     user.councils.forEach(counc => {
