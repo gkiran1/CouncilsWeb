@@ -32,7 +32,7 @@
 					<p *ngIf="!passwordValid" class="error-container"><label *ngIf="!passwordValid" class="error-msg">Minimum 6 characters</label></p>
 				</div>
 				<div class="text-input">
-					<label for="ldsusername" floating id='ldslabel'>LDS Username</label>
+					<label for="ldsusername" floating id='ldslabel'>LDS.org username</label>
 					<input id="ldsorgusername" [(ngModel)]="adminUser.ldsusername" class="form-control" (blur)="lostFocus('ldslabel','ldsusername')"
 						(focus)="hasFocus('ldslabel','ldsusername')" name="ldsusername" id="ldsusername" type="text" required>
 					<p *ngIf="!userNameValid" class="error-container"><label *ngIf="!userNameValid" class="error-msg">LDS Username is required</label></p>
