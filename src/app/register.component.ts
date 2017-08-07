@@ -333,6 +333,8 @@ export class RegisterPageComponent {
             var uid = localStorage.getItem('createdUsrId');
             // alert("User is created...");
 
+            this.firebaseService.setDefaultNotificationSettings(uid).then(() => { console.log('Default settings for push notifications is done.') });
+
             let headers = new Headers({ 'Content-Type': 'application/json', 'x-access-token': fbAuthToken, 'x-key': uid });
             let options = new RequestOptions({ headers: headers });
 

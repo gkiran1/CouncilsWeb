@@ -589,5 +589,23 @@ export class FirebaseService {
         });
     }
 
+    setDefaultNotificationSettings(userId) {
+        var notSettingsRef = this.rootRef.child('notificationsettings').orderByChild('userid').equalTo(userId);
+        return notSettingsRef.once("value", function (snap) {
+            if (!snap.exists()) {
+                return firebase.database().ref().child('notificationsettings').push({
+                    userid: userId,
+                    allactivity: true,
+                    agendas: false,
+                    discussions: false,
+                    pvtdiscussions: false,
+                    assignments: false,
+                    closingassignment: false,
+                    files: false,
+                    actinactaccount: false
+                });
+            }
+        });
+    }
 
 }
