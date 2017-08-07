@@ -1,68 +1,208 @@
-<table class="container" align="center">
-    <div class="title">
-        <h3>Admin Sign Up</h3>
-    </div>
-    <form>
-        <div class="row">
-            <label for="email">Email</label>
-            <div>
-                <input [(ngModel)]="registerCredentials.email" class="form-control" name="email" id="email" placeholder="Email" type="email" required="required">
-            </div>
-        </div>
-        <div class="row">
-            <label for="password">Password</label>
-            <div>
-                <input [(ngModel)]="registerCredentials.password" class="form-control" name="password" id="password" placeholder="Password" type="password" required="required">
-            </div>
-        </div>
-        <div class="row">
-            <label for="ldsusername">LDS.org username</label>
-            <div>
-                <input [(ngModel)]="registerCredentials.ldsorgusername" name="ldsorgusername" id="ldsorgusername" placeholder="LDS.org username" type="text" required="required">
-            </div>
-        </div>
-        <div class="row">
-            <div>
-                <label class="header">Where will you be using the platform?</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="radio form-group">
-                <label for="areaunit">
-                    <input type="radio" [(ngModel)]="registerCredentials.platform" name="platform" id="areaunit" value="areaunit" > Area Unit #
-                    <input type="text" [(ngModel)]="registerCredentials.areaunit" name="areaunit" id="areaunit">
+<section class="section-form">
+	<h3>Admin Sign Up</h3>
+	<h4>Area Authorities, Stake Presidents, Bishops only</h4>
+	<div class="form-wrapper">
+
+		<div class="form">
+
+			<form #registerForm="ngForm">
+				<div class="text-input">
+					<label for="ldsfirstname" floating id='ldsfn'>First Name</label>
+					<input id="ldsorgfirstname" [(ngModel)]="adminUser.firstname" class="form-control" (blur)="lostFocus('ldsfn','ldsfirstname')"
+						(focus)="hasFocus('ldsfn','ldsfirstname')" name="ldsfirstname" id="ldsfirstname" type="text" required maxlength="25">
+					<p *ngIf="!firstNameValid" class="error-container"><label *ngIf="!firstNameValid" class="error-msg">{{firstNameMsg}}</label></p>
+				</div>
+				<div class="text-input">
+					<label for="ldslastname" floating id='ldsln'>Last Name</label>
+					<input id="ldsorglastname" [(ngModel)]="adminUser.lastname" class="form-control" (blur)="lostFocus('ldsln','ldslastname')"
+						(focus)="hasFocus('ldsln','ldslastname')" name="ldslastname" id="ldslastname" type="text" required maxlength="25">
+					<p *ngIf="!lastNameValid" class="error-container"><label *ngIf="!lastNameValid" class="error-msg">{{lastNameMsg}}</label></p>
+				</div>
+				<div class="text-input">
+					<label for="email" floating id='emaillabel'>Email</label>
+					<input [(ngModel)]="adminUser.email" id='email' (blur)="lostFocus('emaillabel','email')" (focus)="hasFocus('emaillabel','email')"
+						class="form-control" name="email" type="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+					<p *ngIf="!emailValid" class="error-container"><label *ngIf="!emailValid" class="error-msg">Should be in the format username@domain.com</label></p>
+				</div>
+				<div class="text-input">
+					<label for="password" floating id='pwdlabel'>Password</label>
+					<input [(ngModel)]="adminUser.password" class="form-control" (blur)="lostFocus('pwdlabel','password')" (focus)="hasFocus('pwdlabel','password')"
+						name="password" id="password" type="password" required>
+					<p *ngIf="passwordValid" class="note-container"><label *ngIf="passwordValid" class="note-msg">Minimum 6 characters</label></p>
+					<p *ngIf="!passwordValid" class="error-container"><label *ngIf="!passwordValid" class="error-msg">Minimum 6 characters</label></p>
+				</div>
+				<div class="text-input">
+					<label for="ldsusername" floating id='ldslabel'>LDS.org username</label>
+					<input id="ldsorgusername" [(ngModel)]="adminUser.ldsusername" class="form-control" (blur)="lostFocus('ldslabel','ldsusername')"
+						(focus)="hasFocus('ldslabel','ldsusername')" name="ldsusername" id="ldsusername" type="text" required>
+					<p *ngIf="!userNameValid" class="error-container"><label *ngIf="!userNameValid" class="error-msg">LDS Username is required</label></p>
+				</div>
+				<div class="mt20">
+					<p>Where will you be using the platform?</p>
+				</div>
+
+				<div class="rowmix">
+					<div class="col-6">
+						<table>
+							<tr>
+								<td>
+									<div class="radio form-group radio-spacer">
+
+										<label class="radio-label" for="areaunit">
+                    <input type="radio" (click)="adminUser.unitnumber=''" [(ngModel)]="adminUser.unittype" name="unittype" id="areaunit" value="Area" required><span> Area Unit</span>                   
+                </label>
+
+									</div>
+								</td>
+								<td>
+
+
+									<span class="unithash" [hidden]="adminUser.unittype != 'Area'">#</span>
+
+								</td>
+								<td>
+
+									<input type="number" class="unitnumber" [(ngModel)]="adminUser.unitnumber" [hidden]="adminUser.unittype != 'Area'" name="unitnumber"
+										id="areaunit" test1="" (userUpdated)="handleUserUpdated($event)" required>
+								</td>
+							</tr>
+						</table>
+					</div>
+
+					<!--<div class="col-6">
+					</div>-->
+				</div>
+
+				<!--<div class="rowmix">
+          <div class="col-6">
+            <div class="radio form-group radio-spacer">
+              <label class="radio-label" for="districtunit">
+                    <input type="radio" [(ngModel)]="adminUser.unittype" name="unittype" id="districtunit" value="District" ><span> District Unit</span>
+                    
                 </label>
             </div>
-            <br/>
-             <div class="radio form-group">
-                <label for="stakeunit">
-                    <input type="radio" [(ngModel)]="registerCredentials.platform" name="platform" id="stakeunit" value="stakeunit" > Stake Unit #
-                    <input type="text" [(ngModel)]="registerCredentials.stakeunit" name="stakeunit" id="stakeunit">
+          </div>
+          <div class="col-6"><span class="unithash" [hidden]="adminUser.unittype != 'District'">#</span>
+            <input type="text" class="unitnumber" [hidden]="adminUser.unittype != 'District'" name="unitnumber" id="districtunit" test1=""  [(ngModel)]="adminUser.unitnumber2" required
+              (userUpdated)="handleUserUpdated($event)"></div>
+        </div>-->
+
+				<div class="rowmix">
+					<div class="col-6">
+						<table>
+							<tr>
+								<td>
+									<div class="radio form-group radio-spacer">
+										<label class="radio-label" for="stakeunit">
+                    <input type="radio" (click)="adminUser.unitnumber=''" [(ngModel)]="adminUser.unittype" name="unittype" id="stakeunit" value="Stake" required><span> Stake Unit</span>                    
+                </label>
+
+									</div>
+								</td>
+								<td>
+
+									<span class="unithash" [hidden]="adminUser.unittype != 'Stake'">#</span>
+								</td>
+								<td>
+									<input type="number" class="unitnumber" [hidden]="adminUser.unittype != 'Stake'" name="unitnumber" id="stakeunit" test1=""
+										[(ngModel)]="adminUser.unitnumber" (userUpdated)="handleUserUpdated($event)" required>
+								</td>
+							</tr>
+						</table>
+					</div>
+
+					<!--	<div class="col-6"><span class="unithash" [hidden]="adminUser.unittype != 'Stake'">#</span>
+						
+					</div>-->
+				</div>
+
+				<div class="rowmix">
+					<div class="col-6">
+						<table>
+							<tr>
+								<td>
+									<div class="radio form-group radio-spacer">
+										<label class="radio-label" for="wardunit">
+                    <input type="radio" (click)="adminUser.unitnumber=''" [(ngModel)]="adminUser.unittype" name="unittype" id="wardunit" value="Ward" required><span> Ward Unit</span>
+                    
+                </label>
+									</div>
+								</td>
+								<td>
+
+									<span class="unithash" [hidden]="adminUser.unittype != 'Ward'">#</span></td>
+								<td>
+									<input type="number" class="unitnumber" [hidden]="adminUser.unittype != 'Ward'" name="unitnumber" id="wardunit" test1=""
+										[(ngModel)]="adminUser.unitnumber" (userUpdated)="handleUserUpdated($event)" required>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<!--<div class="col-6">
+						
+					</div>-->
+				</div>
+
+				<!--<div class="rowmix">
+          <div class="col-6">
+            <table>
+              <tr>
+                <td>
+                  <div class="radio form-group radio-spacer">
+                    <label class="radio-label" for="branchunit">
+                    <input type="radio" (click)="adminUser.unitnumber=''" [(ngModel)]="adminUser.unittype" name="unittype" id="branchunit" value="Branch" required><span> Branch Unit</span>
+                                    </label>
+                  </div>
+                </td>
+                <td>
+
+                  <span class="unithash" [hidden]="adminUser.unittype != 'Branch'">#</span></td>
+                <td>
+                  <input type="number" class="unitnumber" [hidden]="adminUser.unittype != 'Branch'" name="unitnumber" id="branchunit" test1=""
+                    [(ngModel)]="adminUser.unitnumber" (userUpdated)="handleUserUpdated($event)" required>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-6"></div>
+        </div>-->
+
+				<!--<div class="rowmix">
+          <div class="col-6">
+            <div class="radio form-group radio-spacer">
+              <label class="radio-label" for="missionunit">
+                    <input type="radio" [(ngModel)]="adminUser.unittype" name="unittype" id="missionunit" value="Mission" ><span> Mission Unit</span>
+                    
                 </label>
             </div>
-             <br/>
-           <div class="radio form-group">
-                <label for="wardunit">
-                    <input type="radio" [(ngModel)]="registerCredentials.platform" name="platform" id="wardunit" value="wardunit" >Ward Unit #
-                    <input type="text" [(ngModel)]="registerCredentials.wardunit" name="wardunit" id="wardunit">
-                </label>
-            </div>
-            <br/>
-            <div class="radio form-group">
-                <label for="stakeunit">
-                    <input type="radio" [(ngModel)]="registerCredentials.platform" name="platform" id="branchunit" value="branchunit" > Branch #
-                    <input type="text" [(ngModel)]="registerCredentials.branchunit" name="branchunit" id="branchunit">
-                </label>
-            </div>
-        </div>
-        <!--<div *ngFor="let unit of units">
-                  <input type="radio" [(ngModel)]="registerCredentials.platform" ng-model="all" name="platform" class="platform" id="platform" [value]="unit" required="required">
-                  {{unit}}
-                  <input class="row" type="text" [(ngModel)]="registerCredentials.unit" ng-disabled="all" name="unit" id="unit">
-                </div>                   -->
-        <div class="login">
-            <!--<a (click)="register()" class="row btn btn-default" type="submit" name="action" [routerLink]="['./signup']">Create Account</a>-->
-            <input type="submit" name="action" (click)="register()" class="row btn btn-default" value="Create Account" [routerLink]="['./signup']">
-        </div>
-    </form>
-</table>
+          </div>
+          <div class="col-6"><span class="unithash" [hidden]="adminUser.unittype != 'Mission'">#</span>
+            <input type="text" class="unitnumber" [hidden]="adminUser.unittype != 'Mission'" name="unitnumber" id="missionunit" test1=""
+              (userUpdated)="handleUserUpdated($event)"></div>
+        </div>-->
+
+				<div class="mt20">
+					<div class="btn-container">
+
+						<a [class.disabled]="!registerForm.form.valid ? true : null" [ngClass]="!registerForm.form.valid ? 'button-invalid' : 'button'"
+							(click)="registerAdmin(registerForm)">Create Account</a>
+
+					</div>
+					<div class="status" *ngIf=accountCreated>
+						<h4>Account created, please check your email</h4>
+					</div>
+				</div>
+
+				<div *ngIf=showLoading class="loader">
+					<div class="circle-container">
+						<div class="circleG_1"></div>
+						<div class="circleG_2"></div>
+						<div class="circleG_3"></div>
+					</div>
+				</div>
+			</form>
+
+		</div>
+
+	</div>
+</section>

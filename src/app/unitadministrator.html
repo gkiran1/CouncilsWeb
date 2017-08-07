@@ -1,0 +1,24 @@
+<section class="section-form">
+  <h3>Unit administrator already exists
+  </h3>
+  <div class="form-wrapper">
+    <div class="form">
+      <form #unitAdminForm="ngForm">
+        <p>Email us and we will connect you with the administrator.
+        </p>
+        <label for="email">Name</label>
+        <input [(ngModel)]="name" class="form-control" name="name" id="name" type="text" required>
+        <label for="password">Email</label>
+        <input [(ngModel)]="email" class="form-control" name="email" id="email" type="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+
+        <div class="mt20">
+          <button (click)="sendEmail()" type="submit" [ngClass]="!unitAdminForm.form.valid ? 'bigbtn1' : 'bigbtn'" [disabled]="!unitAdminForm.form.valid">Send Email</button>
+        </div>
+
+        <div class="mt20">
+          <div [routerLink]="['./register']" class="bigbtn">Try Again</div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

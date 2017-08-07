@@ -1,1 +1,78 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: "Gotham";
+    src: url("./assets/fonts/Gotham.ttf");
+}
+@font-face {
+    font-family: "Bernina";
+    src: url("./assets/fonts/Bernina.ttf");
+}
+
+@font-face {
+   font-family: "Gotham-Medium";
+src:url('./assets/fonts/GOTHMMED.eot');
+    src:url('./assets/fonts/GOTHMMED.eot') format('embedded-opentype'),
+        url('./assets/fonts/GOTHMMED.woff') format('woff'),
+        url('./assets/fonts/GOTHMMED.ttf') format('truetype'),
+        url('./assets/fonts/GOTHMMED.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: "Bernina-Regular";
+    src:url('./assets/fonts/BerninaSans-Regular.eot');
+    src:url('./assets/fonts/BerninaSans-Regular.eot') format('embedded-opentype'),
+        url('./assets/fonts/BerninaSans-Regular.woff') format('woff'),
+        url('./assets/fonts/BerninaSans-Regular.ttf') format('truetype'),
+        url('./assets/fonts/BerninaSans-Regular.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Bernina-SemiBold";
+    src:url('./assets/fonts/BerninaSans-SemiBold.eot');
+    src:url('./assets/fonts/BerninaSans-SemiBold.eot') format('embedded-opentype'),
+        url('./assets/fonts/BerninaSans-SemiBold.woff') format('woff'),
+        url('./assets/fonts/BerninaSans-SemiBold.ttf') format('truetype'),
+        url('./assets/fonts/BerninaSans-SemiBold.svg') format('svg');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Bernina-Bold";
+    src:url('./assets/fonts/BerninaSans-SemiBold.eot');
+    src:url('./assets/fonts/BerninaSans-SemiBold.eot') format('embedded-opentype'),
+        url('./assets/fonts/BerninaSans-SemiBold.woff') format('woff'),
+        url('./assets/fonts/BerninaSans-SemiBold.ttf') format('truetype'),
+        url('./assets/fonts/BerninaSans-SemiBold.svg') format('svg');
+    font-weight: 700;
+    font-style: normal;
+}
+
+label.mat-input-placeholder.mat-empty.mat-float {
+    color: #3CB18A !important;
+    font-family: Bernina !important;
+    font-size: 10pt!important;
+}
+.mat-input-underline {
+    color: #EEEEEE;
+}
+
+body {
+    font-family: Bernina, sans-serif;
+    
+}
+
+footer {
+   
+    font-family: Bernina, sans-serif;
+    font-size: 17px;
+    margin-top: 50px;
+    text-align: center;
+    color: #a9aaac;
+}

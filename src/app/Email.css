@@ -1,0 +1,39 @@
+.Email {
+    width: 27%;
+    height: 100%;
+    margin: 0 auto;
+    margin-top: 14%;
+}
+.Email .grid {
+    margin: 0 auto;
+}
+.Email .title {
+    font-size: 19pt;
+    color: #35373a;
+    text-align: -webkit-center;
+    margin: 0 auto;
+    width: 75%;
+}
+.grid #Email {
+    margin-top: 6%;
+    font-size: 12pt;
+    text-align: center;
+    font-size: 12pt;
+    color: #A9AAAC;
+    width: 74%;
+    margin: 0 auto;
+}
+.grid #Send {
+    margin-top: 20%;
+    color: #3CB18A;
+}
+.grid #Try {
+    margin-top: 35%;
+    color: #3CB18A;
+    cursor: pointer;
+}
+.grid .column {
+    text-align: center;
+    font-family: "Bernina";
+    cursor: pointer;
+}

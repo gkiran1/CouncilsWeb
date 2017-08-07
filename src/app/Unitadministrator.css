@@ -131,25 +131,6 @@ section {
   width: 100%;
 }
 
-.grid {
-  margin-top: 20px;
-}
-
-.store-badge {
-  margin: auto;
-  display: flex;
-  /* align-items: center; */
-  justify-content: center;
-  padding: 10px;
-  width: 45%;
-  border: none !important;
-  border-radius: 10px;
-}
-
-.store-icon {
-  margin-right: 10px;
-}
-
 section.reverse {
   display: flex;
   -webkit-box-direction: normal;
@@ -275,11 +256,32 @@ section.reverse {
   background-color: #FFF;
   color: #3CB18A;
   font-weight: 400;
+  font-size: 17px;
+  cursor: pointer;
+  width: 100%;
+  float: left;
+  text-align: center;
+}
+
+.bigbtn1 {
+  margin-top: 35px;
+  padding: 20px 0;
+  border: none;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  background-color: #FFF;
+  color: #A9AAAC;
+  font-weight: 400;
   font-size: 24px;
   cursor: pointer;
   width: 100%;
   float: left;
   text-align: center;
+}
+
+p {
+  text-align: center;
+  font-size: 17px !important;
 }
 
 input[type=radio] {
@@ -402,9 +404,6 @@ input[type='radio']:checked:before {
   .section-form h3 {
     font-size: 32px;
   }
-  .store-badge {
-    width: 70%;
-  }
 }
 
 @media only screen and (max-width:480px) {
@@ -416,9 +415,6 @@ input[type='radio']:checked:before {
   }
    ::-webkit-input-placeholder {
     font-size: 16px;
-  }
-  .store-badge {
-    width: 70%;
   }
 }
 

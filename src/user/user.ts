@@ -5,8 +5,9 @@ export class User {
     password: string;
     ldsusername: string;
     unittype: string;
-    unitnumber: number;
-    councilid: string;
+    unitnumber: any;
+    councils: string[];
+    calling: string;
     avatar: string;
     isadmin: boolean;
     createdby: string;

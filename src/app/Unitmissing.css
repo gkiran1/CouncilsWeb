@@ -131,25 +131,6 @@ section {
   width: 100%;
 }
 
-.grid {
-  margin-top: 20px;
-}
-
-.store-badge {
-  margin: auto;
-  display: flex;
-  /* align-items: center; */
-  justify-content: center;
-  padding: 10px;
-  width: 45%;
-  border: none !important;
-  border-radius: 10px;
-}
-
-.store-icon {
-  margin-right: 10px;
-}
-
 section.reverse {
   display: flex;
   -webkit-box-direction: normal;
@@ -232,6 +213,31 @@ section.reverse {
   font-size: 15px;
 }
 
+.form label[floating] {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #A9AAAC;
+  text-align: left;
+  font-size: 22px;
+  transform: translate3d(0, 25px, 0);
+  float: left;
+  font-family: "Bernina", sans-serif;
+  -webkit-transform-origin: left top;
+  transform-origin: left top;
+  transition: -webkit-transform 150ms ease-in-out;
+  transition: transform 150ms ease-in-out;
+  transition: transform 150ms ease-in-out, -webkit-transform 150ms ease-in-out;
+}
+
+.input-has-focus {
+  transform: translateY(10px) scale(0.8) perspective(1px) !important;
+  color: #3cb18a !important;
+  float: left;
+  font-family: "Bernina", sans-serif;
+  backface-visibility: hidden;
+}
+
 .radio-label span {
   display: block;
   margin-top: 20px;
@@ -251,7 +257,7 @@ section.reverse {
   border-bottom: 1px solid #E8E9EB;
   border-radius: 0px;
   background-color: #FFF;
-  font-size: 17px;
+  font-size: 22px;
   width: 100%;
 }
 
@@ -266,6 +272,11 @@ section.reverse {
   clear: both;
 }
 
+.text-input {
+  height: 80px;
+  margin-bottom: 16px;
+}
+
 .bigbtn {
   margin-top: 35px;
   padding: 20px 0;
@@ -274,6 +285,22 @@ section.reverse {
   border-radius: 0px;
   background-color: #FFF;
   color: #3CB18A;
+  font-weight: 400;
+  font-size: 24px;
+  cursor: pointer;
+  width: 100%;
+  float: left;
+  text-align: center;
+}
+
+.bigbtn1 {
+  margin-top: 35px;
+  padding: 20px 0;
+  border: none;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  background-color: #FFF;
+  color: #A9AAAC;
   font-weight: 400;
   font-size: 24px;
   cursor: pointer;
@@ -402,9 +429,6 @@ input[type='radio']:checked:before {
   .section-form h3 {
     font-size: 32px;
   }
-  .store-badge {
-    width: 70%;
-  }
 }
 
 @media only screen and (max-width:480px) {
@@ -416,9 +440,6 @@ input[type='radio']:checked:before {
   }
    ::-webkit-input-placeholder {
     font-size: 16px;
-  }
-  .store-badge {
-    width: 70%;
   }
 }
 

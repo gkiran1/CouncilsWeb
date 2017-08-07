@@ -1,7 +1,7 @@
-<table>
+<table  class="container">
     <form (ngSubmit)="Save(about)">
     <div class="title">
-         <h3>About</h3>
+       About Us
     </div>
     <div class="panel-body">
              <div class="row">                  
@@ -10,19 +10,19 @@
                     </div>
                 </div>
                 <div class="row">
-                 <h3>Terms of Use</h3>
+                <label> Terms of Use </label>
                     <div class="input-field col s12">                      
-                      <textarea  [(ngModel)]="about.termsofuse" id="txttermsofuse" name="termsofuse" rows="10" cols="30" required></textarea>                     
+                      <textarea  [(ngModel)]="about.termsofuse" id="txttermsofuse" name="termsofuse"  required></textarea>                     
                     </div>
                 </div>
                 <div class="row">
-                   <h3>Privacy Policy</h3>
+                <label>Privacy Policy</label>
                     <div class="input-field col s12">                       
-                        <textarea [(ngModel)]="about.privacypolicy" id="txtprivacypolicy" name="privacypolicy" rows="10" cols="30" required></textarea>                         
+                        <textarea [(ngModel)]="about.privacypolicy" id="txtprivacypolicy" name="privacypolicy"  required></textarea>                         
                     </div>
                 </div>
                 <div class="row">
-                    <h3>Contact</h3>            
+                    <label> Contact</label>
                     <div class="input-field col s12">                       
                        <label>Email:</label>  <input [(ngModel)]="about.email" type="email" id="txtemail" name="email" required>                      
                     </div>
@@ -37,10 +37,8 @@
                        <label>Phone:</label><input type="text" [(ngModel)]="about.phone" id="txtphone" name="phone" required>                       
                     </div>
                 </div>  
-                <div class="row">
-               <div class="input-field col s12">    
-               <input type="submit" id="btnsubmit" value="Save">
-               </div>
+                <div class="row login">
+                <button class="submit" type="submit">Submit</button> 
             </div>   
     </div>
  </form>   

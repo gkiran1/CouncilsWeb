@@ -10,14 +10,60 @@ import { LoginComponent } from './Login.component';
 import { RegisterPageComponent } from './register.component';
 import { RouterModule, Routes } from '@angular/router';
 import { signupComponent } from './signup.component';
-import { routing } from './app.routing';
+import { emailComponent } from './Email.component';
+import { UnitmissingComponent } from './Unitmissing.component';
+import { unitadministratorComponent } from './Unitadministrator.component';
+import { unitnoandtypenotassocComponent } from './UnitNoAndTypeNotAsso.component';
+import { ValidateOnBlurDirective } from '../directives/validate-onblur';
+//import { routing } from './app.routing';
+import { Test } from './directive';
+
 const appRoutes: Routes = [
-{path: '', component: RegisterPageComponent},
-{ path: 'signup', component: signupComponent },
-]; 
+  { path: '', component: RegisterPageComponent },
+  { path: 'signup', component: signupComponent },
+  { path: 'Login', component: LoginComponent },
+  { path: 'AboutUs', component: AboutusComponent },
+  { path: 'Unitmissing/:id', component: UnitmissingComponent },
+  { path: 'Unitadministrator/:id', component: unitadministratorComponent },
+  { path: 'UnitNoAndTypeNotAsso', component: unitnoandtypenotassocComponent },
+  {
+    path: 'Unitmissing/:id',
+    children: [
+      { path: 'register', component: RegisterPageComponent },
+      { path: 'email', component: emailComponent }
+    ]
+  },
+  {
+    path: 'Unitmissing/:id/email',
+    children: [
+      { path: 'register', component: RegisterPageComponent }
+    ]
+  },
+  {
+    path: 'Unitadministrator/:id',
+    children: [
+      { path: 'register', component: RegisterPageComponent },
+      { path: 'email', component: emailComponent }
+    ]
+  },
+  {
+    path: 'Unitadministrator/:id/email',
+    children: [
+      { path: 'register', component: RegisterPageComponent }
+    ]
+  },
+  {
+    path: 'UnitNoAndTypeNotAsso',
+    children: [
+      { path: 'register', component: RegisterPageComponent }
+    ]
+  },
+];
+
 @NgModule({
-  imports: [BrowserModule, FormsModule, HttpModule,  RouterModule.forRoot(appRoutes) ,AngularFireModule.initializeApp(firebaseConfig)],
-  declarations: [AppComponent, AboutusComponent,LoginComponent, RegisterPageComponent,signupComponent],
+  imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes), RouterModule.forChild(appRoutes), AngularFireModule.initializeApp(firebaseConfig)],
+  declarations: [AppComponent, AboutusComponent, LoginComponent, RegisterPageComponent, ValidateOnBlurDirective, signupComponent, emailComponent, UnitmissingComponent, unitadministratorComponent, Test, unitnoandtypenotassocComponent],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
